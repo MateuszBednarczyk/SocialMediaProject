@@ -1,4 +1,4 @@
-package com.maticendrak.socialmediaproject.Entities;
+package com.maticendrak.socialmediaproject.Entities.AppUser;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,6 +29,11 @@ public class AppUserEntity implements UserDetails {
 
     @Getter @Setter private List posts;
     @Getter @Setter private List following;
+
+    public AppUserEntity(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
