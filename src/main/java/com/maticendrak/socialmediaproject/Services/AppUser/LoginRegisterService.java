@@ -11,14 +11,15 @@ public class LoginRegisterService {
     private AppUserRepository appUserRepository;
     private SufixConfiguration sufixConfiguration;
 
-    public LoginRegisterService(AppUserRepository appUserRepository) {
+    public LoginRegisterService(AppUserRepository appUserRepository, SufixConfiguration sufixConfiguration) {
         this.appUserRepository = appUserRepository;
+        this.sufixConfiguration = sufixConfiguration;
     }
 
     public AppUserEntity login(String username, String password){
 
         AppUserEntity foundUser = (AppUserEntity) appUserRepository.findAppUserEntitiesByUsername(username);
-        if(!sufixConfiguration.passwordEncoder().matches(foundUser.getPassword(), password)) {
+        if(!sufixConfiguration.passwordEncoder().matches(password, foundUser.getPassword())) {
 
             throw new IllegalArgumentException("Bad credentials");
 
