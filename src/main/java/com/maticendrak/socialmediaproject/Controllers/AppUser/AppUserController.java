@@ -3,10 +3,10 @@ package com.maticendrak.socialmediaproject.Controllers.AppUser;
 import com.maticendrak.socialmediaproject.Entities.AppUser.AppUserEntity;
 import com.maticendrak.socialmediaproject.RequestsDTO.LoginAndRegisterRequest;
 import com.maticendrak.socialmediaproject.Services.AppUser.LoginRegisterService;
-import com.sun.jdi.Method;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.transaction.Transactional;
 
@@ -26,23 +26,24 @@ public class AppUserController {
 
     }
 
+    @Transactional
     @RequestMapping("/user/login")
-    public AppUserEntity login(@RequestBody LoginAndRegisterRequest givenUserCredentials){
+    public ResponseEntity<AppUserEntity> login(@RequestBody LoginAndRegisterRequest givenUserCredentials){
 
-        return loginRegisterService.login(givenUserCredentials.getUsername(), givenUserCredentials.getPassword());
+        AppUserEntity user = loginRegisterService.login(givenUserCredentials.getUsername(), givenUserCredentials.getPassword());
+
+        return new ResponseEntity<>(user, HttpStatus.OK);
 
     }
 
     @Transactional
     @RequestMapping("/user/register")
-    public String register(@RequestBody LoginAndRegisterRequest givenUserCredentials){
+    public ResponseEntity register(@RequestBody LoginAndRegisterRequest givenUserCredentials){
 
         loginRegisterService.register(givenUserCredentials.getUsername(), givenUserCredentials.getPassword());
-        return "index.html";
+        return new ResponseEntity<>(HttpStatus.OK);
 
     }
-
-
 
 }
 
