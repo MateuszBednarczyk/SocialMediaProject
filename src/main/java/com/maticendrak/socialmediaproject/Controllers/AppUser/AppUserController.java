@@ -46,11 +46,7 @@ public class AppUserController {
 
     }
 
-    @GetMapping("/home")
-    public String test(){
 
-        return "hello";
-
-    }
 
 }
+
