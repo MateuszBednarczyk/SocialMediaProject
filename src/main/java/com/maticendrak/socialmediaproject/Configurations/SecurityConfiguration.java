@@ -29,7 +29,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .and()
                 .formLogin()
-                .loginPage("http://localhost:8080/home#/login")
+                .loginPage("/home#/login")
                 .defaultSuccessUrl("/home",true);
 
         http.csrf().disable();
