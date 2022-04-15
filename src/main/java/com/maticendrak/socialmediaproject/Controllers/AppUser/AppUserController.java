@@ -10,7 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.transaction.Transactional;
 
-@RestController
+@Controller
 public class AppUserController {
 
     private LoginRegisterService loginRegisterService;
@@ -19,30 +19,26 @@ public class AppUserController {
         this.loginRegisterService = loginRegisterService;
     }
 
-    @GetMapping("/user/login")
-    public ModelAndView login(@RequestBody LoginAndRegisterRequest givenUserCredentials){
+    @RequestMapping("/login")
+    public String returnLoginView(){
 
-        AppUserEntity object = loginRegisterService.login(givenUserCredentials.getUsername(), givenUserCredentials.getPassword());
+        return "index.html";
 
-        ModelAndView correctCredentials = new ModelAndView("redirect:/home", "AppUserEntity", object);
-        ModelAndView badCredentials = new ModelAndView("redirect:/user/login");
+    }
 
-        if(object == null){
+    @RequestMapping("/user/login")
+    public AppUserEntity login(@RequestBody LoginAndRegisterRequest givenUserCredentials){
 
-            return badCredentials;
+        return loginRegisterService.login(givenUserCredentials.getUsername(), givenUserCredentials.getPassword());
 
-        }else{
-
-            return correctCredentials;
-
-        }
     }
 
     @Transactional
-    @PostMapping("/user/register")
-    public void register(@RequestBody LoginAndRegisterRequest givenUserCredentials){
+    @RequestMapping("/user/register")
+    public String register(@RequestBody LoginAndRegisterRequest givenUserCredentials){
 
         loginRegisterService.register(givenUserCredentials.getUsername(), givenUserCredentials.getPassword());
+        return "index.html";
 
     }
 
