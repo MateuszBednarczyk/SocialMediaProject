@@ -31,7 +31,7 @@ public class AppUserController {
     }
 
     @Transactional
-    @RequestMapping(value = "/user/login", method = RequestMethod.POST, consumes = ALL_VALUE)
+    @RequestMapping(value = "/user/login")
     public ResponseEntity<AppUserEntity> login(@RequestBody LoginAndRegisterRequest givenUserCredentials){
 
         AppUserEntity user = loginRegisterService.login(givenUserCredentials.getUsername(), givenUserCredentials.getPassword());
