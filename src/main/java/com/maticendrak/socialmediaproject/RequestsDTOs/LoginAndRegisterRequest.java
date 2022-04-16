@@ -1,4 +1,4 @@
-package com.maticendrak.socialmediaproject.RequestsDTO;
+package com.maticendrak.socialmediaproject.RequestsDTOs;
 
 import lombok.Data;
 import lombok.Getter;
