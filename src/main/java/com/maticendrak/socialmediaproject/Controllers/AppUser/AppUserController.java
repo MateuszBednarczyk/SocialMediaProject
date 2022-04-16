@@ -13,6 +13,7 @@ import javax.transaction.Transactional;
 
 import static org.springframework.http.MediaType.*;
 
+@CrossOrigin
 @Controller
 public class AppUserController {
 
