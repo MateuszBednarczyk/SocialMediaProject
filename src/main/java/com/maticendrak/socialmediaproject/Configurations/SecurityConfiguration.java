@@ -30,7 +30,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin()
                 .loginPage("/home#/login")
-                .defaultSuccessUrl("/home",true);
+                .defaultSuccessUrl("/home",true)
+                .and()
+                .logout();
 
         http.csrf().disable();
         http.cors().disable();
