@@ -1,5 +1,6 @@
 package com.maticendrak.socialmediaproject.Entities.AppUser;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,6 +14,7 @@ import java.util.Collection;
 import java.util.Collections;
 
 @Entity
+@Data
 @NoArgsConstructor
 @Table(name = "Users")
 public class AppUserEntity implements UserDetails {
@@ -22,13 +24,13 @@ public class AppUserEntity implements UserDetails {
     private Long id;
 
     //Usersettings
-    @Getter @Setter private String username;
-    @Getter @Setter private String password;
-    @Getter @Setter private String description;
-    @Getter @Setter private String image;
+    private String username;
+    private String password;
+    private String description;
+    private String image;
 
-    @Getter @Setter private List posts;
-    @Getter @Setter private List following;
+    private List posts;
+    private List following;
 
     public AppUserEntity(String username, String password) {
         this.username = username;

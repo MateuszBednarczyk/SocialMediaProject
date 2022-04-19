@@ -7,11 +7,11 @@ import org.hibernate.mapping.List;
 
 @Data
 public class LoginResponse {
-    @Getter @Setter private String username;
-    @Getter @Setter private String description;
-    @Getter @Setter private String image;
-    @Getter @Setter private List posts;
-    @Getter @Setter private List following;
+    private String username;
+    private String description;
+    private String image;
+    private List posts;
+    private List following;
 
     public LoginResponse(String username, String description, String image, List posts, List following) {
         this.username = username;

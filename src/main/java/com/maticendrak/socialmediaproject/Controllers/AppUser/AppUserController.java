@@ -15,12 +15,11 @@ import javax.transaction.Transactional;
 @Controller
 public class AppUserController {
 
-    private LoginRegisterService loginRegisterService;
+    private final LoginRegisterService loginRegisterService;
 
     public AppUserController(LoginRegisterService loginRegisterService) {
         this.loginRegisterService = loginRegisterService;
     }
-
 
     @Transactional
     @RequestMapping(value = "/user/login")

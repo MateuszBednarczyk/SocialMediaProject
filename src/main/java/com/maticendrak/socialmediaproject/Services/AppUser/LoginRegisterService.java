@@ -3,11 +3,11 @@ package com.maticendrak.socialmediaproject.Services.AppUser;
 import com.maticendrak.socialmediaproject.Configurations.SufixConfiguration;
 import com.maticendrak.socialmediaproject.Entities.AppUser.AppUserEntity;
 import com.maticendrak.socialmediaproject.Repositories.AppUser.AppUserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
 public class LoginRegisterService {
-
     private AppUserRepository appUserRepository;
     private SufixConfiguration sufixConfiguration;
 

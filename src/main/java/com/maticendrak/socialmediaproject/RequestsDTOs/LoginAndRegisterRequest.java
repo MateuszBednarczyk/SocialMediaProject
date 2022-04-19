@@ -7,8 +7,7 @@ import lombok.Setter;
 @Data
 public class LoginAndRegisterRequest {
 
-    @Getter @Setter private String username;
-    @Getter @Setter private String password;
-
+    private String username;
+    private String password;
 
 }
