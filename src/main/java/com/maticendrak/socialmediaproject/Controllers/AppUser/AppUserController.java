@@ -4,23 +4,18 @@ import com.maticendrak.socialmediaproject.Entities.AppUser.AppUserEntity;
 import com.maticendrak.socialmediaproject.RequestsDTOs.LoginAndRegisterRequest;
 import com.maticendrak.socialmediaproject.ResponsesDTOs.LoginResponse;
 import com.maticendrak.socialmediaproject.Services.AppUser.LoginRegisterService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.transaction.Transactional;
-
 @CrossOrigin
 @Controller
+@RequiredArgsConstructor
 public class AppUserController {
-
     private final LoginRegisterService loginRegisterService;
     private HttpStatus codeToReturn;
-
-    public AppUserController(LoginRegisterService loginRegisterService) {
-        this.loginRegisterService = loginRegisterService;
-    }
 
     @RequestMapping(value = "/user/login")
     public ResponseEntity login(@RequestBody LoginAndRegisterRequest givenUserCredentials) {
