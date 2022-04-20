@@ -24,12 +24,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         foundUser = (AppUserEntity)
                 Optional.ofNullable(appUserRepository.findAppUserEntitiesByUsername(username)).orElseThrow(() -> new UsernameNotFoundException("Username not found"));
 
-        if (foundUser == null) {
-
-            throw new UsernameNotFoundException(username);
-
-        }
-
         return foundUser;
     }
 }
