@@ -16,6 +16,7 @@ import javax.transaction.Transactional;
 public class AppUserController {
 
     private final LoginRegisterService loginRegisterService;
+    private HttpStatus codeToReturn;
 
     public AppUserController(LoginRegisterService loginRegisterService) {
         this.loginRegisterService = loginRegisterService;
@@ -26,10 +27,22 @@ public class AppUserController {
     public ResponseEntity<LoginResponse> login(@RequestBody LoginAndRegisterRequest givenUserCredentials){
 
         AppUserEntity user = loginRegisterService.login(givenUserCredentials.getUsername(), givenUserCredentials.getPassword());
-        LoginResponse loginResponse = new LoginResponse(user.getUsername(), user.getDescription(), user.getImage(),
+        LoginResponse userEntityToReturn = new LoginResponse(user.getUsername(), user.getDescription(), user.getImage(),
         user.getPosts(), user.getFollowing());
 
-        return new ResponseEntity<>(loginResponse, HttpStatus.OK);
+        if(user == null){
+
+            codeToReturn = HttpStatus.NOT_FOUND;
+
+        }else{
+
+            codeToReturn = HttpStatus.OK;
+
+        }
+
+        ResponseEntity<LoginResponse> response = new ResponseEntity<>(userEntityToReturn, codeToReturn);
+
+        return response;
 
     }
 
@@ -37,8 +50,28 @@ public class AppUserController {
     @RequestMapping("/user/register")
     public ResponseEntity register(@RequestBody LoginAndRegisterRequest givenUserCredentials){
 
-        loginRegisterService.register(givenUserCredentials.getUsername(), givenUserCredentials.getPassword());
-        return new ResponseEntity<>(HttpStatus.OK);
+        if(loginRegisterService.checkIfUserExists(givenUserCredentials.getUsername())){
+
+            codeToReturn = HttpStatus.BAD_REQUEST;
+
+        }else{
+
+            AppUserEntity newUser = loginRegisterService.register(givenUserCredentials.getUsername(), givenUserCredentials.getPassword());
+
+            if(newUser == null){
+
+                codeToReturn = HttpStatus.NOT_FOUND;
+
+            }else{
+
+                codeToReturn = HttpStatus.OK;
+
+            }
+        }
+
+        ResponseEntity response = new ResponseEntity<>(codeToReturn);
+
+        return response;
 
     }
 

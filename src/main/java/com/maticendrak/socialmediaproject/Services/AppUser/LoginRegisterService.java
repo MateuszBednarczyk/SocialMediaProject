@@ -43,4 +43,17 @@ public class LoginRegisterService {
 
     }
 
+    public boolean checkIfUserExists(String username){
+
+        if(appUserRepository.findAppUserEntitiesByUsername(username) != null){
+
+            return true;
+
+        }else{
+
+            return false;
+
+        }
+    }
+
 }
