@@ -23,7 +23,7 @@ public class LoginRegisterService {
 
             if(!sufixConfiguration.passwordEncoder().matches(password, foundUser.getPassword())) {
 
-                throw new IllegalArgumentException("Bad credentials");
+                return null;
 
             }else{
 
