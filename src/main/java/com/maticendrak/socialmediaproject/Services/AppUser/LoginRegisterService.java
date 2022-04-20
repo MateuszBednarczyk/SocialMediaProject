@@ -9,34 +9,30 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 
 @Service
+@RequiredArgsConstructor
 public class LoginRegisterService {
-    private AppUserRepository appUserRepository;
-    private SufixConfiguration sufixConfiguration;
-
-    public LoginRegisterService(AppUserRepository appUserRepository, SufixConfiguration sufixConfiguration) {
-        this.appUserRepository = appUserRepository;
-        this.sufixConfiguration = sufixConfiguration;
-    }
+    private final AppUserRepository appUserRepository;
+    private final SufixConfiguration sufixConfiguration;
 
     @Transactional
-    public AppUserEntity login(String username, String password){
+    public AppUserEntity login(String username, String password) {
 
         AppUserEntity foundUser = (AppUserEntity) appUserRepository.findAppUserEntitiesByUsername(username);
 
         //if user is not null and password is correct, return user data from db
-        if(foundUser != null){
+        if (foundUser != null) {
 
-            if(!sufixConfiguration.passwordEncoder().matches(password, foundUser.getPassword())) {
+            if (!sufixConfiguration.passwordEncoder().matches(password, foundUser.getPassword())) {
 
                 return null;
 
-            }else{
+            } else {
 
                 return foundUser;
 
             }
 
-        }else{
+        } else {
 
             return null;
 
@@ -44,14 +40,14 @@ public class LoginRegisterService {
     }
 
     @Transactional
-    public AppUserEntity register(String username, String password){
+    public AppUserEntity register(String username, String password) {
 
         //if user exists return null, else register new user
-        if(checkIfUserExists(username)){
+        if (checkIfUserExists(username)) {
 
             return null;
 
-        }else{
+        } else {
 
             AppUserEntity newUser = new AppUserEntity(username, password);
             newUser.setPassword(sufixConfiguration.passwordEncoder().encode(newUser.getPassword()));
@@ -61,13 +57,13 @@ public class LoginRegisterService {
         }
     }
 
-    public boolean checkIfUserExists(String username){
+    public boolean checkIfUserExists(String username) {
 
-        if(appUserRepository.findAppUserEntitiesByUsername(username) != null){
+        if (appUserRepository.findAppUserEntitiesByUsername(username) != null) {
 
             return true;
 
-        }else{
+        } else {
 
             return false;
 
