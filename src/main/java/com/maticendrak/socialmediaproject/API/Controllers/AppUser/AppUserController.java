@@ -1,14 +1,16 @@
-package com.maticendrak.socialmediaproject.Controllers.AppUser;
+package com.maticendrak.socialmediaproject.API.Controllers.AppUser;
 
 import com.maticendrak.socialmediaproject.Entities.AppUser.AppUserEntity;
-import com.maticendrak.socialmediaproject.RequestsDTOs.LoginAndRegisterRequest;
-import com.maticendrak.socialmediaproject.ResponsesDTOs.LoginResponse;
+import com.maticendrak.socialmediaproject.API.DTOs.RequestDTOs.LoginAndRegisterRequest;
+import com.maticendrak.socialmediaproject.API.DTOs.ResponseDTOs.LoginResponse;
 import com.maticendrak.socialmediaproject.Services.AppUser.LoginRegisterService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @CrossOrigin
 @Controller
@@ -28,16 +30,14 @@ public class AppUserController {
         if (user == null) {
 
             //if no, pass not found error
-            codeToReturn = HttpStatus.NOT_FOUND;
-            response = new ResponseEntity<>(codeToReturn);
+            response = new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
         } else {
 
             //if yes, set up user model as a response and then return
-            codeToReturn = HttpStatus.OK;
             LoginResponse userEntityToReturn = new LoginResponse(user.getUsername(), user.getDescription(), user.getImage(),
                     user.getPosts(), user.getFollowing());
-            response = new ResponseEntity<>(userEntityToReturn, codeToReturn);
+            response = new ResponseEntity<>(userEntityToReturn, HttpStatus.OK);
 
         }
 

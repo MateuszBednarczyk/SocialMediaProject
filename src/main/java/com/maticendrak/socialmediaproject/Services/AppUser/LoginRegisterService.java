@@ -1,9 +1,9 @@
 package com.maticendrak.socialmediaproject.Services.AppUser;
 
-import com.maticendrak.socialmediaproject.Configurations.SufixConfiguration;
 import com.maticendrak.socialmediaproject.Entities.AppUser.AppUserEntity;
 import com.maticendrak.socialmediaproject.Repositories.AppUser.AppUserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -12,7 +12,7 @@ import javax.transaction.Transactional;
 @RequiredArgsConstructor
 public class LoginRegisterService {
     private final AppUserRepository appUserRepository;
-    private final SufixConfiguration sufixConfiguration;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Transactional
     public AppUserEntity login(String username, String password) {
@@ -22,7 +22,7 @@ public class LoginRegisterService {
         //if user is not null and password is correct, return user data from db
         if (foundUser != null) {
 
-            if (!sufixConfiguration.passwordEncoder().matches(password, foundUser.getPassword())) {
+            if (!bCryptPasswordEncoder.matches(password, foundUser.getPassword())) {
 
                 return null;
 
@@ -50,7 +50,7 @@ public class LoginRegisterService {
         } else {
 
             AppUserEntity newUser = new AppUserEntity(username, password);
-            newUser.setPassword(sufixConfiguration.passwordEncoder().encode(newUser.getPassword()));
+            newUser.setPassword(bCryptPasswordEncoder.encode(newUser.getPassword()));
             appUserRepository.save(newUser);
             return newUser;
 

@@ -1,9 +1,7 @@
-package com.maticendrak.socialmediaproject.RequestsDTOs;
+package com.maticendrak.socialmediaproject.API.DTOs.RequestDTOs;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 @Data
 @AllArgsConstructor
