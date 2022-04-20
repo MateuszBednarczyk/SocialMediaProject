@@ -19,14 +19,23 @@ public class LoginRegisterService {
     public AppUserEntity login(String username, String password){
 
         AppUserEntity foundUser = (AppUserEntity) appUserRepository.findAppUserEntitiesByUsername(username);
-        if(!sufixConfiguration.passwordEncoder().matches(password, foundUser.getPassword())) {
+        if(foundUser != null){
 
-            throw new IllegalArgumentException("Bad credentials");
+            if(!sufixConfiguration.passwordEncoder().matches(password, foundUser.getPassword())) {
+
+                throw new IllegalArgumentException("Bad credentials");
+
+            }else{
+
+                return foundUser;
+
+            }
+
+        }else{
+
+            return null;
 
         }
-
-        return foundUser;
-
     }
 
     public AppUserEntity register(String username, String password){
