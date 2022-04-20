@@ -52,7 +52,7 @@ public class AppUserController {
 
         if(loginRegisterService.checkIfUserExists(givenUserCredentials.getUsername())){
 
-            codeToReturn = HttpStatus.BAD_REQUEST;
+            codeToReturn = HttpStatus.CONFLICT;
 
         }else{
 
