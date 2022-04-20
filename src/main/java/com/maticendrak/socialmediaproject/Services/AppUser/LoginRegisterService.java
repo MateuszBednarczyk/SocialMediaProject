@@ -19,6 +19,8 @@ public class LoginRegisterService {
     public AppUserEntity login(String username, String password){
 
         AppUserEntity foundUser = (AppUserEntity) appUserRepository.findAppUserEntitiesByUsername(username);
+
+        //if user is not null and password is correct, return user data from db
         if(foundUser != null){
 
             if(!sufixConfiguration.passwordEncoder().matches(password, foundUser.getPassword())) {
@@ -40,16 +42,19 @@ public class LoginRegisterService {
 
     public AppUserEntity register(String username, String password){
 
-        if(!(appUserRepository.findAppUserEntitiesByUsername(username) == null)){
+        //if user exists return null, else register new user
+        if(checkIfUserExists(username)){
 
-            throw new IllegalArgumentException("User already exists");
+            return null;
+
+        }else{
+
+            AppUserEntity newUser = new AppUserEntity(username, password);
+            newUser.setPassword(sufixConfiguration.passwordEncoder().encode(newUser.getPassword()));
+            appUserRepository.save(newUser);
+            return newUser;
 
         }
-        AppUserEntity newUser = new AppUserEntity(username, password);
-        newUser.setPassword(sufixConfiguration.passwordEncoder().encode(newUser.getPassword()));
-        appUserRepository.save(newUser);
-        return newUser;
-
     }
 
     public boolean checkIfUserExists(String username){
