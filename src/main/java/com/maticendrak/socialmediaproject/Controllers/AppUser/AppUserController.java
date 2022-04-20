@@ -22,7 +22,6 @@ public class AppUserController {
         this.loginRegisterService = loginRegisterService;
     }
 
-    @Transactional
     @RequestMapping(value = "/user/login")
     public ResponseEntity login(@RequestBody LoginAndRegisterRequest givenUserCredentials){
 
@@ -51,7 +50,6 @@ public class AppUserController {
 
     }
 
-    @Transactional
     @RequestMapping("/user/register")
     public ResponseEntity register(@RequestBody LoginAndRegisterRequest givenUserCredentials){
 

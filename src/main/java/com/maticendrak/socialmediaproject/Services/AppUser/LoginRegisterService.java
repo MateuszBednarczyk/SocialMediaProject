@@ -6,6 +6,8 @@ import com.maticendrak.socialmediaproject.Repositories.AppUser.AppUserRepository
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 @Service
 public class LoginRegisterService {
     private AppUserRepository appUserRepository;
@@ -16,6 +18,7 @@ public class LoginRegisterService {
         this.sufixConfiguration = sufixConfiguration;
     }
 
+    @Transactional
     public AppUserEntity login(String username, String password){
 
         AppUserEntity foundUser = (AppUserEntity) appUserRepository.findAppUserEntitiesByUsername(username);
@@ -40,6 +43,7 @@ public class LoginRegisterService {
         }
     }
 
+    @Transactional
     public AppUserEntity register(String username, String password){
 
         //if user exists return null, else register new user
