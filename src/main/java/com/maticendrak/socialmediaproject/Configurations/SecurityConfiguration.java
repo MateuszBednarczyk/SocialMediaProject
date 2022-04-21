@@ -29,8 +29,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         AuthenticationFilter authenticationFilter = new AuthenticationFilter(authenticationManagerBean());
         authenticationFilter.setFilterProcessesUrl("/user/login");
 
-        http.authorizeRequests().antMatchers(POST, "/user/login").permitAll();
-        http.authorizeRequests().antMatchers("/home#/login").permitAll()
+        http.authorizeRequests()
+                .antMatchers(POST, "/user/login")
+                .permitAll()
                 .and()
                 .formLogin()
                 .loginPage("/home#/login")
