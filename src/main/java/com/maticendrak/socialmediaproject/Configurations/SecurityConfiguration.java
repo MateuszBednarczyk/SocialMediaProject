@@ -9,6 +9,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 
 import static org.springframework.http.HttpMethod.POST;
 
@@ -19,6 +20,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private final UserDetailsServiceImpl userDetailsService;
     private final SufixConfiguration sufixConfiguration;
 
+    @Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(sufixConfiguration.passwordEncoder());
@@ -26,9 +33,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        AuthenticationFilter authenticationFilter = new AuthenticationFilter(authenticationManagerBean());
-        authenticationFilter.setFilterProcessesUrl("/user/login");
 
+        //login and register security config
         http.authorizeRequests()
                 .antMatchers(POST, "/user/login")
                 .permitAll()
@@ -40,17 +46,23 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .logout()
                 .logoutSuccessUrl("/home");
 
-        http.authorizeRequests().antMatchers("/home#/home").hasAnyAuthority("ROLE_USER");
+        //home security config
+        http.authorizeRequests()
+                .antMatchers("/home#/home")
+                .hasAnyAuthority("ROLE_USER");
+
+        //jwt authentication config
+        AuthenticationFilter authenticationFilter = new AuthenticationFilter(authenticationManagerBean());
+        authenticationFilter.setFilterProcessesUrl("/user/login");
         http.addFilter(authenticationFilter);
 
+        //cors, crsf
         http.csrf().disable();
         http.cors().disable();
-    }
 
-    @Bean
-    @Override
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
+        //session management
+        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
     }
 
 }
