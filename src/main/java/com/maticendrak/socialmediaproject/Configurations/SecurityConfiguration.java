@@ -49,7 +49,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         //home security config
         http.authorizeRequests()
                 .antMatchers("/home#/home")
-                .hasAnyAuthority("ROLE_USER");
+                .hasAnyAuthority("ROLE_NOTVERIFICATED");
 
         //jwt authentication config
         AuthenticationFilter authenticationFilter = new AuthenticationFilter(authenticationManagerBean());
