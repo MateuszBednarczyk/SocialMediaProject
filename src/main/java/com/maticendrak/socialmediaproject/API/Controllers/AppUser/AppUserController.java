@@ -45,7 +45,7 @@ public class AppUserController {
 
     }
 
-    @RequestMapping("/user/register")
+    @RequestMapping(value = "/user/register")
     public ResponseEntity register(@RequestBody LoginAndRegisterRequest givenUserCredentials) {
 
         //Check if users exists
