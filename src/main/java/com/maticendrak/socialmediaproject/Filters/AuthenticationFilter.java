@@ -3,6 +3,8 @@ package com.maticendrak.socialmediaproject.Filters;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.maticendrak.socialmediaproject.API.DTOs.RequestDTOs.LoginAndRegisterRequest;
+import com.maticendrak.socialmediaproject.API.DTOs.ResponseDTOs.LoginResponse;
 import com.maticendrak.socialmediaproject.Entities.AppUser.AppUserEntity;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,6 +22,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
@@ -31,11 +35,10 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-        log.info("username " + username);
-        log.info("password " + password);
-        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, password);
+        LoginAndRegisterRequest credentials = new LoginAndRegisterRequest(request.getParameter("username"), request.getParameter("password"));
+        log.info("username " + credentials.getUsername());
+        log.info("password " + credentials.getPassword());
+        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(credentials.getUsername(), credentials.getPassword());
 
         return authenticationManager.authenticate(authenticationToken);
 
@@ -54,7 +57,9 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
                 .sign(algorithm);
 
         response.setContentType(APPLICATION_JSON_VALUE);
-        new ObjectMapper().writeValue(response.getOutputStream(), accessToken);
+        Map<LoginResponse, String> responseBody = new HashMap<LoginResponse, String>();
+        responseBody.put(new LoginResponse(user.getUsername(), user.getDescription(), user.getImage(), user.getPosts(), user.getFollowing()), accessToken);
+        new ObjectMapper().writeValue(response.getOutputStream(), responseBody);
 
     }
 }
