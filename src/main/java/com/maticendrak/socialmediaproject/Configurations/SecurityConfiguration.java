@@ -1,6 +1,7 @@
 package com.maticendrak.socialmediaproject.Configurations;
 
 import com.maticendrak.socialmediaproject.Filters.AuthenticationFilter;
+import com.maticendrak.socialmediaproject.Filters.ACTUALLYNOTUSEDAUTHORIZATIONFILTER;
 import com.maticendrak.socialmediaproject.Services.AppUser.UserDetailsServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -10,6 +11,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import static org.springframework.http.HttpMethod.POST;
 
