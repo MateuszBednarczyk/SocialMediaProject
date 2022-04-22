@@ -1,14 +1,14 @@
-package com.maticendrak.socialmediaproject.API.DTOs.ResponseDTOs;
+package com.maticendrak.socialmediaproject.AppUser.DTOs;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import org.hibernate.annotations.Immutable;
 import org.hibernate.mapping.List;
 
-@Data
+@Getter
 @AllArgsConstructor
 @Immutable
-public class LoginResponse {
+public class LoginResponseDTO {
 
     private String username;
     private String description;

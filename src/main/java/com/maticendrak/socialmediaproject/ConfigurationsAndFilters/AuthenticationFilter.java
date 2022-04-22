@@ -1,14 +1,12 @@
-package com.maticendrak.socialmediaproject.Filters;
+package com.maticendrak.socialmediaproject.ConfigurationsAndFilters;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.maticendrak.socialmediaproject.API.DTOs.RequestDTOs.LoginAndRegisterRequest;
-import com.maticendrak.socialmediaproject.API.DTOs.ResponseDTOs.LoginResponse;
-import com.maticendrak.socialmediaproject.Entities.AppUser.AppUserEntity;
+import com.maticendrak.socialmediaproject.AppUser.DTOs.LoginResponseDTO;
+import com.maticendrak.socialmediaproject.AppUser.Entities.AppUserEntity;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.catalina.User;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -31,7 +29,7 @@ import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
 
 @RequiredArgsConstructor
 @Slf4j
-public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
+class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     private final AuthenticationManager authenticationManager;
 
     @Override
@@ -66,8 +64,8 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
                 .sign(algorithm);
 
         response.setContentType(APPLICATION_JSON_VALUE);
-        Map<LoginResponse, String> responseBody = new HashMap<LoginResponse, String>();
-        responseBody.put(new LoginResponse(user.getUsername(), user.getDescription(), user.getImage(), user.getPosts(), user.getFollowing()), accessToken);
+        Map<LoginResponseDTO, String> responseBody = new HashMap<LoginResponseDTO, String>();
+        responseBody.put(new LoginResponseDTO(user.getUsername(), user.getDescription(), user.getImage(), user.getPosts(), user.getFollowing()), accessToken);
         new ObjectMapper().writeValue(response.getOutputStream(), "Bearer " + responseBody);
 
     }

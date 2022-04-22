@@ -1,7 +1,6 @@
-package com.maticendrak.socialmediaproject.Services.AppUser;
+package com.maticendrak.socialmediaproject.AppUser.Functionalities;
 
-import com.maticendrak.socialmediaproject.Entities.AppUser.AppUserEntity;
-import com.maticendrak.socialmediaproject.Repositories.AppUser.AppUserRepository;
+import com.maticendrak.socialmediaproject.AppUser.Entities.AppUserEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -10,7 +9,8 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class UserDetailsServiceImpl implements UserDetailsService {
+public
+class UserDetailsServiceImpl implements UserDetailsService {
 
     private AppUserRepository appUserRepository;
 

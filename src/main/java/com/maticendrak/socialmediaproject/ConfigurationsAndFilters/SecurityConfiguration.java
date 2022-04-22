@@ -1,7 +1,6 @@
-package com.maticendrak.socialmediaproject.Configurations;
+package com.maticendrak.socialmediaproject.ConfigurationsAndFilters;
 
-import com.maticendrak.socialmediaproject.Filters.AuthenticationFilter;
-import com.maticendrak.socialmediaproject.Services.AppUser.UserDetailsServiceImpl;
+import com.maticendrak.socialmediaproject.AppUser.Functionalities.UserDetailsServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,7 +14,7 @@ import static org.springframework.http.HttpMethod.POST;
 
 @Configuration
 @RequiredArgsConstructor
-public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     private final UserDetailsServiceImpl userDetailsService;
     private final SufixConfiguration sufixConfiguration;

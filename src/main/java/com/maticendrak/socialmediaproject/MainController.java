@@ -1,4 +1,4 @@
-package com.maticendrak.socialmediaproject.API.Controllers;
+package com.maticendrak.socialmediaproject;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

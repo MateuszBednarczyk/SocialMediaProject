@@ -1,13 +1,11 @@
-package com.maticendrak.socialmediaproject.API.Controllers.AppUser;
+package com.maticendrak.socialmediaproject.AppUser.ControllersAndDTOs;
 
-import com.maticendrak.socialmediaproject.Entities.AppUser.AppUserEntity;
-import com.maticendrak.socialmediaproject.API.DTOs.RequestDTOs.LoginAndRegisterRequest;
-import com.maticendrak.socialmediaproject.API.DTOs.ResponseDTOs.LoginResponse;
-import com.maticendrak.socialmediaproject.Services.AppUser.LoginRegisterService;
+import com.maticendrak.socialmediaproject.AppUser.DTOs.LoginAndRegisterRequestDTO;
+import com.maticendrak.socialmediaproject.AppUser.DTOs.LoginResponseDTO;
+import com.maticendrak.socialmediaproject.AppUser.Functionalities.AppUserFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,15 +15,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 public class AppUserController {
-    private final LoginRegisterService loginRegisterService;
+    private final AppUserFacade loginRegisterService;
     private HttpStatus codeToReturn;
 
     @RequestMapping(value = "/user/login")
-    public ResponseEntity login(@RequestBody LoginAndRegisterRequest givenUserCredentials) {
+    public ResponseEntity login(@RequestBody LoginAndRegisterRequestDTO givenUserCredentials) {
 
         //goes to login service with given credentials
-        AppUserEntity user = loginRegisterService.login(givenUserCredentials.getUsername(), givenUserCredentials.getPassword());
-        ResponseEntity<LoginResponse> response;
+        LoginResponseDTO user = loginRegisterService.login(givenUserCredentials.getUsername(), givenUserCredentials.getPassword());
+        ResponseEntity<LoginResponseDTO> response;
 
         //checking if user found correctly
         if (user == null) {
@@ -36,9 +34,7 @@ public class AppUserController {
         } else {
 
             //if yes, set up user model as a response and then return
-            LoginResponse userEntityToReturn = new LoginResponse(user.getUsername(), user.getDescription(), user.getImage(),
-                    user.getPosts(), user.getFollowing());
-            response = new ResponseEntity<>(userEntityToReturn, HttpStatus.OK);
+            response = new ResponseEntity<>(user, HttpStatus.OK);
 
         }
 
@@ -47,7 +43,7 @@ public class AppUserController {
     }
 
     @RequestMapping(value = "/user/register")
-    public ResponseEntity register(@RequestBody LoginAndRegisterRequest givenUserCredentials) {
+    public ResponseEntity register(@RequestBody LoginAndRegisterRequestDTO givenUserCredentials) {
 
         //Check if users exists
         if (loginRegisterService.checkIfUserExists(givenUserCredentials.getUsername())) {
@@ -58,7 +54,7 @@ public class AppUserController {
         } else {
 
             //if user doesn't exist it goes to register method
-            AppUserEntity newUser = loginRegisterService.register(givenUserCredentials.getUsername(), givenUserCredentials.getPassword());
+            LoginResponseDTO newUser = loginRegisterService.register(givenUserCredentials.getUsername(), givenUserCredentials.getPassword());
 
             //checking if register method created user correct
             if (newUser == null) {

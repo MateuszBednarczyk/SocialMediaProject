@@ -1,13 +1,13 @@
-package com.maticendrak.socialmediaproject.API.DTOs.RequestDTOs;
+package com.maticendrak.socialmediaproject.AppUser.DTOs;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import org.hibernate.annotations.Immutable;
 
-@Data
+@Getter
 @AllArgsConstructor
 @Immutable
-public class LoginAndRegisterRequest {
+public class LoginAndRegisterRequestDTO {
 
     private String username;
     private String password;

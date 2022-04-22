@@ -1,4 +1,4 @@
-package com.maticendrak.socialmediaproject.Entities.AppUser;
+package com.maticendrak.socialmediaproject.AppUser.Entities;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

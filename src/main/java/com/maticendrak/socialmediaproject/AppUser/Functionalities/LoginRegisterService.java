@@ -1,7 +1,7 @@
-package com.maticendrak.socialmediaproject.Services.AppUser;
+package com.maticendrak.socialmediaproject.AppUser.Functionalities;
 
-import com.maticendrak.socialmediaproject.Entities.AppUser.AppUserEntity;
-import com.maticendrak.socialmediaproject.Repositories.AppUser.AppUserRepository;
+import com.maticendrak.socialmediaproject.AppUser.DTOs.LoginResponseDTO;
+import com.maticendrak.socialmediaproject.AppUser.Entities.AppUserEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -10,12 +10,13 @@ import javax.transaction.Transactional;
 
 @Service
 @RequiredArgsConstructor
-public class LoginRegisterService {
+class LoginRegisterService implements AppUserFacade {
     private final AppUserRepository appUserRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Transactional
-    public AppUserEntity login(String username, String password) {
+    @Override
+    public LoginResponseDTO login(String username, String password) {
 
         AppUserEntity foundUser = (AppUserEntity) appUserRepository.findAppUserEntitiesByUsername(username);
 
@@ -28,7 +29,7 @@ public class LoginRegisterService {
 
             } else {
 
-                return foundUser;
+                return new LoginResponseDTO(foundUser.getUsername(), foundUser.getDescription(), foundUser.getImage(), foundUser.getPosts(), foundUser.getFollowing());
 
             }
 
@@ -40,7 +41,8 @@ public class LoginRegisterService {
     }
 
     @Transactional
-    public AppUserEntity register(String username, String password) {
+    @Override
+    public LoginResponseDTO register(String username, String password) {
 
         //if user exists return null, else register new user
         if (checkIfUserExists(username)) {
@@ -52,11 +54,12 @@ public class LoginRegisterService {
             AppUserEntity newUser = new AppUserEntity(username, password);
             newUser.setPassword(bCryptPasswordEncoder.encode(newUser.getPassword()));
             appUserRepository.save(newUser);
-            return newUser;
+            return new LoginResponseDTO(newUser.getUsername(), newUser.getDescription(), newUser.getImage(), newUser.getPosts(), newUser.getFollowing());
 
         }
     }
 
+    @Override
     public boolean checkIfUserExists(String username) {
 
         if (appUserRepository.findAppUserEntitiesByUsername(username) != null) {
