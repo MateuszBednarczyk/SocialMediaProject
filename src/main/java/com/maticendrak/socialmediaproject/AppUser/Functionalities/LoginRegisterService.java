@@ -1,7 +1,7 @@
 package com.maticendrak.socialmediaproject.AppUser.Functionalities;
 
-import com.maticendrak.socialmediaproject.AppUser.DTOs.LoginResponseDTO;
 import com.maticendrak.socialmediaproject.AppUser.AppUserEntity;
+import com.maticendrak.socialmediaproject.AppUser.DTOs.LoginResponseDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;

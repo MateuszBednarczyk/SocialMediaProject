@@ -16,7 +16,7 @@ class AppUserOperationsService {
     private final SessionManagerService session;
 
     @Transactional
-    public LoginResponseDTO updateUsername(String oldUsername, String newUsername){
+    public LoginResponseDTO updateUsername(String oldUsername, String newUsername) {
 
         AppUserEntity existingUser = (AppUserEntity) appUserRepository.findAppUserEntitiesByUsername(oldUsername);
         existingUser.setUsername(newUsername);

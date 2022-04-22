@@ -29,7 +29,7 @@ public class AppUserFacade {
 
     }
 
-    public LoginResponseDTO updateUsername(String oldUsername, String newUsername){
+    public LoginResponseDTO updateUsername(String oldUsername, String newUsername) {
 
         return appUserOperationsService.updateUsername(oldUsername, newUsername);
 
