@@ -4,7 +4,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.maticendrak.socialmediaproject.AppUser.DTOs.LoginResponseDTO;
-import com.maticendrak.socialmediaproject.AppUser.Entities.AppUserEntity;
+import com.maticendrak.socialmediaproject.AppUser.AppUserEntity;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;

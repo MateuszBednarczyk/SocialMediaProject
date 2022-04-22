@@ -1,6 +1,6 @@
 package com.maticendrak.socialmediaproject.AppUser.Functionalities;
 
-import com.maticendrak.socialmediaproject.AppUser.Entities.AppUserEntity;
+import com.maticendrak.socialmediaproject.AppUser.AppUserEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
