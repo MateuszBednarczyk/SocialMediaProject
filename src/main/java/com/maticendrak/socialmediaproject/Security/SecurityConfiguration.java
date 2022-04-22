@@ -1,4 +1,4 @@
-package com.maticendrak.socialmediaproject.ConfigurationsAndFilters;
+package com.maticendrak.socialmediaproject.Security;
 
 import com.maticendrak.socialmediaproject.AppUser.Functionalities.UserDetailsServiceImpl;
 import lombok.RequiredArgsConstructor;

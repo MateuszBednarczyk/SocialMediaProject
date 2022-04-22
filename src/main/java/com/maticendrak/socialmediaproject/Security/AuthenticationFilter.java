@@ -1,4 +1,4 @@
-package com.maticendrak.socialmediaproject.ConfigurationsAndFilters;
+package com.maticendrak.socialmediaproject.Security;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
