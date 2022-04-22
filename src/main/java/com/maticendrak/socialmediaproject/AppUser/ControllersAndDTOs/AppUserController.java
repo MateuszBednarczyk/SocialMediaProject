@@ -15,14 +15,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 public class AppUserController {
-    private final AppUserFacade loginRegisterService;
+    private final AppUserFacade appUserFacade;
     private HttpStatus codeToReturn;
 
     @RequestMapping(value = "/user/login")
     public ResponseEntity login(@RequestBody LoginAndRegisterRequestDTO givenUserCredentials) {
 
         //goes to login service with given credentials
-        LoginResponseDTO user = loginRegisterService.login(givenUserCredentials.getUsername(), givenUserCredentials.getPassword());
+        LoginResponseDTO user = appUserFacade.login(givenUserCredentials.getUsername(), givenUserCredentials.getPassword());
         ResponseEntity<LoginResponseDTO> response;
 
         //checking if user found correctly
@@ -46,7 +46,7 @@ public class AppUserController {
     public ResponseEntity register(@RequestBody LoginAndRegisterRequestDTO givenUserCredentials) {
 
         //Check if users exists
-        if (loginRegisterService.checkIfUserExists(givenUserCredentials.getUsername())) {
+        if (appUserFacade.checkIfUserExists(givenUserCredentials.getUsername())) {
 
             //if user already exists, api drops conflict (409)
             codeToReturn = HttpStatus.CONFLICT;
@@ -54,7 +54,7 @@ public class AppUserController {
         } else {
 
             //if user doesn't exist it goes to register method
-            LoginResponseDTO newUser = loginRegisterService.register(givenUserCredentials.getUsername(), givenUserCredentials.getPassword());
+            LoginResponseDTO newUser = appUserFacade.register(givenUserCredentials.getUsername(), givenUserCredentials.getPassword());
 
             //checking if register method created user correct
             if (newUser == null) {
