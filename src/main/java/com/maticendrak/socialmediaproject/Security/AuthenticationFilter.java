@@ -64,9 +64,9 @@ class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
                 .sign(algorithm);
 
         response.setContentType(APPLICATION_JSON_VALUE);
-        Map<LoginResponseDTO, String> responseBody = new HashMap<LoginResponseDTO, String>();
-        responseBody.put(new LoginResponseDTO(user.getUsername(), user.getDescription(), user.getImage(), user.getPosts(), user.getFollowing()), accessToken);
-        new ObjectMapper().writeValue(response.getOutputStream(), "Bearer " + responseBody);
+        Map<String, String> responseBody = new HashMap<String, String>();
+        responseBody.put(new LoginResponseDTO(user.getUsername(), user.getDescription(), user.getImage(), user.getPosts(), user.getFollowing()).toString(), accessToken);
+        new ObjectMapper().writeValue(response.getOutputStream(), responseBody);
 
     }
 }

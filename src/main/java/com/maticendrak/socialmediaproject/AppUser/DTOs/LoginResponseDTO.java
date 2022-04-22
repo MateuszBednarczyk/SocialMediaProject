@@ -16,4 +16,14 @@ public class LoginResponseDTO {
     private List posts;
     private List following;
 
+    @Override
+    public String toString() {
+        return "LoginResponseDTO{" +
+                "username='" + username + '\'' +
+                ", description='" + description + '\'' +
+                ", image='" + image + '\'' +
+                ", posts=" + posts +
+                ", following=" + following +
+                '}';
+    }
 }

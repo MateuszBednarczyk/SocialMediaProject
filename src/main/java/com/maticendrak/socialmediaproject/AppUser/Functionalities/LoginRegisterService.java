@@ -10,12 +10,11 @@ import javax.transaction.Transactional;
 
 @Service
 @RequiredArgsConstructor
-class LoginRegisterService implements AppUserFacade {
+class LoginRegisterService {
     private final AppUserRepository appUserRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Transactional
-    @Override
     public LoginResponseDTO login(String username, String password) {
 
         AppUserEntity foundUser = (AppUserEntity) appUserRepository.findAppUserEntitiesByUsername(username);
@@ -41,7 +40,6 @@ class LoginRegisterService implements AppUserFacade {
     }
 
     @Transactional
-    @Override
     public LoginResponseDTO register(String username, String password) {
 
         //if user exists return null, else register new user
@@ -59,7 +57,6 @@ class LoginRegisterService implements AppUserFacade {
         }
     }
 
-    @Override
     public boolean checkIfUserExists(String username) {
 
         if (appUserRepository.findAppUserEntitiesByUsername(username) != null) {
