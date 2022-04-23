@@ -20,13 +20,13 @@ class AppUserOperationsService {
     public LoginResponseDTO updateUsername(String oldUsername, String newUsername) {
 
         AppUserEntity existingUser = (AppUserEntity) appUserRepository.findAppUserEntitiesByUsername(oldUsername);
-        if(!appUserValidateToolsService.checkIfUserExists(newUsername)){
+        if (!appUserValidateToolsService.checkIfUserExists(newUsername)) {
 
             existingUser.setUsername(newUsername);
             session.getSession().update(existingUser);
             return new LoginResponseDTO(existingUser.getUsername(), existingUser.getDescription(), existingUser.getImage(), existingUser.getPosts(), existingUser.getFollowing());
 
-        }else{
+        } else {
 
             throw new IllegalArgumentException("User with given username already exists");
 
