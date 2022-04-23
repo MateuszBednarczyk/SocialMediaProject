@@ -1,7 +1,8 @@
 package com.maticendrak.socialmediaproject.AppUser.Functionalities;
 
+import com.maticendrak.socialmediaproject.AppUser.DTOs.Requests.UpdateDTOs.UpdatePasswordRequestDTO;
 import com.maticendrak.socialmediaproject.AppUser.DTOs.Requests.LoginAndRegisterRequestDTO;
-import com.maticendrak.socialmediaproject.AppUser.DTOs.Requests.UpdateUsernameRequestDTO;
+import com.maticendrak.socialmediaproject.AppUser.DTOs.Requests.UpdateDTOs.UpdateUsernameRequestDTO;
 import com.maticendrak.socialmediaproject.AppUser.DTOs.Responses.UserResponseDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,15 +15,15 @@ public class AppUserFacade {
     private final AppUserOperationsService appUserOperationsService;
     private final AppUserValidateToolsService appUserValidateToolsService;
 
-    public UserResponseDTO login(LoginAndRegisterRequestDTO givenUserCredentials) {
+    public UserResponseDTO login(LoginAndRegisterRequestDTO requestDTO) {
 
-        return loginRegisterService.login(givenUserCredentials);
+        return loginRegisterService.login(requestDTO);
 
     }
 
-    public UserResponseDTO register(LoginAndRegisterRequestDTO newUserDTO) {
+    public UserResponseDTO register(LoginAndRegisterRequestDTO requestDTO) {
 
-        return loginRegisterService.register(newUserDTO);
+        return loginRegisterService.register(requestDTO);
 
     }
 
@@ -32,9 +33,15 @@ public class AppUserFacade {
 
     }
 
-    public UserResponseDTO updateUsername(UpdateUsernameRequestDTO updateUsernameRequestDTO) {
+    public UserResponseDTO updateUsername(UpdateUsernameRequestDTO requestDTO) {
 
-        return appUserOperationsService.updateUsername(updateUsernameRequestDTO);
+        return appUserOperationsService.updateUsername(requestDTO);
+
+    }
+
+    public boolean updatePassword(UpdatePasswordRequestDTO requestDTO){
+
+        return appUserOperationsService.updatePassword(requestDTO);
 
     }
 

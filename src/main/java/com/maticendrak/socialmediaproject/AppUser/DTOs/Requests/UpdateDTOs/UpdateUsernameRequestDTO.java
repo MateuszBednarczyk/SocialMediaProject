@@ -1,4 +1,4 @@
-package com.maticendrak.socialmediaproject.AppUser.DTOs.Requests;
+package com.maticendrak.socialmediaproject.AppUser.DTOs.Requests.UpdateDTOs;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
