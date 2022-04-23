@@ -111,9 +111,16 @@ public class AppUserController {
     }
 
     @RequestMapping(method = RequestMethod.PATCH, value = "/api/user/update-description")
-    public UserResponseDTO updateDescription(@RequestBody UpdateDescriptionRequestDTO requestDTO){
+    public UserResponseDTO updateDescription(@RequestBody UpdateDescriptionRequestDTO requestDTO) {
 
         return appUserFacade.updateDescription(requestDTO);
+
+    }
+
+    @RequestMapping(method = RequestMethod.PATCH, value = "/api/user/update-image")
+    public UserResponseDTO updateImage(@RequestBody UpdateImageRequestDTO requestDTO) {
+
+        return appUserFacade.updateImage(requestDTO);
 
     }
 

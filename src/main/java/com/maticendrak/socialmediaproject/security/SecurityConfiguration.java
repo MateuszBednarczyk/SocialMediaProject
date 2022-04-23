@@ -55,6 +55,22 @@ class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/user/update-username")
                 .hasAuthority("ROLE_NOTVERIFICATED");
 
+        http.authorizeRequests()
+                .antMatchers("/api/user/update-password")
+                .hasAuthority("ROLE_NOTVERIFICATED");
+
+        http.authorizeRequests()
+                .antMatchers("/api/user/update-description")
+                .hasAuthority("ROLE_NOTVERIFICATED");
+
+        http.authorizeRequests()
+                .antMatchers("/api/user/update-image")
+                .hasAuthority("ROLE_NOTVERIFICATED");
+
+        http.authorizeRequests()
+                .antMatchers("/api/user/delete-user")
+                .hasAuthority("ROLE_NOTVERIFICATED");
+
         //jwt authentication config
         AuthenticationFilter authenticationFilter = new AuthenticationFilter(authenticationManagerBean());
         authenticationFilter.setFilterProcessesUrl("/api/user/login");

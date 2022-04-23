@@ -49,9 +49,15 @@ public class AppUserFacade {
 
     }
 
-    public UserResponseDTO updateDescription(UpdateDescriptionRequestDTO requestDTO){
+    public UserResponseDTO updateDescription(UpdateDescriptionRequestDTO requestDTO) {
 
         return appUserOperationsService.updateDescription(requestDTO);
+
+    }
+
+    public UserResponseDTO updateImage(UpdateImageRequestDTO requestDTO) {
+
+        return appUserOperationsService.updateImage(requestDTO);
 
     }
 
