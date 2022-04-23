@@ -57,7 +57,9 @@ class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         //cors, crsf
         http.csrf().disable();
-        http.cors().disable();
+
+//        http.cors().disable();
+        http.cors();
 
         //session management
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
