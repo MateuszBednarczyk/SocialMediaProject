@@ -2,7 +2,7 @@ package com.maticendrak.socialmediaproject.AppUser;
 
 import com.maticendrak.socialmediaproject.AppUser.DTOs.LoginAndRegisterRequestDTO;
 import com.maticendrak.socialmediaproject.AppUser.DTOs.LoginResponseDTO;
-import com.maticendrak.socialmediaproject.AppUser.DTOs.UpdateUsernameRequest;
+import com.maticendrak.socialmediaproject.AppUser.DTOs.UpdateUsernameRequestDTO;
 import com.maticendrak.socialmediaproject.AppUser.Functionalities.AppUserFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -78,9 +78,9 @@ public class AppUserController {
     }
 
     @RequestMapping(value = "/user/update-username")
-    public LoginResponseDTO updateUsername(@RequestBody UpdateUsernameRequest updateUsernameRequest) {
+    public LoginResponseDTO updateUsername(@RequestBody UpdateUsernameRequestDTO updateUsernameRequestDTO) {
 
-        return appUserFacade.updateUsername(updateUsernameRequest.getOldUsername(), updateUsernameRequest.getNewUsername());
+        return appUserFacade.updateUsername(updateUsernameRequestDTO.getOldUsername(), updateUsernameRequestDTO.getNewUsername());
 
     }
 

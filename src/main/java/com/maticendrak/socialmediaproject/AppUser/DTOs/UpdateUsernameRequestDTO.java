@@ -7,7 +7,7 @@ import org.hibernate.annotations.Immutable;
 @Getter
 @AllArgsConstructor
 @Immutable
-public class UpdateUsernameRequest {
+public class UpdateUsernameRequestDTO {
 
     String oldUsername;
     String newUsername;
