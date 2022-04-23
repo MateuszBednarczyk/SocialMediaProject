@@ -1,8 +1,8 @@
 package com.maticendrak.socialmediaproject.AppUser;
 
-import com.maticendrak.socialmediaproject.AppUser.DTOs.LoginAndRegisterRequestDTO;
-import com.maticendrak.socialmediaproject.AppUser.DTOs.LoginResponseDTO;
-import com.maticendrak.socialmediaproject.AppUser.DTOs.UpdateUsernameRequestDTO;
+import com.maticendrak.socialmediaproject.AppUser.DTOs.Requests.LoginAndRegisterRequestDTO;
+import com.maticendrak.socialmediaproject.AppUser.DTOs.Responses.UserResponseDTO;
+import com.maticendrak.socialmediaproject.AppUser.DTOs.Requests.UpdateUsernameRequestDTO;
 import com.maticendrak.socialmediaproject.AppUser.Functionalities.AppUserFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -23,8 +23,8 @@ public class AppUserController {
     public ResponseEntity login(@RequestBody LoginAndRegisterRequestDTO givenUserCredentials) {
 
         //goes to login service with given credentials
-        LoginResponseDTO user = appUserFacade.login(givenUserCredentials.getUsername(), givenUserCredentials.getPassword());
-        ResponseEntity<LoginResponseDTO> response;
+        UserResponseDTO user = appUserFacade.login(givenUserCredentials);
+        ResponseEntity<UserResponseDTO> response;
 
         //checking if user found correctly
         if (user == null) {
@@ -55,7 +55,7 @@ public class AppUserController {
         } else {
 
             //if user doesn't exist it goes to register method
-            LoginResponseDTO newUser = appUserFacade.register(givenUserCredentials.getUsername(), givenUserCredentials.getPassword());
+            UserResponseDTO newUser = appUserFacade.register(givenUserCredentials);
 
             //checking if register method created user correct
             if (newUser == null) {
@@ -78,9 +78,9 @@ public class AppUserController {
     }
 
     @RequestMapping(value = "/user/update-username")
-    public LoginResponseDTO updateUsername(@RequestBody UpdateUsernameRequestDTO updateUsernameRequestDTO) {
+    public UserResponseDTO updateUsername(@RequestBody UpdateUsernameRequestDTO updateUsernameRequestDTO) {
 
-        return appUserFacade.updateUsername(updateUsernameRequestDTO.getOldUsername(), updateUsernameRequestDTO.getNewUsername());
+        return appUserFacade.updateUsername(updateUsernameRequestDTO);
 
     }
 

@@ -4,7 +4,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.maticendrak.socialmediaproject.AppUser.AppUserEntity;
-import com.maticendrak.socialmediaproject.AppUser.DTOs.LoginResponseDTO;
+import com.maticendrak.socialmediaproject.AppUser.DTOs.Responses.UserResponseDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -22,7 +22,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -66,7 +65,7 @@ class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
         response.setContentType(APPLICATION_JSON_VALUE);
         ArrayList<String> responseBody = new ArrayList<String>();
-        responseBody.add(new LoginResponseDTO(user.getUsername(), user.getDescription(), user.getImage(), user.getPosts(), user.getFollowing()).toString());
+        responseBody.add(new UserResponseDTO(user.getUsername(), user.getDescription(), user.getImage(), user.getPosts(), user.getFollowing()).toString());
         responseBody.add("Token " + accessToken);
         new ObjectMapper().writeValue(response.getOutputStream(), responseBody);
 

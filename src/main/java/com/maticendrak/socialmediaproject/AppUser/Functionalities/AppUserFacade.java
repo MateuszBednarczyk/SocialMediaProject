@@ -1,6 +1,8 @@
 package com.maticendrak.socialmediaproject.AppUser.Functionalities;
 
-import com.maticendrak.socialmediaproject.AppUser.DTOs.LoginResponseDTO;
+import com.maticendrak.socialmediaproject.AppUser.DTOs.Requests.LoginAndRegisterRequestDTO;
+import com.maticendrak.socialmediaproject.AppUser.DTOs.Requests.UpdateUsernameRequestDTO;
+import com.maticendrak.socialmediaproject.AppUser.DTOs.Responses.UserResponseDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,15 +14,15 @@ public class AppUserFacade {
     private final AppUserOperationsService appUserOperationsService;
     private final AppUserValidateToolsService appUserValidateToolsService;
 
-    public LoginResponseDTO login(String username, String password) {
+    public UserResponseDTO login(LoginAndRegisterRequestDTO givenUserCredentials) {
 
-        return loginRegisterService.login(username, password);
+        return loginRegisterService.login(givenUserCredentials);
 
     }
 
-    public LoginResponseDTO register(String username, String password) {
+    public UserResponseDTO register(LoginAndRegisterRequestDTO newUserDTO) {
 
-        return loginRegisterService.register(username, password);
+        return loginRegisterService.register(newUserDTO);
 
     }
 
@@ -30,9 +32,9 @@ public class AppUserFacade {
 
     }
 
-    public LoginResponseDTO updateUsername(String oldUsername, String newUsername) {
+    public UserResponseDTO updateUsername(UpdateUsernameRequestDTO updateUsernameRequestDTO) {
 
-        return appUserOperationsService.updateUsername(oldUsername, newUsername);
+        return appUserOperationsService.updateUsername(updateUsernameRequestDTO);
 
     }
 

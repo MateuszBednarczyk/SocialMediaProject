@@ -1,7 +1,8 @@
 package com.maticendrak.socialmediaproject.AppUser.Functionalities;
 
 import com.maticendrak.socialmediaproject.AppUser.AppUserEntity;
-import com.maticendrak.socialmediaproject.AppUser.DTOs.LoginResponseDTO;
+import com.maticendrak.socialmediaproject.AppUser.DTOs.Requests.LoginAndRegisterRequestDTO;
+import com.maticendrak.socialmediaproject.AppUser.DTOs.Responses.UserResponseDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -16,20 +17,20 @@ class LoginRegisterService {
     private final AppUserValidateToolsService appUserValidateToolsService;
 
     @Transactional
-    public LoginResponseDTO login(String username, String password) {
+    public UserResponseDTO login(LoginAndRegisterRequestDTO givenUserCredentials) {
 
-        AppUserEntity foundUser = (AppUserEntity) appUserRepository.findAppUserEntitiesByUsername(username);
+        AppUserEntity foundUser = (AppUserEntity) appUserRepository.findAppUserEntitiesByUsername(givenUserCredentials.getUsername());
 
         //if user is not null and password is correct, return user data from db
         if (foundUser != null) {
 
-            if (!bCryptPasswordEncoder.matches(password, foundUser.getPassword())) {
+            if (!bCryptPasswordEncoder.matches(givenUserCredentials.getPassword(), foundUser.getPassword())) {
 
                 return null;
 
             } else {
 
-                return new LoginResponseDTO(foundUser.getUsername(), foundUser.getDescription(), foundUser.getImage(), foundUser.getPosts(), foundUser.getFollowing());
+                return new UserResponseDTO(foundUser.getUsername(), foundUser.getDescription(), foundUser.getImage(), foundUser.getPosts(), foundUser.getFollowing());
 
             }
 
@@ -41,19 +42,19 @@ class LoginRegisterService {
     }
 
     @Transactional
-    public LoginResponseDTO register(String username, String password) {
+    public UserResponseDTO register(LoginAndRegisterRequestDTO newUserDTO) {
 
         //if user exists return null, else register new user
-        if (appUserValidateToolsService.checkIfUserExists(username)) {
+        if (appUserValidateToolsService.checkIfUserExists(newUserDTO.getUsername())) {
 
             return null;
 
         } else {
 
-            AppUserEntity newUser = new AppUserEntity(username, password);
+            AppUserEntity newUser = new AppUserEntity(newUserDTO.getUsername(), newUserDTO.getPassword());
             newUser.setPassword(bCryptPasswordEncoder.encode(newUser.getPassword()));
             appUserRepository.save(newUser);
-            return new LoginResponseDTO(newUser.getUsername(), newUser.getDescription(), newUser.getImage(), newUser.getPosts(), newUser.getFollowing());
+            return new UserResponseDTO(newUser.getUsername(), newUser.getDescription(), newUser.getImage(), newUser.getPosts(), newUser.getFollowing());
 
         }
     }
