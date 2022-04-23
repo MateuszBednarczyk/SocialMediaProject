@@ -4,6 +4,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.maticendrak.socialmediaproject.appUser.AppUserEntity;
+import com.maticendrak.socialmediaproject.appUser.dtos.requests.JwtTokenDTO;
 import com.maticendrak.socialmediaproject.appUser.dtos.responses.UserResponseDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,6 +26,7 @@ import java.util.Date;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
 
 @RequiredArgsConstructor
@@ -58,7 +60,7 @@ class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
         String accessToken = JWT.create()
                 .withSubject(user.getUsername())
-                .withExpiresAt(new Date(System.currentTimeMillis() + 10 * 60 + 1000))
+                .withExpiresAt(new Date(System.currentTimeMillis() + 1000 * 1200))
                 .withIssuer(request.getRequestURL().toString())
                 .withClaim("roles", user.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
                 .sign(algorithm);
@@ -66,7 +68,8 @@ class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
         response.setContentType(APPLICATION_JSON_VALUE);
         ArrayList<String> responseBody = new ArrayList<String>();
         responseBody.add(new UserResponseDTO(user.getUsername(), user.getDescription(), user.getImage(), user.getPosts(), user.getFollowing()).toString());
-        responseBody.add("Token " + accessToken);
+        responseBody.add(new JwtTokenDTO(accessToken).toString());
+        response.setHeader(AUTHORIZATION, accessToken);
         new ObjectMapper().writeValue(response.getOutputStream(), responseBody);
 
     }

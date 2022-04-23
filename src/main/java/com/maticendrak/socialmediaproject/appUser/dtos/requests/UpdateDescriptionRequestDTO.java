@@ -7,10 +7,9 @@ import org.hibernate.annotations.Immutable;
 @Getter
 @AllArgsConstructor
 @Immutable
-public class UpdateUsernameRequestDTO {
+public class UpdateDescriptionRequestDTO {
 
-    String oldUsername;
-    String newUsername;
-    String jwtToken;
+    String username;
+    String description;
 
 }

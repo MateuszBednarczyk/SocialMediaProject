@@ -2,6 +2,7 @@ package com.maticendrak.socialmediaproject.appUser.functionalities;
 
 import com.maticendrak.socialmediaproject.appUser.AppUserEntity;
 import com.maticendrak.socialmediaproject.appUser.dtos.requests.DeleteAppUserRequestDTO;
+import com.maticendrak.socialmediaproject.appUser.dtos.requests.UpdateDescriptionRequestDTO;
 import com.maticendrak.socialmediaproject.appUser.dtos.requests.UpdatePasswordRequestDTO;
 import com.maticendrak.socialmediaproject.appUser.dtos.requests.UpdateUsernameRequestDTO;
 import com.maticendrak.socialmediaproject.appUser.dtos.responses.UserResponseDTO;
@@ -67,6 +68,25 @@ class AppUserOperationsService {
         } else {
 
             return false;
+
+        }
+
+    }
+
+    @Transactional
+    public UserResponseDTO updateDescription(UpdateDescriptionRequestDTO requestDTO) {
+
+        if (appUserValidateToolsService.checkIfUserExists(requestDTO.getUsername())) {
+
+            AppUserEntity appUserEntity = (AppUserEntity) appUserRepository.findAppUserEntitiesByUsername(requestDTO.getUsername());
+            appUserEntity.setDescription(requestDTO.getDescription());
+            session.getSession().update(appUserEntity);
+            return new UserResponseDTO(appUserEntity.getUsername(), appUserEntity.getDescription(), appUserEntity.getImage(), appUserEntity.getPosts(), appUserEntity.getFollowing());
+
+        } else {
+
+
+            throw new IllegalArgumentException("something went wrong while u've been trying to set description");
 
         }
 

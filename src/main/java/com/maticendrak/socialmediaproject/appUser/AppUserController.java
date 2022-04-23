@@ -1,9 +1,6 @@
 package com.maticendrak.socialmediaproject.appUser;
 
-import com.maticendrak.socialmediaproject.appUser.dtos.requests.DeleteAppUserRequestDTO;
-import com.maticendrak.socialmediaproject.appUser.dtos.requests.LoginAndRegisterRequestDTO;
-import com.maticendrak.socialmediaproject.appUser.dtos.requests.UpdatePasswordRequestDTO;
-import com.maticendrak.socialmediaproject.appUser.dtos.requests.UpdateUsernameRequestDTO;
+import com.maticendrak.socialmediaproject.appUser.dtos.requests.*;
 import com.maticendrak.socialmediaproject.appUser.dtos.responses.UserResponseDTO;
 import com.maticendrak.socialmediaproject.appUser.functionalities.AppUserFacade;
 import lombok.RequiredArgsConstructor;
@@ -110,6 +107,13 @@ public class AppUserController {
             throw new IllegalArgumentException("something went wrong");
 
         }
+
+    }
+
+    @RequestMapping(method = RequestMethod.PATCH, value = "/api/user/update-description")
+    public UserResponseDTO updateDescription(@RequestBody UpdateDescriptionRequestDTO requestDTO){
+
+        return appUserFacade.updateDescription(requestDTO);
 
     }
 

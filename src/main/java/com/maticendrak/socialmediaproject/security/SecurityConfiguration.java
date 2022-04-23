@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import static org.springframework.http.HttpMethod.POST;
 
@@ -35,7 +36,7 @@ class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         //login and register security config
         http.authorizeRequests()
-                .antMatchers(POST, "/user/login")
+                .antMatchers(POST, "/api/user/login")
                 .permitAll()
                 .and()
                 .formLogin()
@@ -50,15 +51,18 @@ class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/home#/home")
                 .hasAnyAuthority("ROLE_NOTVERIFICATED");
 
+        http.authorizeRequests()
+                .antMatchers("/api/user/update-username")
+                .hasAuthority("ROLE_NOTVERIFICATED");
+
         //jwt authentication config
         AuthenticationFilter authenticationFilter = new AuthenticationFilter(authenticationManagerBean());
-        authenticationFilter.setFilterProcessesUrl("/user/login");
+        authenticationFilter.setFilterProcessesUrl("/api/user/login");
         http.addFilter(authenticationFilter);
+        http.addFilterBefore(new AuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
 
-        //cors, crsf
+        http.headers().cacheControl();
         http.csrf().disable();
-
-//        http.cors().disable();
         http.cors();
 
         //session management

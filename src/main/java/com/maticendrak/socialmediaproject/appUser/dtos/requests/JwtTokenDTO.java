@@ -2,15 +2,15 @@ package com.maticendrak.socialmediaproject.appUser.dtos.requests;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.ToString;
 import org.hibernate.annotations.Immutable;
 
 @Getter
 @AllArgsConstructor
 @Immutable
-public class UpdateUsernameRequestDTO {
+@ToString
+public class JwtTokenDTO {
 
-    String oldUsername;
-    String newUsername;
-    String jwtToken;
+    String token;
 
 }
