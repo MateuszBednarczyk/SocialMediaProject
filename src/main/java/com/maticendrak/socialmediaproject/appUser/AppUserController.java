@@ -18,7 +18,7 @@ public class AppUserController {
     private final AppUserFacade appUserFacade;
     private HttpStatus codeToReturn;
 
-    @RequestMapping(method = RequestMethod.POST, value = "/user/login")
+    @RequestMapping(method = RequestMethod.POST, value = "/api/user/login")
     public ResponseEntity login(@RequestBody LoginAndRegisterRequestDTO loginRequestDTO) {
 
         //goes to login service with given credentials
@@ -42,7 +42,7 @@ public class AppUserController {
 
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/user/register")
+    @RequestMapping(method = RequestMethod.POST, value = "/api/user/register")
     public ResponseEntity register(@RequestBody LoginAndRegisterRequestDTO registerRequestDTO) {
 
         //Check if users exists
@@ -76,14 +76,14 @@ public class AppUserController {
 
     }
 
-    @RequestMapping(method = RequestMethod.PATCH, value = "/user/update-username")
+    @RequestMapping(method = RequestMethod.PATCH, value = "/api/user/update-username")
     public UserResponseDTO updateUsername(@RequestBody UpdateUsernameRequestDTO requestDTO) {
 
         return appUserFacade.updateUsername(requestDTO);
 
     }
 
-    @RequestMapping(method = RequestMethod.PATCH, value = "/user/update-password")
+    @RequestMapping(method = RequestMethod.PATCH, value = "/api/user/update-password")
     public String updatePassword(@RequestBody UpdatePasswordRequestDTO requestDTO) {
 
         if (appUserFacade.updatePassword(requestDTO)) {
@@ -97,7 +97,7 @@ public class AppUserController {
 
     }
 
-    @RequestMapping(method = RequestMethod.DELETE, value = "user/delete-user")
+    @RequestMapping(method = RequestMethod.DELETE, value = "/api/user/delete-user")
     public String deleteAppUser(@RequestBody DeleteAppUserRequestDTO requestDTO) {
 
         if (appUserFacade.deleteAppUser(requestDTO)) {
