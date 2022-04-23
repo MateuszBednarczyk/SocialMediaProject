@@ -1,10 +1,10 @@
-package com.maticendrak.socialmediaproject.Security;
+package com.maticendrak.socialmediaproject.security;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.maticendrak.socialmediaproject.AppUser.AppUserEntity;
-import com.maticendrak.socialmediaproject.AppUser.DTOs.Responses.UserResponseDTO;
+import com.maticendrak.socialmediaproject.appUser.AppUserEntity;
+import com.maticendrak.socialmediaproject.appUser.dtos.responses.UserResponseDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;

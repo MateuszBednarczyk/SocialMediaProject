@@ -1,6 +1,6 @@
-package com.maticendrak.socialmediaproject.Security;
+package com.maticendrak.socialmediaproject.security;
 
-import com.maticendrak.socialmediaproject.AppUser.Functionalities.UserDetailsServiceImpl;
+import com.maticendrak.socialmediaproject.appUser.functionalities.UserDetailsServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

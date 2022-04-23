@@ -1,4 +1,4 @@
-package com.maticendrak.socialmediaproject.Security;
+package com.maticendrak.socialmediaproject.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

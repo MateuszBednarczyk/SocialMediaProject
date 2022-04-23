@@ -1,10 +1,11 @@
-package com.maticendrak.socialmediaproject.AppUser.Functionalities;
+package com.maticendrak.socialmediaproject.appUser.functionalities;
 
-import com.maticendrak.socialmediaproject.AppUser.AppUserEntity;
-import com.maticendrak.socialmediaproject.AppUser.DTOs.Requests.UpdateDTOs.UpdatePasswordRequestDTO;
-import com.maticendrak.socialmediaproject.AppUser.DTOs.Requests.UpdateDTOs.UpdateUsernameRequestDTO;
-import com.maticendrak.socialmediaproject.AppUser.DTOs.Responses.UserResponseDTO;
-import com.maticendrak.socialmediaproject.Hibernate.SessionManagerService;
+import com.maticendrak.socialmediaproject.appUser.AppUserEntity;
+import com.maticendrak.socialmediaproject.appUser.dtos.requests.DeleteAppUserRequestDTO;
+import com.maticendrak.socialmediaproject.appUser.dtos.requests.UpdatePasswordRequestDTO;
+import com.maticendrak.socialmediaproject.appUser.dtos.requests.UpdateUsernameRequestDTO;
+import com.maticendrak.socialmediaproject.appUser.dtos.responses.UserResponseDTO;
+import com.maticendrak.socialmediaproject.hibernate.SessionManagerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -47,6 +48,22 @@ class AppUserOperationsService {
             appUserEntity.setPassword(bCryptPasswordEncoder.encode(requestDTO.getNewPassword()));
             session.getSession().update(appUserEntity);
             return true;
+        } else {
+
+            return false;
+
+        }
+
+    }
+
+    @Transactional
+    public boolean deleteAppUser(DeleteAppUserRequestDTO requestDTO) {
+
+        if (requestDTO.getPassword().equals(requestDTO.getPasswordConfirmation())) {
+
+            session.getSession().delete(appUserRepository.findAppUserEntitiesByUsername(requestDTO.getUsername()));
+            return true;
+
         } else {
 
             return false;

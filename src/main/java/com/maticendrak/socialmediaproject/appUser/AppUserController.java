@@ -1,18 +1,15 @@
-package com.maticendrak.socialmediaproject.AppUser;
+package com.maticendrak.socialmediaproject.appUser;
 
-import com.maticendrak.socialmediaproject.AppUser.DTOs.Requests.LoginAndRegisterRequestDTO;
-import com.maticendrak.socialmediaproject.AppUser.DTOs.Requests.UpdateDTOs.UpdatePasswordRequestDTO;
-import com.maticendrak.socialmediaproject.AppUser.DTOs.Responses.UserResponseDTO;
-import com.maticendrak.socialmediaproject.AppUser.DTOs.Requests.UpdateDTOs.UpdateUsernameRequestDTO;
-import com.maticendrak.socialmediaproject.AppUser.Functionalities.AppUserFacade;
+import com.maticendrak.socialmediaproject.appUser.dtos.requests.DeleteAppUserRequestDTO;
+import com.maticendrak.socialmediaproject.appUser.dtos.requests.LoginAndRegisterRequestDTO;
+import com.maticendrak.socialmediaproject.appUser.dtos.requests.UpdatePasswordRequestDTO;
+import com.maticendrak.socialmediaproject.appUser.dtos.requests.UpdateUsernameRequestDTO;
+import com.maticendrak.socialmediaproject.appUser.dtos.responses.UserResponseDTO;
+import com.maticendrak.socialmediaproject.appUser.functionalities.AppUserFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
@@ -21,7 +18,7 @@ public class AppUserController {
     private final AppUserFacade appUserFacade;
     private HttpStatus codeToReturn;
 
-    @RequestMapping(value = "/user/login")
+    @RequestMapping(method = RequestMethod.POST, value = "/user/login")
     public ResponseEntity login(@RequestBody LoginAndRegisterRequestDTO loginRequestDTO) {
 
         //goes to login service with given credentials
@@ -45,7 +42,7 @@ public class AppUserController {
 
     }
 
-    @RequestMapping(value = "/user/register")
+    @RequestMapping(method = RequestMethod.POST, value = "/user/register")
     public ResponseEntity register(@RequestBody LoginAndRegisterRequestDTO registerRequestDTO) {
 
         //Check if users exists
@@ -79,14 +76,14 @@ public class AppUserController {
 
     }
 
-    @RequestMapping(value = "/user/update-username")
+    @RequestMapping(method = RequestMethod.PATCH, value = "/user/update-username")
     public UserResponseDTO updateUsername(@RequestBody UpdateUsernameRequestDTO requestDTO) {
 
         return appUserFacade.updateUsername(requestDTO);
 
     }
 
-    @RequestMapping(value = "/user/update-password")
+    @RequestMapping(method = RequestMethod.PATCH, value = "/user/update-password")
     public String updatePassword(@RequestBody UpdatePasswordRequestDTO requestDTO) {
 
         if (appUserFacade.updatePassword(requestDTO)) {
@@ -96,6 +93,22 @@ public class AppUserController {
         } else {
 
             throw new IllegalStateException("Passwords aren't same, or password isn't correct");
+        }
+
+    }
+
+    @RequestMapping(method = RequestMethod.DELETE, value = "user/delete-user")
+    public String deleteAppUser(@RequestBody DeleteAppUserRequestDTO requestDTO) {
+
+        if (appUserFacade.deleteAppUser(requestDTO)) {
+
+
+            return "redirect:" + "http://localhost:8080/";
+
+        } else {
+
+            throw new IllegalArgumentException("something went wrong");
+
         }
 
     }

@@ -1,4 +1,4 @@
-package com.maticendrak.socialmediaproject.Hibernate;
+package com.maticendrak.socialmediaproject.hibernate;
 
 import org.hibernate.Session;
 import org.hibernate.query.NativeQuery;

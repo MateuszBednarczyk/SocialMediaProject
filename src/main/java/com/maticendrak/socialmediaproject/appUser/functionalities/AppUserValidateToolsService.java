@@ -1,7 +1,6 @@
-package com.maticendrak.socialmediaproject.AppUser.Functionalities;
+package com.maticendrak.socialmediaproject.appUser.functionalities;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
