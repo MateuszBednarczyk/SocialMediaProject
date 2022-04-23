@@ -10,6 +10,7 @@ public class AppUserFacade {
 
     private final LoginRegisterService loginRegisterService;
     private final AppUserOperationsService appUserOperationsService;
+    private final AppUserValidateToolsService appUserValidateToolsService;
 
     public LoginResponseDTO login(String username, String password) {
 
@@ -25,7 +26,7 @@ public class AppUserFacade {
 
     public boolean checkIfUserExists(String username) {
 
-        return loginRegisterService.checkIfUserExists(username);
+        return appUserValidateToolsService.checkIfUserExists(username);
 
     }
 

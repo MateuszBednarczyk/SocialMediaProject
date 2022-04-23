@@ -13,6 +13,7 @@ import javax.transaction.Transactional;
 class LoginRegisterService {
     private final AppUserRepository appUserRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final AppUserValidateToolsService appUserValidateToolsService;
 
     @Transactional
     public LoginResponseDTO login(String username, String password) {
@@ -43,7 +44,7 @@ class LoginRegisterService {
     public LoginResponseDTO register(String username, String password) {
 
         //if user exists return null, else register new user
-        if (checkIfUserExists(username)) {
+        if (appUserValidateToolsService.checkIfUserExists(username)) {
 
             return null;
 
@@ -56,18 +57,4 @@ class LoginRegisterService {
 
         }
     }
-
-    public boolean checkIfUserExists(String username) {
-
-        if (appUserRepository.findAppUserEntitiesByUsername(username) != null) {
-
-            return true;
-
-        } else {
-
-            return false;
-
-        }
-    }
-
 }
