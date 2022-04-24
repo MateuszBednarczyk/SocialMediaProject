@@ -12,7 +12,7 @@ public class MainController {
     //from https://stackoverflow.com/a/71818634
     //For an unmatched route, returns react app
     //necessary for react routing
-    @RequestMapping(value = { "/", "/{x:[\\w\\-]+}", "/{x:^(?!api$).*$}/*/{y:[\\w\\-]+}","/error"  })
+    @RequestMapping(value = { "/", "/{x:^(?!api$).*$}/*/{y:[\\w\\-]+}" })
     public String getIndex(HttpServletRequest request) {
         return "index.html";
     }
