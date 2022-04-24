@@ -3,19 +3,18 @@ package com.maticendrak.socialmediaproject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Controller
 public class MainController {
 
-    @RequestMapping("/")
-    public String home() {
+
+    //from https://stackoverflow.com/a/71818634
+    //For an unmatched route, returns react app
+    //necessary for react routing
+    @RequestMapping(value = { "/", "/{x:[\\w\\-]+}", "/{x:^(?!api$).*$}/*/{y:[\\w\\-]+}","/error"  })
+    public String getIndex(HttpServletRequest request) {
         return "index.html";
-    }
-
-    @RequestMapping("/home")
-    public String returnLoginView() {
-
-        return "index.html";
-
     }
 
 }
