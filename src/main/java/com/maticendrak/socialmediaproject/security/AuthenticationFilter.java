@@ -26,7 +26,7 @@ import java.util.Date;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static org.springframework.http.HttpHeaders.AUTHORIZATION;
+import static org.springframework.http.HttpHeaders.*;
 import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
 
 @RequiredArgsConstructor
@@ -69,7 +69,12 @@ class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
         ArrayList<String> responseBody = new ArrayList<String>();
         responseBody.add(new UserResponseDTO(user.getUsername(), user.getDescription(), user.getImage(), user.getPosts(), user.getFollowing()).toString());
         responseBody.add(new JwtTokenDTO(accessToken).toString());
+
+        response.setHeader(ACCESS_CONTROL_EXPOSE_HEADERS, AUTHORIZATION);
+        response.setHeader(ACCESS_CONTROL_ALLOW_HEADERS, AUTHORIZATION);
+
         response.setHeader(AUTHORIZATION, accessToken);
+
         new ObjectMapper().writeValue(response.getOutputStream(), responseBody);
 
     }
