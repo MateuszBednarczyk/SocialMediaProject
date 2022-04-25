@@ -19,7 +19,7 @@ class LoginRegisterService {
     @Transactional
     public UserResponseDTO login(LoginAndRegisterRequestDTO givenUserCredentials) {
 
-        AppUserEntity foundUser = (AppUserEntity) appUserRepository.findAppUserEntitiesByUsername(givenUserCredentials.getUsername());
+        AppUserEntity foundUser = (AppUserEntity) appUserRepository.findAppUserEntityByUsername(givenUserCredentials.getUsername());
 
         //if user is not null and password is correct, return user data from db
         if (foundUser != null) {
@@ -30,7 +30,7 @@ class LoginRegisterService {
 
             } else {
 
-                return new UserResponseDTO(foundUser.getUsername(), foundUser.getDescription(), foundUser.getImage(), foundUser.getPosts(), foundUser.getFollowing());
+                return new UserResponseDTO(foundUser.getUsername(), foundUser.getEmail(), foundUser.getDescription(), foundUser.getImage(), foundUser.getPosts(), foundUser.getFollowing());
 
             }
 
@@ -54,7 +54,7 @@ class LoginRegisterService {
             AppUserEntity newUser = new AppUserEntity(newUserDTO.getUsername(), newUserDTO.getPassword());
             newUser.setPassword(bCryptPasswordEncoder.encode(newUser.getPassword()));
             appUserRepository.save(newUser);
-            return new UserResponseDTO(newUser.getUsername(), newUser.getDescription(), newUser.getImage(), newUser.getPosts(), newUser.getFollowing());
+            return new UserResponseDTO(newUser.getUsername(), newUser.getEmail(), newUser.getDescription(), newUser.getImage(), newUser.getPosts(), newUser.getFollowing());
 
         }
     }

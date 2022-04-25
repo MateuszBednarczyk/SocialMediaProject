@@ -73,6 +73,14 @@ public class AppUserController {
 
     }
 
+
+    @RequestMapping(method = RequestMethod.POST, value = "/api/user/find-user")
+    public UserResponseDTO findUser(@RequestBody FindUserRequestDTO requestDTO) {
+
+        return appUserFacade.findUser(requestDTO);
+
+    }
+
     @RequestMapping(method = RequestMethod.PATCH, value = "/api/user/update-username")
     public UserResponseDTO updateUsername(@RequestBody UpdateUsernameRequestDTO requestDTO) {
 
@@ -94,6 +102,20 @@ public class AppUserController {
 
     }
 
+    @RequestMapping(method = RequestMethod.PATCH, value = "/api/user/update-description")
+    public UserResponseDTO updateDescription(@RequestBody UpdateDescriptionRequestDTO requestDTO) {
+
+        return appUserFacade.updateDescription(requestDTO);
+
+    }
+
+    @RequestMapping(method = RequestMethod.PATCH, value = "/api/user/update-image")
+    public UserResponseDTO updateImage(@RequestBody UpdateImageRequestDTO requestDTO) {
+
+        return appUserFacade.updateImage(requestDTO);
+
+    }
+
     @RequestMapping(method = RequestMethod.DELETE, value = "/api/user/delete-user")
     public String deleteAppUser(@RequestBody DeleteAppUserRequestDTO requestDTO) {
 
@@ -109,20 +131,5 @@ public class AppUserController {
         }
 
     }
-
-    @RequestMapping(method = RequestMethod.PATCH, value = "/api/user/update-description")
-    public UserResponseDTO updateDescription(@RequestBody UpdateDescriptionRequestDTO requestDTO) {
-
-        return appUserFacade.updateDescription(requestDTO);
-
-    }
-
-    @RequestMapping(method = RequestMethod.PATCH, value = "/api/user/update-image")
-    public UserResponseDTO updateImage(@RequestBody UpdateImageRequestDTO requestDTO) {
-
-        return appUserFacade.updateImage(requestDTO);
-
-    }
-
 }
 

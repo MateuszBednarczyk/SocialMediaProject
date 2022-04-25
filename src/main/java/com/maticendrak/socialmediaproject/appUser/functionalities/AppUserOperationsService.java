@@ -22,12 +22,11 @@ class AppUserOperationsService {
     @Transactional
     public UserResponseDTO updateUsername(UpdateUsernameRequestDTO requestDTO) {
 
-        AppUserEntity appUserEntity = (AppUserEntity) appUserRepository.findAppUserEntitiesByUsername(requestDTO.getOldUsername());
+        AppUserEntity appUserEntity = (AppUserEntity) appUserRepository.findAppUserEntityByUsername(requestDTO.getOldUsername());
         if (!appUserValidateToolsService.checkIfUserExists(requestDTO.getNewUsername())) {
 
             appUserEntity.setUsername(requestDTO.getNewUsername());
-            session.getSession().update(appUserEntity);
-            return new UserResponseDTO(appUserEntity.getUsername(), appUserEntity.getDescription(), appUserEntity.getImage(), appUserEntity.getPosts(), appUserEntity.getFollowing());
+            return new UserResponseDTO(appUserEntity.getUsername(), appUserEntity.getEmail(), appUserEntity.getDescription(), appUserEntity.getImage(), appUserEntity.getPosts(), appUserEntity.getFollowing());
 
         } else {
 
@@ -39,12 +38,11 @@ class AppUserOperationsService {
     @Transactional
     public boolean updatePassword(UpdatePasswordRequestDTO requestDTO) {
 
-        AppUserEntity appUserEntity = (AppUserEntity) appUserRepository.findAppUserEntitiesByUsername(requestDTO.getUsername());
+        AppUserEntity appUserEntity = (AppUserEntity) appUserRepository.findAppUserEntityByUsername(requestDTO.getUsername());
 
         if (bCryptPasswordEncoder.matches(requestDTO.getOldPassword(), appUserEntity.getPassword())) {
 
             appUserEntity.setPassword(bCryptPasswordEncoder.encode(requestDTO.getNewPassword()));
-            session.getSession().update(appUserEntity);
             return true;
         } else {
 
@@ -59,7 +57,7 @@ class AppUserOperationsService {
 
         if (requestDTO.getPassword().equals(requestDTO.getPasswordConfirmation())) {
 
-            session.getSession().delete(appUserRepository.findAppUserEntitiesByUsername(requestDTO.getUsername()));
+            session.getSession().delete(appUserRepository.findAppUserEntityByUsername(requestDTO.getUsername()));
             return true;
 
         } else {
@@ -75,10 +73,9 @@ class AppUserOperationsService {
 
         if (appUserValidateToolsService.checkIfUserExists(requestDTO.getUsername())) {
 
-            AppUserEntity appUserEntity = (AppUserEntity) appUserRepository.findAppUserEntitiesByUsername(requestDTO.getUsername());
+            AppUserEntity appUserEntity = (AppUserEntity) appUserRepository.findAppUserEntityByUsername(requestDTO.getUsername());
             appUserEntity.setDescription(requestDTO.getDescription());
-            session.getSession().update(appUserEntity);
-            return new UserResponseDTO(appUserEntity.getUsername(), appUserEntity.getDescription(), appUserEntity.getImage(), appUserEntity.getPosts(), appUserEntity.getFollowing());
+            return new UserResponseDTO(appUserEntity.getUsername(), appUserEntity.getEmail(), appUserEntity.getDescription(), appUserEntity.getImage(), appUserEntity.getPosts(), appUserEntity.getFollowing());
 
         } else {
 
@@ -94,14 +91,54 @@ class AppUserOperationsService {
 
         if (appUserValidateToolsService.checkIfUserExists(requestDTO.getUsername())) {
 
-            AppUserEntity appUserEntity = (AppUserEntity) appUserRepository.findAppUserEntitiesByUsername(requestDTO.getUsername());
+            AppUserEntity appUserEntity = (AppUserEntity) appUserRepository.findAppUserEntityByUsername(requestDTO.getUsername());
             appUserEntity.setImage(requestDTO.getImageURL());
-            session.getSession().update(appUserEntity);
-            return new UserResponseDTO(appUserEntity.getUsername(), appUserEntity.getDescription(), appUserEntity.getImage(), appUserEntity.getPosts(), appUserEntity.getFollowing());
+            return new UserResponseDTO(appUserEntity.getUsername(), appUserEntity.getEmail(), appUserEntity.getDescription(), appUserEntity.getImage(), appUserEntity.getPosts(), appUserEntity.getFollowing());
 
         } else {
 
             throw new IllegalArgumentException("something went wrong while u've been trying to set image");
+
+        }
+
+    }
+
+    @Transactional
+    public UserResponseDTO findUser(FindUserRequestDTO requestDTO) {
+
+        AppUserEntity appUserEntity = (AppUserEntity) appUserRepository.findAppUserEntityByUsername(requestDTO.getUsername());
+
+        if (appUserValidateToolsService.checkIfUserExists(requestDTO.getUsername())) {
+
+            return new UserResponseDTO(appUserEntity.getUsername(), appUserEntity.getEmail(), appUserEntity.getDescription(), appUserEntity.getImage(), appUserEntity.getPosts(), appUserEntity.getFollowing());
+
+        } else {
+
+            throw new IllegalArgumentException("Bad args");
+
+        }
+
+    }
+
+    @Transactional
+    public UserResponseDTO updateEmail(UpdateEmailRequestDTO requestDTO) {
+
+        if (appUserValidateToolsService.checkIfUserExists(requestDTO.getUsername())) {
+
+            AppUserEntity appUserEntity = (AppUserEntity) appUserRepository.findAppUserEntityByUsername(requestDTO.getUsername());
+
+            if (requestDTO.getOldEmail().equals(appUserEntity.getEmail())) {
+
+                appUserEntity.setEmail(requestDTO.getNewEmail());
+
+            }
+
+            return new UserResponseDTO(appUserEntity.getUsername(), appUserEntity.getEmail(), appUserEntity.getDescription(), appUserEntity.getImage(), appUserEntity.getPosts(), appUserEntity.getFollowing());
+
+        } else {
+
+
+            throw new IllegalArgumentException("something went wrong while u've been trying to set email");
 
         }
 

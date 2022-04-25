@@ -1,8 +1,10 @@
 package com.maticendrak.socialmediaproject.appUser;
 
+import com.sun.istack.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.mapping.List;
+import org.springframework.lang.Nullable;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,12 +24,24 @@ public class AppUserEntity implements UserDetails {
     private Long id;
 
     //Usersettings
+    @NotNull
     private String username;
+    @NotNull
     private String password;
+
+    @Nullable
+    private String email;
+
+    @Nullable
     private String description;
+
+    @Nullable
     private String image;
 
+    @Nullable
     private List posts;
+
+    @Nullable
     private List following;
 
     public AppUserEntity(String username, String password) {

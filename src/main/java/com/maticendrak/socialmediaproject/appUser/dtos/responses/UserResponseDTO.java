@@ -11,19 +11,10 @@ import org.hibernate.mapping.List;
 public class UserResponseDTO {
 
     private String username;
+    private String email;
     private String description;
     private String image;
     private List posts;
     private List following;
 
-    @Override
-    public String toString() {
-        return "LoginResponseDTO{" +
-                "username='" + username + '\'' +
-                ", description='" + description + '\'' +
-                ", image='" + image + '\'' +
-                ", posts=" + posts +
-                ", following=" + following +
-                '}';
-    }
 }

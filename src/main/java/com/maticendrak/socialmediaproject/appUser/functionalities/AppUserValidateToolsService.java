@@ -11,7 +11,7 @@ class AppUserValidateToolsService {
 
     public boolean checkIfUserExists(String username) {
 
-        if (appUserRepository.findAppUserEntitiesByUsername(username) != null) {
+        if (appUserRepository.findAppUserEntityByUsername(username) != null) {
 
             return true;
 

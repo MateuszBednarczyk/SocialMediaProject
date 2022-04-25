@@ -61,4 +61,10 @@ public class AppUserFacade {
 
     }
 
+    public UserResponseDTO findUser(FindUserRequestDTO requestDTO) {
+
+        return appUserOperationsService.findUser(requestDTO);
+
+    }
+
 }

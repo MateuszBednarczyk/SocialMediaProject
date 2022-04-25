@@ -66,13 +66,12 @@ class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
                 .sign(algorithm);
 
         response.setContentType(APPLICATION_JSON_VALUE);
-        ArrayList<String> responseBody = new ArrayList<String>();
-        responseBody.add(new UserResponseDTO(user.getUsername(), user.getDescription(), user.getImage(), user.getPosts(), user.getFollowing()).toString());
-        responseBody.add(new JwtTokenDTO(accessToken).toString());
+        ArrayList<Object> responseBody = new ArrayList<Object>();
+        responseBody.add(new UserResponseDTO(user.getUsername(),user.getEmail(), user.getDescription(), user.getImage(), user.getPosts(), user.getFollowing()));
+        responseBody.add(new JwtTokenDTO(accessToken));
 
         response.setHeader(ACCESS_CONTROL_EXPOSE_HEADERS, AUTHORIZATION);
         response.setHeader(ACCESS_CONTROL_ALLOW_HEADERS, AUTHORIZATION);
-
         response.setHeader(AUTHORIZATION, accessToken);
 
         new ObjectMapper().writeValue(response.getOutputStream(), responseBody);
