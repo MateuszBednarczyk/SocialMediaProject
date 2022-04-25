@@ -18,14 +18,14 @@ class LoginRegisterService {
     private final AppUserValidateToolsService appUserValidateToolsService;
 
     @Transactional
-    public UserResponseDTO login(LoginRequestDTO givenUserCredentials) {
-
-        AppUserEntity foundUser = (AppUserEntity) appUserRepository.findAppUserEntityByUsername(givenUserCredentials.getUsername());
+    public UserResponseDTO login(LoginRequestDTO requestDTO) {
 
         //if user is not null and password is correct, return user data from db
-        if (foundUser != null) {
+        if (appUserValidateToolsService.checkIfUserExists(requestDTO.getUsername())) {
 
-            if (!bCryptPasswordEncoder.matches(givenUserCredentials.getPassword(), foundUser.getPassword())) {
+            AppUserEntity foundUser = (AppUserEntity) appUserRepository.findAppUserEntityByUsername(requestDTO.getUsername());
+
+            if (!bCryptPasswordEncoder.matches(requestDTO.getPassword(), foundUser.getPassword())) {
 
                 return null;
 
@@ -43,18 +43,19 @@ class LoginRegisterService {
     }
 
     @Transactional
-    public UserResponseDTO register(RegisterRequestDTO newUserDTO) {
+    public UserResponseDTO register(RegisterRequestDTO requestDTO) {
 
         //if user exists return null, else register new user
-        if (appUserValidateToolsService.checkIfUserExists(newUserDTO.getUsername())) {
+        if (appUserValidateToolsService.checkIfUserExists(requestDTO.getUsername())) {
 
             return null;
 
         } else {
 
-            AppUserEntity newUser = new AppUserEntity(newUserDTO.getUsername(), newUserDTO.getPassword(), newUserDTO.getEmail());
+            AppUserEntity newUser = new AppUserEntity(requestDTO.getUsername(), requestDTO.getPassword(), requestDTO.getEmail());
             newUser.setPassword(bCryptPasswordEncoder.encode(newUser.getPassword()));
             appUserRepository.save(newUser);
+            
             return new UserResponseDTO(newUser.getUsername(), newUser.getEmail(), newUser.getDescription(), newUser.getImage(), newUser.getPosts(), newUser.getFollowing());
 
         }
