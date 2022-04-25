@@ -7,7 +7,7 @@ import org.hibernate.annotations.Immutable;
 @Getter
 @AllArgsConstructor
 @Immutable
-public class LoginAndRegisterRequestDTO {
+public class LoginRequestDTO {
 
     private String username;
     private String password;

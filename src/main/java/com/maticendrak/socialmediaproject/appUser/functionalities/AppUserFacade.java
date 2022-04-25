@@ -13,13 +13,13 @@ public class AppUserFacade {
     private final AppUserOperationsService appUserOperationsService;
     private final AppUserValidateToolsService appUserValidateToolsService;
 
-    public UserResponseDTO login(LoginAndRegisterRequestDTO requestDTO) {
+    public UserResponseDTO login(LoginRequestDTO requestDTO) {
 
         return loginRegisterService.login(requestDTO);
 
     }
 
-    public UserResponseDTO register(LoginAndRegisterRequestDTO requestDTO) {
+    public UserResponseDTO register(RegisterRequestDTO requestDTO) {
 
         return loginRegisterService.register(requestDTO);
 

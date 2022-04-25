@@ -16,7 +16,7 @@ public class AppUserController {
     private HttpStatus codeToReturn;
 
     @RequestMapping(method = RequestMethod.POST, value = "/api/user/login")
-    public ResponseEntity login(@RequestBody LoginAndRegisterRequestDTO loginRequestDTO) {
+    public ResponseEntity login(@RequestBody LoginRequestDTO loginRequestDTO) {
 
         //goes to login service with given credentials
         UserResponseDTO user = appUserFacade.login(loginRequestDTO);
@@ -40,10 +40,10 @@ public class AppUserController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/api/user/register")
-    public ResponseEntity register(@RequestBody LoginAndRegisterRequestDTO registerRequestDTO) {
+    public ResponseEntity register(@RequestBody RegisterRequestDTO requestDTO) {
 
         //Check if users exists
-        if (appUserFacade.checkIfUserExists(registerRequestDTO.getUsername())) {
+        if (appUserFacade.checkIfUserExists(requestDTO.getUsername())) {
 
             //if user already exists, api drops conflict (409)
             codeToReturn = HttpStatus.CONFLICT;
@@ -51,7 +51,7 @@ public class AppUserController {
         } else {
 
             //if user doesn't exist it goes to register method
-            UserResponseDTO newUser = appUserFacade.register(registerRequestDTO);
+            UserResponseDTO newUser = appUserFacade.register(requestDTO);
 
             //checking if register method created user correct
             if (newUser == null) {

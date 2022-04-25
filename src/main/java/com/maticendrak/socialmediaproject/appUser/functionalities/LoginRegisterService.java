@@ -1,7 +1,8 @@
 package com.maticendrak.socialmediaproject.appUser.functionalities;
 
 import com.maticendrak.socialmediaproject.appUser.AppUserEntity;
-import com.maticendrak.socialmediaproject.appUser.dtos.requests.LoginAndRegisterRequestDTO;
+import com.maticendrak.socialmediaproject.appUser.dtos.requests.LoginRequestDTO;
+import com.maticendrak.socialmediaproject.appUser.dtos.requests.RegisterRequestDTO;
 import com.maticendrak.socialmediaproject.appUser.dtos.responses.UserResponseDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -17,7 +18,7 @@ class LoginRegisterService {
     private final AppUserValidateToolsService appUserValidateToolsService;
 
     @Transactional
-    public UserResponseDTO login(LoginAndRegisterRequestDTO givenUserCredentials) {
+    public UserResponseDTO login(LoginRequestDTO givenUserCredentials) {
 
         AppUserEntity foundUser = (AppUserEntity) appUserRepository.findAppUserEntityByUsername(givenUserCredentials.getUsername());
 
@@ -42,7 +43,7 @@ class LoginRegisterService {
     }
 
     @Transactional
-    public UserResponseDTO register(LoginAndRegisterRequestDTO newUserDTO) {
+    public UserResponseDTO register(RegisterRequestDTO newUserDTO) {
 
         //if user exists return null, else register new user
         if (appUserValidateToolsService.checkIfUserExists(newUserDTO.getUsername())) {
@@ -51,7 +52,7 @@ class LoginRegisterService {
 
         } else {
 
-            AppUserEntity newUser = new AppUserEntity(newUserDTO.getUsername(), newUserDTO.getPassword());
+            AppUserEntity newUser = new AppUserEntity(newUserDTO.getUsername(), newUserDTO.getPassword(), newUserDTO.getEmail());
             newUser.setPassword(bCryptPasswordEncoder.encode(newUser.getPassword()));
             appUserRepository.save(newUser);
             return new UserResponseDTO(newUser.getUsername(), newUser.getEmail(), newUser.getDescription(), newUser.getImage(), newUser.getPosts(), newUser.getFollowing());

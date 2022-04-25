@@ -44,9 +44,10 @@ public class AppUserEntity implements UserDetails {
     @Nullable
     private List following;
 
-    public AppUserEntity(String username, String password) {
+    public AppUserEntity(String username, String password, @Nullable String email) {
         this.username = username;
         this.password = password;
+        this.email = email;
     }
 
     @Override
