@@ -3,7 +3,6 @@ package com.maticendrak.socialmediaproject.appUser.functionalities;
 import com.maticendrak.socialmediaproject.appUser.AppUserEntity;
 import com.maticendrak.socialmediaproject.appUser.dtos.requests.*;
 import com.maticendrak.socialmediaproject.appUser.dtos.responses.UserResponseDTO;
-import com.maticendrak.socialmediaproject.hibernate.SessionManagerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -15,7 +14,6 @@ import javax.transaction.Transactional;
 class AppUserOperationsService {
 
     private final AppUserRepository appUserRepository;
-    private final SessionManagerService session;
     private final AppUserValidateToolsService appUserValidateToolsService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
@@ -57,7 +55,7 @@ class AppUserOperationsService {
 
         if (requestDTO.getPassword().equals(requestDTO.getPasswordConfirmation())) {
 
-            session.getSession().delete(appUserRepository.findAppUserEntityByUsername(requestDTO.getUsername()));
+            appUserRepository.deleteAppUserEntityByUsername(requestDTO.getUsername());
             return true;
 
         } else {
