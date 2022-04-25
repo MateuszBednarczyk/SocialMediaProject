@@ -121,7 +121,6 @@ public class AppUserController {
 
         if (appUserFacade.deleteAppUser(requestDTO)) {
 
-
             return "redirect:" + "http://localhost:8080/";
 
         } else {
