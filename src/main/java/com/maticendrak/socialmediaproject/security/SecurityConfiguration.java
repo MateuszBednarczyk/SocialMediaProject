@@ -1,6 +1,6 @@
 package com.maticendrak.socialmediaproject.security;
 
-import com.maticendrak.socialmediaproject.appUser.functionalities.UserDetailsServiceImpl;
+import com.maticendrak.socialmediaproject.appUser.appuserfunctionalities.UserDetailsServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -79,7 +79,15 @@ class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests()
                 .antMatchers("/api/user/delete-user")
-                .hasAuthority("ROLE_VERIFIED");
+                .hasAuthority("ROLE_UNVERIFIED");
+
+        http.authorizeRequests()
+                .antMatchers("/api/user/send-verification-mail")
+                .hasAuthority("ROLE_UNVERIFIED");
+
+        http.authorizeRequests()
+                .antMatchers("/api/user/verify")
+                .hasAuthority("ROLE_UNVERIFIED");
 
         //jwt authentication config
         AuthenticationFilter authenticationFilter = new AuthenticationFilter(authenticationManagerBean());

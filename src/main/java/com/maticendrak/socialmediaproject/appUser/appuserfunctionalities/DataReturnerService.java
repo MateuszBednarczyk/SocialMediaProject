@@ -1,4 +1,4 @@
-package com.maticendrak.socialmediaproject.appUser.functionalities;
+package com.maticendrak.socialmediaproject.appUser.appuserfunctionalities;
 
 import com.maticendrak.socialmediaproject.appUser.AppUserEntity;
 import com.maticendrak.socialmediaproject.appUser.dtos.requests.FindUserRequestDTO;
@@ -8,18 +8,20 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 
+
+//Service when methods are returning filtered data
 @Service
 @RequiredArgsConstructor
-class AppUserDataReturnerService {
+class DataReturnerService {
     private final AppUserRepository appUserRepository;
-    private final AppUserValidateToolsService appUserValidateToolsService;
+    private final ValidateToolsService validateToolsService;
 
     @Transactional
     public UserResponseDTO findUser(FindUserRequestDTO requestDTO) {
 
         AppUserEntity appUserEntity = (AppUserEntity) appUserRepository.findAppUserEntityByUsername(requestDTO.getUsername());
 
-        if (appUserValidateToolsService.checkIfUserExists(requestDTO.getUsername())) {
+        if (validateToolsService.checkIfUserExists(requestDTO.getUsername())) {
 
             return new UserResponseDTO(appUserEntity.getUsername(), appUserEntity.getEmail(), appUserEntity.getDescription(), appUserEntity.getImage(), appUserEntity.getPosts(), appUserEntity.getFollowing(), appUserEntity.getRole());
 

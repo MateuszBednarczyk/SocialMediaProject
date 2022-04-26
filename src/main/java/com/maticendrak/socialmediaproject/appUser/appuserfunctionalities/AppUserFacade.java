@@ -1,4 +1,4 @@
-package com.maticendrak.socialmediaproject.appUser.functionalities;
+package com.maticendrak.socialmediaproject.appUser.appuserfunctionalities;
 
 import com.maticendrak.socialmediaproject.appUser.dtos.requests.*;
 import com.maticendrak.socialmediaproject.appUser.dtos.responses.UserResponseDTO;
@@ -11,81 +11,81 @@ import javax.servlet.http.HttpServletRequest;
 @RequiredArgsConstructor
 public class AppUserFacade {
 
-    private final LoginRegisterService loginRegisterService;
-    private final AppUserOperationsService appUserOperationsService;
-    private final AppUserValidateToolsService appUserValidateToolsService;
-    private final AppUserVerificationService appUserVerificationService;
-    private final AppUserDataReturnerService appUserDataReturnerService;
+    private final LoginAndRegisterService loginAndRegisterService;
+    private final OperationsService operationsService;
+    private final ValidateToolsService validateToolsService;
+    private final VerificationService verificationService;
+    private final DataReturnerService dataReturnerService;
 
     public UserResponseDTO login(LoginRequestDTO requestDTO) {
 
-        return loginRegisterService.login(requestDTO);
+        return loginAndRegisterService.login(requestDTO);
 
     }
 
     public UserResponseDTO register(RegisterRequestDTO requestDTO) {
 
-        return loginRegisterService.register(requestDTO);
+        return loginAndRegisterService.register(requestDTO);
 
     }
 
     public boolean checkIfUserExists(String username) {
 
-        return appUserValidateToolsService.checkIfUserExists(username);
+        return validateToolsService.checkIfUserExists(username);
 
     }
 
     public UserResponseDTO updateUsername(UpdateUsernameRequestDTO requestDTO) {
 
-        return appUserOperationsService.updateUsername(requestDTO);
+        return operationsService.updateUsername(requestDTO);
 
     }
 
     public boolean updatePassword(UpdatePasswordRequestDTO requestDTO) {
 
-        return appUserOperationsService.updatePassword(requestDTO);
+        return operationsService.updatePassword(requestDTO);
 
     }
 
     public boolean deleteAppUser(DeleteAppUserRequestDTO requestDTO) {
 
-        return appUserOperationsService.deleteAppUser(requestDTO);
+        return operationsService.deleteAppUser(requestDTO);
 
     }
 
     public UserResponseDTO updateDescription(UpdateDescriptionRequestDTO requestDTO) {
 
-        return appUserOperationsService.updateDescription(requestDTO);
+        return operationsService.updateDescription(requestDTO);
 
     }
 
     public UserResponseDTO updateImage(UpdateImageRequestDTO requestDTO) {
 
-        return appUserOperationsService.updateImage(requestDTO);
+        return operationsService.updateImage(requestDTO);
 
     }
 
     public UserResponseDTO updateRole(UpdateRoleRequestDTO requestDTO) {
 
-        return appUserOperationsService.updateRole(requestDTO);
+        return operationsService.updateRole(requestDTO);
 
     }
 
     public void sendVerificationMail(SendMailRequestDTO requestDTO, HttpServletRequest httpServletRequest) {
 
-        appUserVerificationService.sendVerificationMail(requestDTO, httpServletRequest);
+        verificationService.sendVerificationMail(requestDTO, httpServletRequest);
 
     }
 
     public UserResponseDTO verifyAppUser(VerifyAppUserRequestDTO requestDTO) {
 
-        return appUserVerificationService.verifyAppUser(requestDTO);
+        return verificationService.verifyAppUser(requestDTO);
 
     }
 
     public UserResponseDTO findUser(FindUserRequestDTO requestDTO) {
 
-        return appUserDataReturnerService.findUser(requestDTO);
+        return dataReturnerService.findUser(requestDTO);
 
     }
 

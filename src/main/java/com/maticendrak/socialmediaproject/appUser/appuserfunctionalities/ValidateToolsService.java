@@ -1,11 +1,11 @@
-package com.maticendrak.socialmediaproject.appUser.functionalities;
+package com.maticendrak.socialmediaproject.appUser.appuserfunctionalities;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
 @Service
-class AppUserValidateToolsService {
+class ValidateToolsService {
 
     private final AppUserRepository appUserRepository;
 

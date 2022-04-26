@@ -1,4 +1,4 @@
-package com.maticendrak.socialmediaproject.appUser.functionalities;
+package com.maticendrak.socialmediaproject.appUser.appuserfunctionalities;
 
 import com.maticendrak.socialmediaproject.appUser.AppUserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;

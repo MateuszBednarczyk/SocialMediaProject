@@ -1,4 +1,4 @@
-package com.maticendrak.socialmediaproject.appUser.functionalities;
+package com.maticendrak.socialmediaproject.appUser.appuserfunctionalities;
 
 import com.maticendrak.socialmediaproject.appUser.AppUserEntity;
 import com.maticendrak.socialmediaproject.appUser.dtos.requests.SendMailRequestDTO;
@@ -14,7 +14,7 @@ import javax.transaction.Transactional;
 
 @Service
 @RequiredArgsConstructor
-class AppUserVerificationService {
+class VerificationService {
 
     private final AppUserRepository appUserRepository;
     private final VerificationTokenFacade verificationTokenFacade;

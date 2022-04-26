@@ -1,4 +1,4 @@
-package com.maticendrak.socialmediaproject.appUser.functionalities;
+package com.maticendrak.socialmediaproject.appUser.appuserfunctionalities;
 
 import com.maticendrak.socialmediaproject.appUser.AppUserEntity;
 import com.maticendrak.socialmediaproject.appUser.dtos.requests.LoginRequestDTO;
@@ -12,16 +12,16 @@ import javax.transaction.Transactional;
 
 @Service
 @RequiredArgsConstructor
-class LoginRegisterService {
+class LoginAndRegisterService {
     private final AppUserRepository appUserRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
-    private final AppUserValidateToolsService appUserValidateToolsService;
+    private final ValidateToolsService validateToolsService;
 
     @Transactional
     public UserResponseDTO login(LoginRequestDTO requestDTO) {
 
         //if user is not null and password is correct, return user data from db
-        if (appUserValidateToolsService.checkIfUserExists(requestDTO.getUsername())) {
+        if (validateToolsService.checkIfUserExists(requestDTO.getUsername())) {
 
             AppUserEntity foundUser = (AppUserEntity) appUserRepository.findAppUserEntityByUsername(requestDTO.getUsername());
 
@@ -46,7 +46,7 @@ class LoginRegisterService {
     public UserResponseDTO register(RegisterRequestDTO requestDTO) {
 
         //if user exists return null, else register new user
-        if (appUserValidateToolsService.checkIfUserExists(requestDTO.getUsername())) {
+        if (validateToolsService.checkIfUserExists(requestDTO.getUsername())) {
 
             return null;
 

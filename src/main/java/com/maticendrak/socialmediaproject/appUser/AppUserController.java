@@ -2,7 +2,7 @@ package com.maticendrak.socialmediaproject.appUser;
 
 import com.maticendrak.socialmediaproject.appUser.dtos.requests.*;
 import com.maticendrak.socialmediaproject.appUser.dtos.responses.UserResponseDTO;
-import com.maticendrak.socialmediaproject.appUser.functionalities.AppUserFacade;
+import com.maticendrak.socialmediaproject.appUser.appuserfunctionalities.AppUserFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
