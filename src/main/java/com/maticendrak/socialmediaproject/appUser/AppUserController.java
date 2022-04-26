@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -141,16 +142,16 @@ public class AppUserController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/api/user/send-verification-mail")
-    public void sendVerificationMail(@RequestBody SendMailRequestDTO requestDTO, HttpServletRequest httpServletRequest){
+    public void sendVerificationMail(@RequestBody SendMailRequestDTO requestDTO, HttpServletRequest httpServletRequest) {
 
         appUserFacade.sendVerificationMail(requestDTO, httpServletRequest);
 
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/api/user/verify")
-    public UserResponseDTO verifyAppUser(@RequestParam("token") String token, @RequestParam("username") String username){
+    public ModelAndView verifyAppUser(@RequestParam("token") String token, @RequestParam("username") String username) {
 
-        return appUserFacade.verifyAppUser(new VerifyAppUserRequestDTO(token, username));
+        return new ModelAndView("redirect:http://localhost:8080/","model",appUserFacade.verifyAppUser(new VerifyAppUserRequestDTO(token, username)));
 
     }
 
