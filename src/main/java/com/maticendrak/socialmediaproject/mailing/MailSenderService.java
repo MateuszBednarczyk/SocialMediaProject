@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-class MailSenderService{
+class MailSenderService {
     private final JavaMailSender javaMailSender;
 
     public void sendEmail(SendMailRequestDTO requestDTO) {

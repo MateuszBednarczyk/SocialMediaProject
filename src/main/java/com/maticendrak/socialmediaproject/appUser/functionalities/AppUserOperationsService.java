@@ -9,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 
 @Service
@@ -47,22 +46,6 @@ class AppUserOperationsService {
 
             appUserEntity.setPassword(bCryptPasswordEncoder.encode(requestDTO.getNewPassword()));
             return true;
-        } else {
-
-            return false;
-
-        }
-
-    }
-
-    @Transactional
-    public boolean deleteAppUser(DeleteAppUserRequestDTO requestDTO) {
-
-        if (requestDTO.getPassword().equals(requestDTO.getPasswordConfirmation())) {
-
-            appUserRepository.deleteAppUserEntityByUsername(requestDTO.getUsername());
-            return true;
-
         } else {
 
             return false;
@@ -148,50 +131,19 @@ class AppUserOperationsService {
     }
 
     @Transactional
-    public UserResponseDTO findUser(FindUserRequestDTO requestDTO) {
+    public boolean deleteAppUser(DeleteAppUserRequestDTO requestDTO) {
 
-        AppUserEntity appUserEntity = (AppUserEntity) appUserRepository.findAppUserEntityByUsername(requestDTO.getUsername());
+        if (requestDTO.getPassword().equals(requestDTO.getPasswordConfirmation())) {
 
-        if (appUserValidateToolsService.checkIfUserExists(requestDTO.getUsername())) {
-
-            return new UserResponseDTO(appUserEntity.getUsername(), appUserEntity.getEmail(), appUserEntity.getDescription(), appUserEntity.getImage(), appUserEntity.getPosts(), appUserEntity.getFollowing(), appUserEntity.getRole());
+            appUserRepository.deleteAppUserEntityByUsername(requestDTO.getUsername());
+            return true;
 
         } else {
 
-            throw new IllegalArgumentException("Bad args");
+            return false;
 
         }
 
     }
-
-    @Transactional
-    public void sendVerificationMail(SendMailRequestDTO requestDTO, HttpServletRequest httpServletRequest) {
-
-        AppUserEntity appUserEntity = (AppUserEntity) appUserRepository.findAppUserEntityByUsername(requestDTO.getUsername());
-        requestDTO.setContent("http://" + httpServletRequest.getServerName() + ":" + httpServletRequest.getServerPort()
-                + httpServletRequest.getContextPath() + "/api/user/verify?token=" + verificationTokenFacade.generateAndSaveVerificationToken(appUserEntity) + "&username=" +
-                appUserEntity.getUsername());
-        requestDTO.setTitle("Verify your Bit Space Account");
-        mailFacade.sendMail(requestDTO);
-
-    }
-
-    @Transactional
-    public UserResponseDTO verifyAppUser(VerifyAppUserRequestDTO requestDTO) {
-
-        AppUserEntity appUserEntity = (AppUserEntity) appUserRepository.findAppUserEntityByUsername(requestDTO.getUsername());
-        if (verificationTokenFacade.checkIfTokenIsValid(requestDTO.getToken(), appUserEntity.getId())) {
-
-            appUserEntity.setRole("ROLE_VERIFIED");
-            return new UserResponseDTO(appUserEntity.getUsername(), appUserEntity.getEmail(), appUserEntity.getDescription(), appUserEntity.getImage(), appUserEntity.getPosts(), appUserEntity.getFollowing(), appUserEntity.getRole());
-
-        } else {
-
-            throw new IllegalArgumentException("Token isn't valid");
-
-        }
-
-    }
-
 
 }

@@ -10,7 +10,7 @@ public class MailFacade {
 
     private final MailSenderService mailSenderService;
 
-    public void sendMail(SendMailRequestDTO requestDTO){
+    public void sendMail(SendMailRequestDTO requestDTO) {
 
         mailSenderService.sendEmail(requestDTO);
 

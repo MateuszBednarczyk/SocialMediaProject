@@ -14,6 +14,8 @@ public class AppUserFacade {
     private final LoginRegisterService loginRegisterService;
     private final AppUserOperationsService appUserOperationsService;
     private final AppUserValidateToolsService appUserValidateToolsService;
+    private final AppUserVerificationService appUserVerificationService;
+    private final AppUserDataReturnerService appUserDataReturnerService;
 
     public UserResponseDTO login(LoginRequestDTO requestDTO) {
 
@@ -63,12 +65,6 @@ public class AppUserFacade {
 
     }
 
-    public UserResponseDTO findUser(FindUserRequestDTO requestDTO) {
-
-        return appUserOperationsService.findUser(requestDTO);
-
-    }
-
     public UserResponseDTO updateRole(UpdateRoleRequestDTO requestDTO) {
 
         return appUserOperationsService.updateRole(requestDTO);
@@ -77,14 +73,21 @@ public class AppUserFacade {
 
     public void sendVerificationMail(SendMailRequestDTO requestDTO, HttpServletRequest httpServletRequest) {
 
-        appUserOperationsService.sendVerificationMail(requestDTO, httpServletRequest);
+        appUserVerificationService.sendVerificationMail(requestDTO, httpServletRequest);
 
     }
 
     public UserResponseDTO verifyAppUser(VerifyAppUserRequestDTO requestDTO) {
 
-        return appUserOperationsService.verifyAppUser(requestDTO);
+        return appUserVerificationService.verifyAppUser(requestDTO);
 
     }
+
+    public UserResponseDTO findUser(FindUserRequestDTO requestDTO) {
+
+        return appUserDataReturnerService.findUser(requestDTO);
+
+    }
+
 
 }

@@ -55,7 +55,7 @@ class LoginRegisterService {
             AppUserEntity newUser = new AppUserEntity(requestDTO.getUsername(), requestDTO.getPassword(), requestDTO.getEmail(), "ROLE_UNVERIFIED");
             newUser.setPassword(bCryptPasswordEncoder.encode(newUser.getPassword()));
             appUserRepository.save(newUser);
-            
+
             return new UserResponseDTO(newUser.getUsername(), newUser.getEmail(), newUser.getDescription(), newUser.getImage(), newUser.getPosts(), newUser.getFollowing(), newUser.getRole());
 
         }

@@ -40,7 +40,7 @@ class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         corsConfiguration.setAllowedHeaders(List.of("Authorization", "Cache-Control", "Content-Type"));
         corsConfiguration.setAllowedOrigins(List.of("*"));
-        corsConfiguration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "PUT","OPTIONS","PATCH", "DELETE"));
+        corsConfiguration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "PUT", "OPTIONS", "PATCH", "DELETE"));
         corsConfiguration.setAllowCredentials(true);
         corsConfiguration.setExposedHeaders(List.of("Authorization"));
 
@@ -58,28 +58,28 @@ class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         //home security config
         http.authorizeRequests()
-                .antMatchers("/home#/home")
-                .hasAnyAuthority("ROLE_NOTVERIFICATED");
+                .antMatchers("/home")
+                .hasAnyAuthority("ROLE_UNVERIFIED");
 
         http.authorizeRequests()
                 .antMatchers("/api/user/update-username")
-                .hasAuthority("ROLE_NOTVERIFICATED");
+                .hasAuthority("ROLE_VERIFIED");
 
         http.authorizeRequests()
                 .antMatchers("/api/user/update-password")
-                .hasAuthority("ROLE_NOTVERIFICATED");
+                .hasAuthority("ROLE_VERIFIED");
 
         http.authorizeRequests()
                 .antMatchers("/api/user/update-description")
-                .hasAuthority("ROLE_NOTVERIFICATED");
+                .hasAuthority("ROLE_VERIFIED");
 
         http.authorizeRequests()
                 .antMatchers("/api/user/update-image")
-                .hasAuthority("ROLE_NOTVERIFICATED");
+                .hasAuthority("ROLE_VERIFIED");
 
         http.authorizeRequests()
                 .antMatchers("/api/user/delete-user")
-                .hasAuthority("ROLE_NOTVERIFICATED");
+                .hasAuthority("ROLE_VERIFIED");
 
         //jwt authentication config
         AuthenticationFilter authenticationFilter = new AuthenticationFilter(authenticationManagerBean());

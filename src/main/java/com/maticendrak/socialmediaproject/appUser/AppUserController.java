@@ -151,7 +151,7 @@ public class AppUserController {
     @RequestMapping(method = RequestMethod.GET, value = "/api/user/verify")
     public ModelAndView verifyAppUser(@RequestParam("token") String token, @RequestParam("username") String username) {
 
-        return new ModelAndView("redirect:http://localhost:8080/","model",appUserFacade.verifyAppUser(new VerifyAppUserRequestDTO(token, username)));
+        return new ModelAndView("redirect:http://localhost:8080/", "model", appUserFacade.verifyAppUser(new VerifyAppUserRequestDTO(token, username)));
 
     }
 
