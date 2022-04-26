@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequiredArgsConstructor
@@ -135,6 +137,20 @@ public class AppUserController {
     public UserResponseDTO updateRole(@RequestBody UpdateRoleRequestDTO requestDTO) {
 
         return appUserFacade.updateRole(requestDTO);
+
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/api/user/send-verification-mail")
+    public void sendVerificationMail(@RequestBody SendMailRequestDTO requestDTO, HttpServletRequest httpServletRequest){
+
+        appUserFacade.sendVerificationMail(requestDTO, httpServletRequest);
+
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/api/user/verify")
+    public UserResponseDTO verifyAppUser(@RequestParam String token, @RequestParam String username){
+
+        return appUserFacade.verifyAppUser(new VerifyAppUserRequestDTO(token, username));
 
     }
 

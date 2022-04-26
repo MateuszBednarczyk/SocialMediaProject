@@ -5,6 +5,8 @@ import com.maticendrak.socialmediaproject.appUser.dtos.responses.UserResponseDTO
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Service
 @RequiredArgsConstructor
 public class AppUserFacade {
@@ -67,9 +69,21 @@ public class AppUserFacade {
 
     }
 
-    public UserResponseDTO updateRole(UpdateRoleRequestDTO requestDTO){
+    public UserResponseDTO updateRole(UpdateRoleRequestDTO requestDTO) {
 
         return appUserOperationsService.updateRole(requestDTO);
+
+    }
+
+    public void sendVerificationMail(SendMailRequestDTO requestDTO, HttpServletRequest httpServletRequest) {
+
+        appUserOperationsService.sendVerificationMail(requestDTO, httpServletRequest);
+
+    }
+
+    public UserResponseDTO verifyAppUser(VerifyAppUserRequestDTO requestDTO) {
+
+        return appUserOperationsService.verifyAppUser(requestDTO);
 
     }
 

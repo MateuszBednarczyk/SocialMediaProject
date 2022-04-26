@@ -3,10 +3,13 @@ package com.maticendrak.socialmediaproject.appUser.functionalities;
 import com.maticendrak.socialmediaproject.appUser.AppUserEntity;
 import com.maticendrak.socialmediaproject.appUser.dtos.requests.*;
 import com.maticendrak.socialmediaproject.appUser.dtos.responses.UserResponseDTO;
+import com.maticendrak.socialmediaproject.appUser.verificationtoken.VerificationTokenFacade;
+import com.maticendrak.socialmediaproject.mailing.MailFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 
 @Service
@@ -16,6 +19,8 @@ class AppUserOperationsService {
     private final AppUserRepository appUserRepository;
     private final AppUserValidateToolsService appUserValidateToolsService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final VerificationTokenFacade verificationTokenFacade;
+    private final MailFacade mailFacade;
 
     @Transactional
     public UserResponseDTO updateUsername(UpdateUsernameRequestDTO requestDTO) {
@@ -102,6 +107,47 @@ class AppUserOperationsService {
     }
 
     @Transactional
+    public UserResponseDTO updateEmail(UpdateEmailRequestDTO requestDTO) {
+
+        if (appUserValidateToolsService.checkIfUserExists(requestDTO.getUsername())) {
+
+            AppUserEntity appUserEntity = (AppUserEntity) appUserRepository.findAppUserEntityByUsername(requestDTO.getUsername());
+
+            if (requestDTO.getOldEmail().equals(appUserEntity.getEmail())) {
+
+                appUserEntity.setEmail(requestDTO.getNewEmail());
+
+            }
+
+            return new UserResponseDTO(appUserEntity.getUsername(), appUserEntity.getEmail(), appUserEntity.getDescription(), appUserEntity.getImage(), appUserEntity.getPosts(), appUserEntity.getFollowing(), appUserEntity.getRole());
+
+        } else {
+
+            throw new IllegalArgumentException("something went wrong while u've been trying to set email");
+
+        }
+
+    }
+
+    @Transactional
+    public UserResponseDTO updateRole(UpdateRoleRequestDTO requestDTO) {
+
+        if (appUserValidateToolsService.checkIfUserExists(requestDTO.getUsername())) {
+
+            AppUserEntity appUserEntity = (AppUserEntity) appUserRepository.findAppUserEntityByUsername(requestDTO.getUsername());
+            appUserEntity.setRole(requestDTO.getNewRole());
+
+            return new UserResponseDTO(appUserEntity.getUsername(), appUserEntity.getEmail(), appUserEntity.getDescription(), appUserEntity.getImage(), appUserEntity.getPosts(), appUserEntity.getFollowing(), appUserEntity.getRole());
+
+        } else {
+
+            throw new IllegalArgumentException("something went wrong while u've been trying to set new role");
+
+        }
+
+    }
+
+    @Transactional
     public UserResponseDTO findUser(FindUserRequestDTO requestDTO) {
 
         AppUserEntity appUserEntity = (AppUserEntity) appUserRepository.findAppUserEntityByUsername(requestDTO.getUsername());
@@ -119,47 +165,33 @@ class AppUserOperationsService {
     }
 
     @Transactional
-    public UserResponseDTO updateEmail(UpdateEmailRequestDTO requestDTO) {
+    public void sendVerificationMail(SendMailRequestDTO requestDTO, HttpServletRequest httpServletRequest) {
 
-        if (appUserValidateToolsService.checkIfUserExists(requestDTO.getUsername())) {
-
-            AppUserEntity appUserEntity = (AppUserEntity) appUserRepository.findAppUserEntityByUsername(requestDTO.getUsername());
-
-            if (requestDTO.getOldEmail().equals(appUserEntity.getEmail())) {
-
-                appUserEntity.setEmail(requestDTO.getNewEmail());
-
-            }
-
-            return new UserResponseDTO(appUserEntity.getUsername(), appUserEntity.getEmail(), appUserEntity.getDescription(), appUserEntity.getImage(), appUserEntity.getPosts(), appUserEntity.getFollowing(), appUserEntity.getRole());
-
-        } else {
-
-
-            throw new IllegalArgumentException("something went wrong while u've been trying to set email");
-
-        }
+        AppUserEntity appUserEntity = (AppUserEntity) appUserRepository.findAppUserEntityByUsername(requestDTO.getUsername());
+        requestDTO.setContent("http://" + httpServletRequest.getServerName() + ":" + httpServletRequest.getServerPort()
+                + httpServletRequest.getContextPath() + "/api/user/verify?token=" + verificationTokenFacade.generateAndSaveVerificationToken(appUserEntity) + "?username=" +
+                appUserEntity.getUsername());
+        requestDTO.setTitle("Verify your Bit Space Account");
+        mailFacade.sendMail(requestDTO);
 
     }
 
     @Transactional
-    public UserResponseDTO updateRole(UpdateRoleRequestDTO requestDTO){
+    public UserResponseDTO verifyAppUser(VerifyAppUserRequestDTO requestDTO) {
 
-        if (appUserValidateToolsService.checkIfUserExists(requestDTO.getUsername())) {
+        AppUserEntity appUserEntity = (AppUserEntity) appUserRepository.findAppUserEntityByUsername(requestDTO.getUsername());
+        if (verificationTokenFacade.checkIfTokenIsValid(requestDTO.getToken(), appUserEntity.getId())) {
 
-            AppUserEntity appUserEntity = (AppUserEntity) appUserRepository.findAppUserEntityByUsername(requestDTO.getUsername());
-            appUserEntity.setRole(requestDTO.getNewRole());
-
+            appUserEntity.setRole("ROLE_VERIFIED");
             return new UserResponseDTO(appUserEntity.getUsername(), appUserEntity.getEmail(), appUserEntity.getDescription(), appUserEntity.getImage(), appUserEntity.getPosts(), appUserEntity.getFollowing(), appUserEntity.getRole());
 
         } else {
 
-
-            throw new IllegalArgumentException("something went wrong while u've been trying to set new role");
+            throw new IllegalArgumentException("Token isn't valid");
 
         }
 
-
     }
+
 
 }
