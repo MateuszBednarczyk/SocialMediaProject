@@ -148,7 +148,7 @@ public class AppUserController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/api/user/verify")
-    public UserResponseDTO verifyAppUser(@RequestParam String token, @RequestParam String username){
+    public UserResponseDTO verifyAppUser(@RequestParam("token") String token, @RequestParam("username") String username){
 
         return appUserFacade.verifyAppUser(new VerifyAppUserRequestDTO(token, username));
 

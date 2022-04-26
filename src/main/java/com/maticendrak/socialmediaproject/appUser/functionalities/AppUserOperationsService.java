@@ -169,7 +169,7 @@ class AppUserOperationsService {
 
         AppUserEntity appUserEntity = (AppUserEntity) appUserRepository.findAppUserEntityByUsername(requestDTO.getUsername());
         requestDTO.setContent("http://" + httpServletRequest.getServerName() + ":" + httpServletRequest.getServerPort()
-                + httpServletRequest.getContextPath() + "/api/user/verify?token=" + verificationTokenFacade.generateAndSaveVerificationToken(appUserEntity) + "?username=" +
+                + httpServletRequest.getContextPath() + "/api/user/verify?token=" + verificationTokenFacade.generateAndSaveVerificationToken(appUserEntity) + "&username=" +
                 appUserEntity.getUsername());
         requestDTO.setTitle("Verify your Bit Space Account");
         mailFacade.sendMail(requestDTO);
