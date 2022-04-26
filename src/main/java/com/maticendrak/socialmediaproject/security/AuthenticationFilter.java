@@ -67,7 +67,7 @@ class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
         response.setContentType(APPLICATION_JSON_VALUE);
         ArrayList<Object> responseBody = new ArrayList<Object>();
-        responseBody.add(new UserResponseDTO(user.getUsername(),user.getEmail(), user.getDescription(), user.getImage(), user.getPosts(), user.getFollowing()));
+        responseBody.add(new UserResponseDTO(user.getUsername(),user.getEmail(), user.getDescription(), user.getImage(), user.getPosts(), user.getFollowing(), user.getRole()));
         responseBody.add(new JwtTokenDTO(accessToken));
 
         response.setHeader(ACCESS_CONTROL_EXPOSE_HEADERS, AUTHORIZATION);

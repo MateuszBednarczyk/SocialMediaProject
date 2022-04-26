@@ -16,5 +16,6 @@ public class UserResponseDTO {
     private String image;
     private List posts;
     private List following;
+    private String role;
 
 }

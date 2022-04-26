@@ -43,16 +43,18 @@ public class AppUserEntity implements UserDetails {
 
     @Nullable
     private List following;
+    private String role;
 
-    public AppUserEntity(String username, String password, @Nullable String email) {
+    public AppUserEntity(String username, String password, @Nullable String email, @Nullable String role) {
         this.username = username;
         this.password = password;
         this.email = email;
+        this.role = role;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singleton(new SimpleGrantedAuthority("ROLE_NOTVERIFICATED"));
+        return Collections.singleton(new SimpleGrantedAuthority(role));
     }
 
     @Override

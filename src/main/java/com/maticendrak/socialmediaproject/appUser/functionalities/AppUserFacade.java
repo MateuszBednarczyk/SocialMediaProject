@@ -67,4 +67,10 @@ public class AppUserFacade {
 
     }
 
+    public UserResponseDTO updateRole(UpdateRoleRequestDTO requestDTO){
+
+        return appUserOperationsService.updateRole(requestDTO);
+
+    }
+
 }

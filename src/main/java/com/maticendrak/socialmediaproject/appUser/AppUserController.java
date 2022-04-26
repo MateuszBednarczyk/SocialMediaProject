@@ -130,5 +130,13 @@ public class AppUserController {
         }
 
     }
+
+    @RequestMapping(method = RequestMethod.PATCH, value = "/api/user/update-role")
+    public UserResponseDTO updateRole(@RequestBody UpdateRoleRequestDTO requestDTO) {
+
+        return appUserFacade.updateRole(requestDTO);
+
+    }
+
 }
 

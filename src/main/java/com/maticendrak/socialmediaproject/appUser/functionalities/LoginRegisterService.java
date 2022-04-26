@@ -31,7 +31,7 @@ class LoginRegisterService {
 
             } else {
 
-                return new UserResponseDTO(foundUser.getUsername(), foundUser.getEmail(), foundUser.getDescription(), foundUser.getImage(), foundUser.getPosts(), foundUser.getFollowing());
+                return new UserResponseDTO(foundUser.getUsername(), foundUser.getEmail(), foundUser.getDescription(), foundUser.getImage(), foundUser.getPosts(), foundUser.getFollowing(), foundUser.getRole());
 
             }
 
@@ -52,11 +52,11 @@ class LoginRegisterService {
 
         } else {
 
-            AppUserEntity newUser = new AppUserEntity(requestDTO.getUsername(), requestDTO.getPassword(), requestDTO.getEmail());
+            AppUserEntity newUser = new AppUserEntity(requestDTO.getUsername(), requestDTO.getPassword(), requestDTO.getEmail(), "ROLE_NOTVERIFICATED");
             newUser.setPassword(bCryptPasswordEncoder.encode(newUser.getPassword()));
             appUserRepository.save(newUser);
             
-            return new UserResponseDTO(newUser.getUsername(), newUser.getEmail(), newUser.getDescription(), newUser.getImage(), newUser.getPosts(), newUser.getFollowing());
+            return new UserResponseDTO(newUser.getUsername(), newUser.getEmail(), newUser.getDescription(), newUser.getImage(), newUser.getPosts(), newUser.getFollowing(), newUser.getRole());
 
         }
     }

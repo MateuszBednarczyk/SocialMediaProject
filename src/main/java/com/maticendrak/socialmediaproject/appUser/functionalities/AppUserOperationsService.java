@@ -24,7 +24,7 @@ class AppUserOperationsService {
         if (!appUserValidateToolsService.checkIfUserExists(requestDTO.getNewUsername())) {
 
             appUserEntity.setUsername(requestDTO.getNewUsername());
-            return new UserResponseDTO(appUserEntity.getUsername(), appUserEntity.getEmail(), appUserEntity.getDescription(), appUserEntity.getImage(), appUserEntity.getPosts(), appUserEntity.getFollowing());
+            return new UserResponseDTO(appUserEntity.getUsername(), appUserEntity.getEmail(), appUserEntity.getDescription(), appUserEntity.getImage(), appUserEntity.getPosts(), appUserEntity.getFollowing(), appUserEntity.getRole());
 
         } else {
 
@@ -73,7 +73,7 @@ class AppUserOperationsService {
 
             AppUserEntity appUserEntity = (AppUserEntity) appUserRepository.findAppUserEntityByUsername(requestDTO.getUsername());
             appUserEntity.setDescription(requestDTO.getDescription());
-            return new UserResponseDTO(appUserEntity.getUsername(), appUserEntity.getEmail(), appUserEntity.getDescription(), appUserEntity.getImage(), appUserEntity.getPosts(), appUserEntity.getFollowing());
+            return new UserResponseDTO(appUserEntity.getUsername(), appUserEntity.getEmail(), appUserEntity.getDescription(), appUserEntity.getImage(), appUserEntity.getPosts(), appUserEntity.getFollowing(), appUserEntity.getRole());
 
         } else {
 
@@ -91,7 +91,7 @@ class AppUserOperationsService {
 
             AppUserEntity appUserEntity = (AppUserEntity) appUserRepository.findAppUserEntityByUsername(requestDTO.getUsername());
             appUserEntity.setImage(requestDTO.getImageURL());
-            return new UserResponseDTO(appUserEntity.getUsername(), appUserEntity.getEmail(), appUserEntity.getDescription(), appUserEntity.getImage(), appUserEntity.getPosts(), appUserEntity.getFollowing());
+            return new UserResponseDTO(appUserEntity.getUsername(), appUserEntity.getEmail(), appUserEntity.getDescription(), appUserEntity.getImage(), appUserEntity.getPosts(), appUserEntity.getFollowing(), appUserEntity.getRole());
 
         } else {
 
@@ -108,7 +108,7 @@ class AppUserOperationsService {
 
         if (appUserValidateToolsService.checkIfUserExists(requestDTO.getUsername())) {
 
-            return new UserResponseDTO(appUserEntity.getUsername(), appUserEntity.getEmail(), appUserEntity.getDescription(), appUserEntity.getImage(), appUserEntity.getPosts(), appUserEntity.getFollowing());
+            return new UserResponseDTO(appUserEntity.getUsername(), appUserEntity.getEmail(), appUserEntity.getDescription(), appUserEntity.getImage(), appUserEntity.getPosts(), appUserEntity.getFollowing(), appUserEntity.getRole());
 
         } else {
 
@@ -131,7 +131,7 @@ class AppUserOperationsService {
 
             }
 
-            return new UserResponseDTO(appUserEntity.getUsername(), appUserEntity.getEmail(), appUserEntity.getDescription(), appUserEntity.getImage(), appUserEntity.getPosts(), appUserEntity.getFollowing());
+            return new UserResponseDTO(appUserEntity.getUsername(), appUserEntity.getEmail(), appUserEntity.getDescription(), appUserEntity.getImage(), appUserEntity.getPosts(), appUserEntity.getFollowing(), appUserEntity.getRole());
 
         } else {
 
@@ -139,6 +139,26 @@ class AppUserOperationsService {
             throw new IllegalArgumentException("something went wrong while u've been trying to set email");
 
         }
+
+    }
+
+    @Transactional
+    public UserResponseDTO updateRole(UpdateRoleRequestDTO requestDTO){
+
+        if (appUserValidateToolsService.checkIfUserExists(requestDTO.getUsername())) {
+
+            AppUserEntity appUserEntity = (AppUserEntity) appUserRepository.findAppUserEntityByUsername(requestDTO.getUsername());
+            appUserEntity.setRole(requestDTO.getNewRole());
+
+            return new UserResponseDTO(appUserEntity.getUsername(), appUserEntity.getEmail(), appUserEntity.getDescription(), appUserEntity.getImage(), appUserEntity.getPosts(), appUserEntity.getFollowing(), appUserEntity.getRole());
+
+        } else {
+
+
+            throw new IllegalArgumentException("something went wrong while u've been trying to set new role");
+
+        }
+
 
     }
 
