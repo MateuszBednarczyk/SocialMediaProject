@@ -7,6 +7,7 @@ import com.maticendrak.socialmediaproject.appUser.dtos.responses.UserResponseDTO
 import com.maticendrak.socialmediaproject.appUser.verificationtoken.VerificationTokenFacade;
 import com.maticendrak.socialmediaproject.mailing.MailFacade;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +15,7 @@ import javax.transaction.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 class VerificationService {
 
     private final AppUserRepository appUserRepository;
@@ -33,13 +35,14 @@ class VerificationService {
     }
 
     @Transactional
-    public UserResponseDTO verifyAppUser(VerifyAppUserRequestDTO requestDTO) {
+    public void verifyAppUser(VerifyAppUserRequestDTO requestDTO) {
 
         AppUserEntity appUserEntity = (AppUserEntity) appUserRepository.findAppUserEntityByUsername(requestDTO.getUsername());
         if (verificationTokenFacade.checkIfTokenIsValid(requestDTO.getToken(), appUserEntity.getId())) {
 
             appUserEntity.setRole("ROLE_VERIFIED");
-            return new UserResponseDTO(appUserEntity.getUsername(), appUserEntity.getEmail(), appUserEntity.getDescription(), appUserEntity.getImage(), appUserEntity.getPosts(), appUserEntity.getFollowing(), appUserEntity.getRole());
+            appUserEntity.getAuthorities();
+            System.out.println(appUserEntity.getRole());
 
         } else {
 

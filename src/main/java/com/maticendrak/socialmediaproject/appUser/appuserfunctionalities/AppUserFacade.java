@@ -3,12 +3,14 @@ package com.maticendrak.socialmediaproject.appUser.appuserfunctionalities;
 import com.maticendrak.socialmediaproject.appUser.dtos.requests.*;
 import com.maticendrak.socialmediaproject.appUser.dtos.responses.UserResponseDTO;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class AppUserFacade {
 
     private final LoginAndRegisterService loginAndRegisterService;
@@ -77,9 +79,9 @@ public class AppUserFacade {
 
     }
 
-    public UserResponseDTO verifyAppUser(VerifyAppUserRequestDTO requestDTO) {
+    public void verifyAppUser(VerifyAppUserRequestDTO requestDTO) {
 
-        return verificationService.verifyAppUser(requestDTO);
+        verificationService.verifyAppUser(requestDTO);
 
     }
 

@@ -48,13 +48,14 @@ class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers(POST, "/api/user/login")
                 .permitAll()
+                .antMatchers("http://localhost:8080/")
+                .permitAll()
                 .and()
                 .formLogin()
-                .loginPage("/home#/login")
-                .defaultSuccessUrl("/home#/home", true)
+                .loginPage("http://localhost:8080/")
                 .and()
                 .logout()
-                .logoutSuccessUrl("/home");
+                .logoutSuccessUrl("/");
 
         //home security config
         http.authorizeRequests()
