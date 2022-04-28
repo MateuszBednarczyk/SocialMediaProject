@@ -1,12 +1,9 @@
 package com.maticendrak.socialmediaproject.appuser.dtos.responses;
 
-import com.maticendrak.socialmediaproject.appuser.AppUserEntity;
-import com.maticendrak.socialmediaproject.post.PostEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.hibernate.annotations.Immutable;
-
-import java.util.ArrayList;
+import org.hibernate.mapping.List;
 
 @Getter
 @AllArgsConstructor
@@ -17,8 +14,8 @@ public class UserResponseDTO {
     private String email;
     private String description;
     private String image;
-    private PostEntity posts;
-    private AppUserEntity appUserEntity;
+    private List posts;
+    private List appUserEntity;
     private String role;
 
 }

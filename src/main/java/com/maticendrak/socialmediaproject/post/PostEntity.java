@@ -1,10 +1,8 @@
 package com.maticendrak.socialmediaproject.post;
 
-import com.maticendrak.socialmediaproject.appuser.AppUserEntity;
 import com.sun.istack.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 
@@ -29,5 +27,11 @@ public class PostEntity {
 
     @ManyToOne
     private CommentEntity comments;
+
+    public PostEntity(String author, String postTitle, String postContent) {
+        this.author = author;
+        this.postTitle = postTitle;
+        this.postContent = postContent;
+    }
 
 }

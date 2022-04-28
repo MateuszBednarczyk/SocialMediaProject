@@ -1,9 +1,9 @@
 package com.maticendrak.socialmediaproject.appuser;
 
-import com.maticendrak.socialmediaproject.post.PostEntity;
 import com.sun.istack.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.mapping.List;
 import org.springframework.lang.Nullable;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -39,12 +39,10 @@ public class AppUserEntity implements UserDetails {
     private String image;
 
     @Nullable
-    @ManyToOne
-    private PostEntity posts;
+    private List posts;
 
     @Nullable
-    @ManyToOne
-    private AppUserEntity following;
+    private List following;
     private String role;
 
     public AppUserEntity(String username, String password, @Nullable String email, @Nullable String role) {
