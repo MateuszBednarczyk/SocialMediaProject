@@ -60,31 +60,31 @@ class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         //home security config
         http.authorizeRequests()
                 .antMatchers("/home")
-                .hasAnyAuthority("ROLE_UNVERIFIED");
+                .hasAnyAuthority("ROLE_UNVERIFIED", "ROLE_VERIFIED");
 
         http.authorizeRequests()
                 .antMatchers("/api/user/update-username")
-                .hasAuthority("ROLE_VERIFIED");
+                .hasAnyAuthority("ROLE_VERIFIED");
 
         http.authorizeRequests()
                 .antMatchers("/api/user/update-password")
-                .hasAuthority("ROLE_VERIFIED");
+                .hasAnyAuthority("ROLE_VERIFIED");
 
         http.authorizeRequests()
                 .antMatchers("/api/user/update-description")
-                .hasAuthority("ROLE_VERIFIED");
+                .hasAnyAuthority("ROLE_VERIFIED");
 
         http.authorizeRequests()
                 .antMatchers("/api/user/update-image")
-                .hasAuthority("ROLE_VERIFIED");
+                .hasAnyAuthority("ROLE_VERIFIED");
 
         http.authorizeRequests()
                 .antMatchers("/api/user/delete-user")
-                .hasAuthority("ROLE_UNVERIFIED");
+                .hasAnyAuthority("ROLE_UNVERIFIED");
 
         http.authorizeRequests()
                 .antMatchers("/api/user/send-verification-mail")
-                .hasAuthority("ROLE_UNVERIFIED");
+                .hasAnyAuthority("ROLE_UNVERIFIED");
 
         http.authorizeRequests()
                 .antMatchers("/api/user/verify")
