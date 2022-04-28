@@ -88,7 +88,7 @@ class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests()
                 .antMatchers("/api/user/verify")
-                .hasAuthority("ROLE_UNVERIFIED");
+                .permitAll();
 
         //jwt authentication config
         AuthenticationFilter authenticationFilter = new AuthenticationFilter(authenticationManagerBean());

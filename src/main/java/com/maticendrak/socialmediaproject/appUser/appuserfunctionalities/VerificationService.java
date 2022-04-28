@@ -3,7 +3,6 @@ package com.maticendrak.socialmediaproject.appUser.appuserfunctionalities;
 import com.maticendrak.socialmediaproject.appUser.AppUserEntity;
 import com.maticendrak.socialmediaproject.appUser.dtos.requests.SendMailRequestDTO;
 import com.maticendrak.socialmediaproject.appUser.dtos.requests.VerifyAppUserRequestDTO;
-import com.maticendrak.socialmediaproject.appUser.dtos.responses.UserResponseDTO;
 import com.maticendrak.socialmediaproject.appUser.verificationtoken.VerificationTokenFacade;
 import com.maticendrak.socialmediaproject.mailing.MailFacade;
 import lombok.RequiredArgsConstructor;
@@ -41,8 +40,6 @@ class VerificationService {
         if (verificationTokenFacade.checkIfTokenIsValid(requestDTO.getToken(), appUserEntity.getId())) {
 
             appUserEntity.setRole("ROLE_VERIFIED");
-            appUserEntity.getAuthorities();
-            System.out.println(appUserEntity.getRole());
 
         } else {
 
