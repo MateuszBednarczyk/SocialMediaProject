@@ -1,6 +1,6 @@
 package com.maticendrak.socialmediaproject.mailing;
 
-import com.maticendrak.socialmediaproject.appUser.dtos.requests.SendMailRequestDTO;
+import com.maticendrak.socialmediaproject.appuser.dtos.requests.SendMailRequestDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
