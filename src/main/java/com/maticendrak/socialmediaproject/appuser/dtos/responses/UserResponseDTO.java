@@ -1,11 +1,12 @@
 package com.maticendrak.socialmediaproject.appuser.dtos.responses;
 
-import java.util.List;
 import com.maticendrak.socialmediaproject.post.PostEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.hibernate.annotations.Immutable;
+import org.springframework.lang.Nullable;
 
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -17,7 +18,11 @@ public class UserResponseDTO {
     private String email;
     private String description;
     private String image;
+
+    @Nullable
     private Set<PostEntity> posts;
+
+    @Nullable
     private List<Long> followedUsers;
     private String role;
 

@@ -8,7 +8,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Set;
 
-@Entity
+@Entity(name = "comment")
 @Data
 @NoArgsConstructor
 @Table(name = "Comments")

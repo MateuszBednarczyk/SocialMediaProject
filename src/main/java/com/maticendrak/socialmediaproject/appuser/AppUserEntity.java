@@ -38,12 +38,12 @@ public class AppUserEntity implements UserDetails {
     private String image;
 
     @Nullable
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<PostEntity> posts;
 
     @Nullable
-    @ElementCollection
-    private List<Long> following = new ArrayList<Long>();
+    @ElementCollection(fetch = FetchType.EAGER)
+    private List<Long> following;
     private String role;
 
     public AppUserEntity(String username, String password, @Nullable String email, @Nullable String role) {

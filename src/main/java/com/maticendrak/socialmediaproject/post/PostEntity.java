@@ -10,7 +10,7 @@ import org.springframework.lang.Nullable;
 import javax.persistence.*;
 import java.util.Set;
 
-@Entity(name = "Posts")
+@Entity(name = "post")
 @Data
 @NoArgsConstructor
 @Table(name = "posts")
@@ -31,7 +31,7 @@ public class PostEntity {
     private String postContent;
 
     @Nullable
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<CommentEntity> comments;
 
 }
