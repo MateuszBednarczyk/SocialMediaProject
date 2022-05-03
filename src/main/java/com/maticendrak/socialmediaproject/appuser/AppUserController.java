@@ -1,10 +1,9 @@
 package com.maticendrak.socialmediaproject.appuser;
 
-import com.maticendrak.socialmediaproject.appuser.appuserfunctionalities.AppUserFacade;
+import com.maticendrak.socialmediaproject.appuser.crudfunctionalities.AppUserFacade;
 import com.maticendrak.socialmediaproject.appuser.dtos.requests.*;
 import com.maticendrak.socialmediaproject.appuser.dtos.responses.UserResponseDTO;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -16,8 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 @RequiredArgsConstructor
 public class AppUserController {
     private final AppUserFacade appUserFacade;
-    private HttpStatus codeToReturn;
-
     @RequestMapping(method = RequestMethod.POST, value = "/api/user/login")
     public ResponseEntity login(@RequestBody LoginRequestDTO loginRequestDTO) {
 

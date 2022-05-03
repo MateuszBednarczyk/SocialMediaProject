@@ -1,4 +1,4 @@
-package com.maticendrak.socialmediaproject.appuser.appuserfunctionalities;
+package com.maticendrak.socialmediaproject.appuser.crudfunctionalities;
 
 import com.maticendrak.socialmediaproject.appuser.AppUserEntity;
 import com.maticendrak.socialmediaproject.appuser.dtos.requests.LoginRequestDTO;
