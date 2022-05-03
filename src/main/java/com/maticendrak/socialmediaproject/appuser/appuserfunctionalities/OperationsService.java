@@ -38,17 +38,18 @@ class OperationsService {
     }
 
     @Transactional
-    public boolean updatePassword(UpdatePasswordRequestDTO requestDTO) {
+    public String updatePassword(UpdatePasswordRequestDTO requestDTO) {
 
         AppUserEntity appUserEntity = (AppUserEntity) appUserRepository.findAppUserEntityByUsername(requestDTO.getUsername());
 
         if (bCryptPasswordEncoder.matches(requestDTO.getOldPassword(), appUserEntity.getPassword())) {
 
             appUserEntity.setPassword(bCryptPasswordEncoder.encode(requestDTO.getNewPassword()));
-            return true;
+            return "redirect:" + "http://localhost:8080/logout";
+
         } else {
 
-            return false;
+            return null;
 
         }
 
@@ -131,16 +132,16 @@ class OperationsService {
     }
 
     @Transactional
-    public boolean deleteAppUser(DeleteAppUserRequestDTO requestDTO) {
+    public String deleteAppUser(DeleteAppUserRequestDTO requestDTO) {
 
         if (requestDTO.getPassword().equals(requestDTO.getPasswordConfirmation())) {
 
             appUserRepository.deleteAppUserEntityByUsername(requestDTO.getUsername());
-            return true;
+            return "redirect:" + "http://localhost:8080/";
 
         } else {
 
-            return false;
+            return null;
 
         }
 

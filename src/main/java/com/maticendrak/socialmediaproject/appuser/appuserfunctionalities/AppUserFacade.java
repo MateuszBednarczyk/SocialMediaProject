@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -44,13 +45,13 @@ public class AppUserFacade {
 
     }
 
-    public boolean updatePassword(UpdatePasswordRequestDTO requestDTO) {
+    public String updatePassword(UpdatePasswordRequestDTO requestDTO) {
 
         return operationsService.updatePassword(requestDTO);
 
     }
 
-    public boolean deleteAppUser(DeleteAppUserRequestDTO requestDTO) {
+    public String deleteAppUser(DeleteAppUserRequestDTO requestDTO) {
 
         return operationsService.deleteAppUser(requestDTO);
 
@@ -80,9 +81,9 @@ public class AppUserFacade {
 
     }
 
-    public void verifyAppUser(VerifyAppUserRequestDTO requestDTO) {
+    public ModelAndView verifyAppUser(VerifyAppUserRequestDTO requestDTO) {
 
-        verificationService.verifyAppUser(requestDTO);
+        return verificationService.verifyAppUser(requestDTO);
 
     }
 

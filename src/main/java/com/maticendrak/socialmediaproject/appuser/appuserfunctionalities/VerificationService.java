@@ -8,6 +8,7 @@ import com.maticendrak.socialmediaproject.mailing.MailFacade;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
@@ -34,12 +35,13 @@ class VerificationService {
     }
 
     @Transactional
-    public void verifyAppUser(VerifyAppUserRequestDTO requestDTO) {
+    public ModelAndView verifyAppUser(VerifyAppUserRequestDTO requestDTO) {
 
         AppUserEntity appUserEntity = (AppUserEntity) appUserRepository.findAppUserEntityByUsername(requestDTO.getUsername());
         if (verificationTokenFacade.checkIfTokenIsValid(requestDTO.getToken(), appUserEntity.getId())) {
 
             appUserEntity.setRole("ROLE_VERIFIED");
+            return new ModelAndView("redirect:http://localhost:8080");
 
         } else {
 

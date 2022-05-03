@@ -50,14 +50,7 @@ public class AppUserController {
     @RequestMapping(method = RequestMethod.PATCH, value = "/api/user/update-password")
     public String updatePassword(@RequestBody UpdatePasswordRequestDTO requestDTO) {
 
-        if (appUserFacade.updatePassword(requestDTO)) {
-
-            return "redirect:" + "http://localhost:8080/logout";
-
-        } else {
-
-            throw new IllegalStateException("Passwords aren't same, or password isn't correct");
-        }
+        return appUserFacade.updatePassword(requestDTO);
 
     }
 
@@ -78,15 +71,7 @@ public class AppUserController {
     @RequestMapping(method = RequestMethod.DELETE, value = "/api/user/delete-user")
     public String deleteAppUser(@RequestBody DeleteAppUserRequestDTO requestDTO) {
 
-        if (appUserFacade.deleteAppUser(requestDTO)) {
-
-            return "redirect:" + "http://localhost:8080/";
-
-        } else {
-
-            throw new IllegalArgumentException("something went wrong");
-
-        }
+        return appUserFacade.deleteAppUser(requestDTO);
 
     }
 
@@ -107,9 +92,7 @@ public class AppUserController {
     @RequestMapping(method = RequestMethod.GET, value = "/api/user/verify")
     public ModelAndView verifyAppUser(@RequestParam("token") String token, @RequestParam("username") String username) {
 
-        appUserFacade.verifyAppUser(new VerifyAppUserRequestDTO(token, username));
-
-        return new ModelAndView("redirect:http://localhost:8080");
+        return appUserFacade.verifyAppUser(new VerifyAppUserRequestDTO(token, username));
 
     }
 
