@@ -1,10 +1,12 @@
 package com.maticendrak.socialmediaproject.post;
 
-import com.maticendrak.socialmediaproject.appuser.AppUserEntity;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Set;
 
 @Entity
 @Data
@@ -18,7 +20,8 @@ public class CommentEntity {
     private String author;
     private String content;
 
+    @Nullable
     @ManyToOne
-    private CommentEntity answers;
+    private PostEntity parent;
 
 }

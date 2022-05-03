@@ -1,15 +1,19 @@
 package com.maticendrak.socialmediaproject.post;
 
+import com.maticendrak.socialmediaproject.appuser.AppUserEntity;
 import com.sun.istack.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.mapping.List;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
+import java.util.Set;
 
-@Entity
+@Entity(name = "Posts")
 @Data
 @NoArgsConstructor
-@Table(name = "Posts")
+@Table(name = "posts")
 public class PostEntity {
 
     @Id
@@ -17,7 +21,8 @@ public class PostEntity {
     private Long postId;
 
     @NotNull
-    private String author;
+    @ManyToOne
+    private AppUserEntity author;
 
     @NotNull
     private String postTitle;
@@ -25,13 +30,8 @@ public class PostEntity {
     @NotNull
     private String postContent;
 
-    @ManyToOne
-    private CommentEntity comments;
-
-    public PostEntity(String author, String postTitle, String postContent) {
-        this.author = author;
-        this.postTitle = postTitle;
-        this.postContent = postContent;
-    }
+    @Nullable
+    @OneToMany
+    private Set<CommentEntity> comments;
 
 }

@@ -1,22 +1,21 @@
 package com.maticendrak.socialmediaproject.appuser;
 
+import com.maticendrak.socialmediaproject.post.PostEntity;
 import com.sun.istack.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.mapping.List;
 import org.springframework.lang.Nullable;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.Collection;
-import java.util.Collections;
+import java.util.*;
 
-@Entity
+@Entity(name = "Users")
 @Data
 @NoArgsConstructor
-@Table(name = "Users")
+@Table(name = "users")
 public class AppUserEntity implements UserDetails {
 
     @Id
@@ -39,10 +38,12 @@ public class AppUserEntity implements UserDetails {
     private String image;
 
     @Nullable
-    private List posts;
+    @OneToMany
+    private Set<PostEntity> posts;
 
     @Nullable
-    private List following;
+    @ElementCollection
+    private List<Long> following = new ArrayList<Long>();
     private String role;
 
     public AppUserEntity(String username, String password, @Nullable String email, @Nullable String role) {
