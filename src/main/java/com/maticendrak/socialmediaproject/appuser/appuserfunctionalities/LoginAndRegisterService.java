@@ -5,6 +5,8 @@ import com.maticendrak.socialmediaproject.appuser.dtos.requests.LoginRequestDTO;
 import com.maticendrak.socialmediaproject.appuser.dtos.requests.RegisterRequestDTO;
 import com.maticendrak.socialmediaproject.appuser.dtos.responses.UserResponseDTO;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +20,9 @@ class LoginAndRegisterService {
     private final ValidateToolsService validateToolsService;
 
     @Transactional
-    public UserResponseDTO login(LoginRequestDTO requestDTO) {
+    public ResponseEntity<UserResponseDTO> login(LoginRequestDTO requestDTO) {
+
+        ResponseEntity<UserResponseDTO> response;
 
         //if user is not null and password is correct, return user data from db
         if (validateToolsService.checkIfUserExists(requestDTO.getUsername())) {
@@ -27,28 +31,35 @@ class LoginAndRegisterService {
 
             if (!bCryptPasswordEncoder.matches(requestDTO.getPassword(), foundUser.getPassword())) {
 
-                return null;
+                response = new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+                return response;
 
             } else {
 
-                return new UserResponseDTO(foundUser.getUsername(), foundUser.getEmail(), foundUser.getDescription(), foundUser.getImage(), foundUser.getPosts(), foundUser.getFollowing(), foundUser.getRole());
+                UserResponseDTO responseBody = new UserResponseDTO(foundUser.getUsername(), foundUser.getEmail(), foundUser.getDescription(), foundUser.getImage(), foundUser.getPosts(), foundUser.getFollowing(), foundUser.getRole());
+                response = new ResponseEntity<>(responseBody, HttpStatus.OK);
+                return response;
 
             }
 
         } else {
 
-            return null;
+            response = new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return response;
 
         }
     }
 
     @Transactional
-    public UserResponseDTO register(RegisterRequestDTO requestDTO) {
+    public ResponseEntity<UserResponseDTO> register(RegisterRequestDTO requestDTO) {
+
+        ResponseEntity<UserResponseDTO> response;
 
         //if user exists return null, else register new user
         if (validateToolsService.checkIfUserExists(requestDTO.getUsername())) {
 
-            return null;
+            response = new ResponseEntity<>(HttpStatus.CONFLICT);
+            return response;
 
         } else {
 
@@ -56,7 +67,10 @@ class LoginAndRegisterService {
             newUser.setPassword(bCryptPasswordEncoder.encode(newUser.getPassword()));
             appUserRepository.save(newUser);
 
-            return new UserResponseDTO(newUser.getUsername(), newUser.getEmail(), newUser.getDescription(), newUser.getImage(), newUser.getPosts(), newUser.getFollowing(), newUser.getRole());
+            UserResponseDTO responseBody = new UserResponseDTO(newUser.getUsername(), newUser.getEmail(), newUser.getDescription(), newUser.getImage(), newUser.getPosts(), newUser.getFollowing(), newUser.getRole());
+            response = new ResponseEntity<>(responseBody, HttpStatus.OK);
+
+            return response;
 
         }
     }

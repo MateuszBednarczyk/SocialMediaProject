@@ -4,6 +4,7 @@ import com.maticendrak.socialmediaproject.appuser.dtos.requests.*;
 import com.maticendrak.socialmediaproject.appuser.dtos.responses.UserResponseDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,13 +20,13 @@ public class AppUserFacade {
     private final VerificationService verificationService;
     private final DataReturnerService dataReturnerService;
 
-    public UserResponseDTO login(LoginRequestDTO requestDTO) {
+    public ResponseEntity<UserResponseDTO> login(LoginRequestDTO requestDTO) {
 
         return loginAndRegisterService.login(requestDTO);
 
     }
 
-    public UserResponseDTO register(RegisterRequestDTO requestDTO) {
+    public ResponseEntity<UserResponseDTO> register(RegisterRequestDTO requestDTO) {
 
         return loginAndRegisterService.register(requestDTO);
 

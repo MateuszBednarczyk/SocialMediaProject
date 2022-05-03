@@ -1,8 +1,8 @@
 package com.maticendrak.socialmediaproject.appuser;
 
+import com.maticendrak.socialmediaproject.appuser.appuserfunctionalities.AppUserFacade;
 import com.maticendrak.socialmediaproject.appuser.dtos.requests.*;
 import com.maticendrak.socialmediaproject.appuser.dtos.responses.UserResponseDTO;
-import com.maticendrak.socialmediaproject.appuser.appuserfunctionalities.AppUserFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,58 +21,14 @@ public class AppUserController {
     @RequestMapping(method = RequestMethod.POST, value = "/api/user/login")
     public ResponseEntity login(@RequestBody LoginRequestDTO loginRequestDTO) {
 
-        //goes to login service with given credentials
-        UserResponseDTO user = appUserFacade.login(loginRequestDTO);
-        ResponseEntity<UserResponseDTO> response;
-
-        //checking if user found correctly
-        if (user == null) {
-
-            //if no, pass not found error
-            response = new ResponseEntity<>(HttpStatus.NOT_FOUND);
-
-        } else {
-
-            //if yes, set up user model as a response and then return
-            response = new ResponseEntity<>(user, HttpStatus.OK);
-
-        }
-
-        return response;
+        return appUserFacade.login(loginRequestDTO);
 
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/api/user/register")
     public ResponseEntity register(@RequestBody RegisterRequestDTO requestDTO) {
 
-        //Check if users exists
-        if (appUserFacade.checkIfUserExists(requestDTO.getUsername())) {
-
-            //if user already exists, api drops conflict (409)
-            codeToReturn = HttpStatus.CONFLICT;
-
-        } else {
-
-            //if user doesn't exist it goes to register method
-            UserResponseDTO newUser = appUserFacade.register(requestDTO);
-
-            //checking if register method created user correct
-            if (newUser == null) {
-
-                //if no it drops error
-                codeToReturn = HttpStatus.NOT_FOUND;
-
-            } else {
-
-                //if yes it just pass ok status to response entity
-                codeToReturn = HttpStatus.OK;
-
-            }
-        }
-
-        ResponseEntity response = new ResponseEntity<>(codeToReturn);
-
-        return response;
+        return appUserFacade.register(requestDTO);
 
     }
 
