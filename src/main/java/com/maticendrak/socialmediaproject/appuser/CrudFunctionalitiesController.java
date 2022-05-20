@@ -1,6 +1,6 @@
 package com.maticendrak.socialmediaproject.appuser;
 
-import com.maticendrak.socialmediaproject.appuser.crudfunctionalities.AppUserFacade;
+import com.maticendrak.socialmediaproject.appuser.crudfunctionalities.AppUserCrudFunctionalitiesFacade;
 import com.maticendrak.socialmediaproject.appuser.dtos.requests.*;
 import com.maticendrak.socialmediaproject.appuser.dtos.responses.UserResponseDTO;
 import lombok.RequiredArgsConstructor;
@@ -13,83 +13,83 @@ import javax.servlet.http.HttpServletRequest;
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequiredArgsConstructor
-public class AppUserController {
-    private final AppUserFacade appUserFacade;
+public class CrudFunctionalitiesController {
+    private final AppUserCrudFunctionalitiesFacade appUserCrudFunctionalitiesFacade;
     @RequestMapping(method = RequestMethod.POST, value = "/api/user/login")
     public ResponseEntity login(@RequestBody LoginRequestDTO loginRequestDTO) {
 
-        return appUserFacade.login(loginRequestDTO);
+        return appUserCrudFunctionalitiesFacade.login(loginRequestDTO);
 
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/api/user/register")
     public ResponseEntity register(@RequestBody RegisterRequestDTO requestDTO) {
 
-        return appUserFacade.register(requestDTO);
+        return appUserCrudFunctionalitiesFacade.register(requestDTO);
 
     }
 
 
     @RequestMapping(method = RequestMethod.POST, value = "/api/user/find-user")
-    public UserResponseDTO findUser(@RequestBody FindUserRequestDTO requestDTO) {
+    public UserResponseDTO findUser(@RequestBody FindUserByUsernameRequestDTO requestDTO) {
 
-        return appUserFacade.findUser(requestDTO);
+        return appUserCrudFunctionalitiesFacade.findUser(requestDTO);
 
     }
 
     @RequestMapping(method = RequestMethod.PATCH, value = "/api/user/update-username")
     public UserResponseDTO updateUsername(@RequestBody UpdateUsernameRequestDTO requestDTO) {
 
-        return appUserFacade.updateUsername(requestDTO);
+        return appUserCrudFunctionalitiesFacade.updateUsername(requestDTO);
 
     }
 
     @RequestMapping(method = RequestMethod.PATCH, value = "/api/user/update-password")
     public String updatePassword(@RequestBody UpdatePasswordRequestDTO requestDTO) {
 
-        return appUserFacade.updatePassword(requestDTO);
+        return appUserCrudFunctionalitiesFacade.updatePassword(requestDTO);
 
     }
 
     @RequestMapping(method = RequestMethod.PATCH, value = "/api/user/update-description")
     public UserResponseDTO updateDescription(@RequestBody UpdateDescriptionRequestDTO requestDTO) {
 
-        return appUserFacade.updateDescription(requestDTO);
+        return appUserCrudFunctionalitiesFacade.updateDescription(requestDTO);
 
     }
 
     @RequestMapping(method = RequestMethod.PATCH, value = "/api/user/update-image")
     public UserResponseDTO updateImage(@RequestBody UpdateImageRequestDTO requestDTO) {
 
-        return appUserFacade.updateImage(requestDTO);
+        return appUserCrudFunctionalitiesFacade.updateImage(requestDTO);
 
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "/api/user/delete-user")
     public String deleteAppUser(@RequestBody DeleteAppUserRequestDTO requestDTO) {
 
-        return appUserFacade.deleteAppUser(requestDTO);
+        return appUserCrudFunctionalitiesFacade.deleteAppUser(requestDTO);
 
     }
 
     @RequestMapping(method = RequestMethod.PATCH, value = "/api/user/update-role")
     public UserResponseDTO updateRole(@RequestBody UpdateRoleRequestDTO requestDTO) {
 
-        return appUserFacade.updateRole(requestDTO);
+        return appUserCrudFunctionalitiesFacade.updateRole(requestDTO);
 
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/api/user/send-verification-mail")
     public void sendVerificationMail(@RequestBody SendMailRequestDTO requestDTO, HttpServletRequest httpServletRequest) {
 
-        appUserFacade.sendVerificationMail(requestDTO, httpServletRequest);
+        appUserCrudFunctionalitiesFacade.sendVerificationMail(requestDTO, httpServletRequest);
 
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/api/user/verify")
     public ModelAndView verifyAppUser(@RequestParam("token") String token, @RequestParam("username") String username) {
 
-        return appUserFacade.verifyAppUser(new VerifyAppUserRequestDTO(token, username));
+        return appUserCrudFunctionalitiesFacade.verifyAppUser(new VerifyAppUserRequestDTO(token, username));
 
     }
 

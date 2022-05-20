@@ -1,6 +1,7 @@
 package com.maticendrak.socialmediaproject.appuser.crudfunctionalities;
 
 import com.maticendrak.socialmediaproject.appuser.AppUserEntity;
+import com.maticendrak.socialmediaproject.appuser.AppUserRepository;
 import com.maticendrak.socialmediaproject.appuser.dtos.requests.SendMailRequestDTO;
 import com.maticendrak.socialmediaproject.appuser.dtos.requests.VerifyAppUserRequestDTO;
 import com.maticendrak.socialmediaproject.appuser.verificationtoken.VerificationTokenFacade;

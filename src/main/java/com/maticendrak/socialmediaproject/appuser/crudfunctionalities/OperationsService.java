@@ -1,8 +1,10 @@
 package com.maticendrak.socialmediaproject.appuser.crudfunctionalities;
 
 import com.maticendrak.socialmediaproject.appuser.AppUserEntity;
+import com.maticendrak.socialmediaproject.appuser.AppUserRepository;
 import com.maticendrak.socialmediaproject.appuser.dtos.requests.*;
 import com.maticendrak.socialmediaproject.appuser.dtos.responses.UserResponseDTO;
+import com.maticendrak.socialmediaproject.appuser.utlis.AppUserUtilsFacade;
 import com.maticendrak.socialmediaproject.appuser.verificationtoken.VerificationTokenFacade;
 import com.maticendrak.socialmediaproject.mailing.MailFacade;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +18,7 @@ import javax.transaction.Transactional;
 class OperationsService {
 
     private final AppUserRepository appUserRepository;
-    private final ValidateToolsService validateToolsService;
+    private final AppUserUtilsFacade appUserUtilsFacade;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final VerificationTokenFacade verificationTokenFacade;
     private final MailFacade mailFacade;
@@ -25,7 +27,7 @@ class OperationsService {
     public UserResponseDTO updateUsername(UpdateUsernameRequestDTO requestDTO) {
 
         AppUserEntity appUserEntity = (AppUserEntity) appUserRepository.findAppUserEntityByUsername(requestDTO.getOldUsername());
-        if (!validateToolsService.checkIfUserExists(requestDTO.getNewUsername())) {
+        if (!appUserUtilsFacade.checkIfUserExists(requestDTO.getNewUsername())) {
 
             appUserEntity.setUsername(requestDTO.getNewUsername());
             return new UserResponseDTO(appUserEntity.getUsername(), appUserEntity.getEmail(), appUserEntity.getDescription(), appUserEntity.getImage(), appUserEntity.getPosts(), appUserEntity.getFollowing(), appUserEntity.getRole());
@@ -58,7 +60,7 @@ class OperationsService {
     @Transactional
     public UserResponseDTO updateDescription(UpdateDescriptionRequestDTO requestDTO) {
 
-        if (validateToolsService.checkIfUserExists(requestDTO.getUsername())) {
+        if (appUserUtilsFacade.checkIfUserExists(requestDTO.getUsername())) {
 
             AppUserEntity appUserEntity = (AppUserEntity) appUserRepository.findAppUserEntityByUsername(requestDTO.getUsername());
             appUserEntity.setDescription(requestDTO.getDescription());
@@ -76,7 +78,7 @@ class OperationsService {
     @Transactional
     public UserResponseDTO updateImage(UpdateImageRequestDTO requestDTO) {
 
-        if (validateToolsService.checkIfUserExists(requestDTO.getUsername())) {
+        if (appUserUtilsFacade.checkIfUserExists(requestDTO.getUsername())) {
 
             AppUserEntity appUserEntity = (AppUserEntity) appUserRepository.findAppUserEntityByUsername(requestDTO.getUsername());
             appUserEntity.setImage(requestDTO.getImageURL());
@@ -93,7 +95,7 @@ class OperationsService {
     @Transactional
     public UserResponseDTO updateEmail(UpdateEmailRequestDTO requestDTO) {
 
-        if (validateToolsService.checkIfUserExists(requestDTO.getUsername())) {
+        if (appUserUtilsFacade.checkIfUserExists(requestDTO.getUsername())) {
 
             AppUserEntity appUserEntity = (AppUserEntity) appUserRepository.findAppUserEntityByUsername(requestDTO.getUsername());
 
@@ -116,7 +118,7 @@ class OperationsService {
     @Transactional
     public UserResponseDTO updateRole(UpdateRoleRequestDTO requestDTO) {
 
-        if (validateToolsService.checkIfUserExists(requestDTO.getUsername())) {
+        if (appUserUtilsFacade.checkIfUserExists(requestDTO.getUsername())) {
 
             AppUserEntity appUserEntity = (AppUserEntity) appUserRepository.findAppUserEntityByUsername(requestDTO.getUsername());
             appUserEntity.setRole(requestDTO.getNewRole());

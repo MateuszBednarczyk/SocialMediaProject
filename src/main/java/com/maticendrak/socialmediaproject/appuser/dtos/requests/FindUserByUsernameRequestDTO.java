@@ -7,7 +7,7 @@ import org.hibernate.annotations.Immutable;
 @Getter
 @AllArgsConstructor
 @Immutable
-public class FindUserRequestDTO {
+public class FindUserByUsernameRequestDTO {
 
     String username;
 

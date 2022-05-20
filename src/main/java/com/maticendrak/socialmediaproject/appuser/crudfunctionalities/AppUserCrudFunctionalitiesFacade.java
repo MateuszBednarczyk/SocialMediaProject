@@ -13,11 +13,10 @@ import javax.servlet.http.HttpServletRequest;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class AppUserFacade {
+public class AppUserCrudFunctionalitiesFacade {
 
     private final LoginAndRegisterService loginAndRegisterService;
     private final OperationsService operationsService;
-    private final ValidateToolsService validateToolsService;
     private final VerificationService verificationService;
     private final DataReturnerService dataReturnerService;
 
@@ -30,12 +29,6 @@ public class AppUserFacade {
     public ResponseEntity<UserResponseDTO> register(RegisterRequestDTO requestDTO) {
 
         return loginAndRegisterService.register(requestDTO);
-
-    }
-
-    public boolean checkIfUserExists(String username) {
-
-        return validateToolsService.checkIfUserExists(username);
 
     }
 
@@ -87,7 +80,7 @@ public class AppUserFacade {
 
     }
 
-    public UserResponseDTO findUser(FindUserRequestDTO requestDTO) {
+    public UserResponseDTO findUser(FindUserByUsernameRequestDTO requestDTO) {
 
         return dataReturnerService.findUser(requestDTO);
 

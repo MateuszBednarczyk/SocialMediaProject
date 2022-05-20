@@ -1,5 +1,6 @@
-package com.maticendrak.socialmediaproject.appuser.crudfunctionalities;
+package com.maticendrak.socialmediaproject.appuser.utlis;
 
+import com.maticendrak.socialmediaproject.appuser.AppUserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
