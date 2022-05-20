@@ -29,14 +29,6 @@ public class CrudFunctionalitiesController {
 
     }
 
-
-    @RequestMapping(method = RequestMethod.POST, value = "/api/user/find-user")
-    public UserResponseDTO findUser(@RequestBody FindUserByUsernameRequestDTO requestDTO) {
-
-        return appUserCrudFunctionalitiesFacade.findUser(requestDTO);
-
-    }
-
     @RequestMapping(method = RequestMethod.PATCH, value = "/api/user/update-username")
     public UserResponseDTO updateUsername(@RequestBody UpdateUsernameRequestDTO requestDTO) {
 

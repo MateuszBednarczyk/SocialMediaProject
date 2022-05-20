@@ -18,7 +18,6 @@ public class AppUserCrudFunctionalitiesFacade {
     private final LoginAndRegisterService loginAndRegisterService;
     private final OperationsService operationsService;
     private final VerificationService verificationService;
-    private final DataReturnerService dataReturnerService;
 
     public ResponseEntity<UserResponseDTO> login(LoginRequestDTO requestDTO) {
 
@@ -79,12 +78,5 @@ public class AppUserCrudFunctionalitiesFacade {
         return verificationService.verifyAppUser(requestDTO);
 
     }
-
-    public UserResponseDTO findUser(FindUserByUsernameRequestDTO requestDTO) {
-
-        return dataReturnerService.findUser(requestDTO);
-
-    }
-
 
 }
