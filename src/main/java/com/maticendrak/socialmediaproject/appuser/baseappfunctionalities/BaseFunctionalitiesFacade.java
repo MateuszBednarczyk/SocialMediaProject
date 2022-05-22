@@ -19,6 +19,12 @@ public class BaseFunctionalitiesFacade {
 
     }
 
+    public ResponseEntity<UserResponseDTO> findUserById(Long id){
+
+        return userFindingService.findUserById(id);
+
+    }
+
     public ResponseEntity<UserResponseDTO> followUser(FollowUserRequestDTO requestDTO) {
 
         return followService.followUser(requestDTO);

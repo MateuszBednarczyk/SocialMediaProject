@@ -20,11 +20,34 @@ class UserFindingService {
 
         ResponseEntity<UserResponseDTO> response;
 
-        if (appUserUtilsFacade.checkIfUserExists(username)) {
+        if (appUserUtilsFacade.checkIfUserExistsByUsername(username)) {
 
             AppUserEntity appUserEntity = (AppUserEntity) appUserRepository.findAppUserEntityByUsername(username);
-            UserResponseDTO responseBody = new UserResponseDTO(appUserEntity.getUsername(), appUserEntity.getEmail(), appUserEntity.getDescription(), appUserEntity.getImage(), appUserEntity.getPosts(), appUserEntity.getFollowing(), appUserEntity.getRole());
+            UserResponseDTO responseBody = new UserResponseDTO(appUserEntity.getUsername(), appUserEntity.getEmail(),
+                    appUserEntity.getDescription(), appUserEntity.getImage(), appUserEntity.getPosts(), appUserEntity.getFollowing(), appUserEntity.getRole());
             response = new ResponseEntity<>(responseBody, HttpStatus.OK);
+
+            return response;
+
+        } else {
+
+            response = new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+            return response;
+
+        }
+    }
+
+    public ResponseEntity<UserResponseDTO> findUserById(Long id) {
+        ResponseEntity<UserResponseDTO> response;
+
+        if (appUserUtilsFacade.checkIfUserExistsById(id)) {
+
+            AppUserEntity appUserEntity = (AppUserEntity) appUserRepository.findAppUserEntityById(id);
+            UserResponseDTO responseBody = new UserResponseDTO(appUserEntity.getUsername(), appUserEntity.getEmail(),
+                    appUserEntity.getDescription(), appUserEntity.getImage(), appUserEntity.getPosts(), appUserEntity.getFollowing(), appUserEntity.getRole());
+            response = new ResponseEntity<>(responseBody, HttpStatus.OK);
+
             return response;
 
         } else {
@@ -34,4 +57,5 @@ class UserFindingService {
 
         }
     }
+
 }

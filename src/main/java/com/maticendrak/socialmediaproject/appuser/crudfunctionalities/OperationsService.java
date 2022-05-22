@@ -27,7 +27,7 @@ class OperationsService {
     public UserResponseDTO updateUsername(UpdateUsernameRequestDTO requestDTO) {
 
         AppUserEntity appUserEntity = (AppUserEntity) appUserRepository.findAppUserEntityByUsername(requestDTO.getOldUsername());
-        if (!appUserUtilsFacade.checkIfUserExists(requestDTO.getNewUsername())) {
+        if (!appUserUtilsFacade.checkIfUserExistsByUsername(requestDTO.getNewUsername())) {
 
             appUserEntity.setUsername(requestDTO.getNewUsername());
             return new UserResponseDTO(appUserEntity.getUsername(), appUserEntity.getEmail(), appUserEntity.getDescription(), appUserEntity.getImage(), appUserEntity.getPosts(), appUserEntity.getFollowing(), appUserEntity.getRole());
@@ -60,7 +60,7 @@ class OperationsService {
     @Transactional
     public UserResponseDTO updateDescription(UpdateDescriptionRequestDTO requestDTO) {
 
-        if (appUserUtilsFacade.checkIfUserExists(requestDTO.getUsername())) {
+        if (appUserUtilsFacade.checkIfUserExistsByUsername(requestDTO.getUsername())) {
 
             AppUserEntity appUserEntity = (AppUserEntity) appUserRepository.findAppUserEntityByUsername(requestDTO.getUsername());
             appUserEntity.setDescription(requestDTO.getDescription());
@@ -78,7 +78,7 @@ class OperationsService {
     @Transactional
     public UserResponseDTO updateImage(UpdateImageRequestDTO requestDTO) {
 
-        if (appUserUtilsFacade.checkIfUserExists(requestDTO.getUsername())) {
+        if (appUserUtilsFacade.checkIfUserExistsByUsername(requestDTO.getUsername())) {
 
             AppUserEntity appUserEntity = (AppUserEntity) appUserRepository.findAppUserEntityByUsername(requestDTO.getUsername());
             appUserEntity.setImage(requestDTO.getImageURL());
@@ -95,7 +95,7 @@ class OperationsService {
     @Transactional
     public UserResponseDTO updateEmail(UpdateEmailRequestDTO requestDTO) {
 
-        if (appUserUtilsFacade.checkIfUserExists(requestDTO.getUsername())) {
+        if (appUserUtilsFacade.checkIfUserExistsByUsername(requestDTO.getUsername())) {
 
             AppUserEntity appUserEntity = (AppUserEntity) appUserRepository.findAppUserEntityByUsername(requestDTO.getUsername());
 
@@ -118,7 +118,7 @@ class OperationsService {
     @Transactional
     public UserResponseDTO updateRole(UpdateRoleRequestDTO requestDTO) {
 
-        if (appUserUtilsFacade.checkIfUserExists(requestDTO.getUsername())) {
+        if (appUserUtilsFacade.checkIfUserExistsByUsername(requestDTO.getUsername())) {
 
             AppUserEntity appUserEntity = (AppUserEntity) appUserRepository.findAppUserEntityByUsername(requestDTO.getUsername());
             appUserEntity.setRole(requestDTO.getNewRole());

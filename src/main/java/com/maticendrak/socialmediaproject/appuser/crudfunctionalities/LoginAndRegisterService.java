@@ -27,7 +27,7 @@ class LoginAndRegisterService {
         ResponseEntity<UserResponseDTO> response;
 
         //if user is not null and password is correct, return user data from db
-        if (appUserUtilsFacade.checkIfUserExists(requestDTO.getUsername())) {
+        if (appUserUtilsFacade.checkIfUserExistsByUsername(requestDTO.getUsername())) {
 
             AppUserEntity foundUser = (AppUserEntity) appUserRepository.findAppUserEntityByUsername(requestDTO.getUsername());
 
@@ -58,7 +58,7 @@ class LoginAndRegisterService {
         ResponseEntity<UserResponseDTO> response;
 
         //if user exists return null, else register new user
-        if (appUserUtilsFacade.checkIfUserExists(requestDTO.getUsername())) {
+        if (appUserUtilsFacade.checkIfUserExistsByUsername(requestDTO.getUsername())) {
 
             response = new ResponseEntity<>(HttpStatus.CONFLICT);
             return response;

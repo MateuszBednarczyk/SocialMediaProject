@@ -21,6 +21,13 @@ public class BaseFunctionalitiesController {
 
     }
 
+    @RequestMapping(method = RequestMethod.GET, value = "/api/basefunctionalities/finduserbyid/{id}")
+    public ResponseEntity<UserResponseDTO> findUserByUsername(@PathVariable Long id) {
+
+        return baseFunctionalitiesFacade.findUserById(id);
+
+    }
+
     @RequestMapping(method = RequestMethod.POST, value = "/api/basefunctionalities/followuser")
     public ResponseEntity<UserResponseDTO> followUser(@RequestBody FollowUserRequestDTO requestDTO) {
 

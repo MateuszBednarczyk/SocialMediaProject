@@ -9,9 +9,15 @@ public class AppUserUtilsFacade {
 
     private final ValidateToolsService validateToolsService;
 
-    public boolean checkIfUserExists(String username){
+    public boolean checkIfUserExistsByUsername(String username){
 
-        return validateToolsService.checkIfUserExists(username);
+        return validateToolsService.checkIfUserExistsByUsername(username);
+
+    }
+
+    public boolean checkIfUserExistsById(Long id){
+
+        return validateToolsService.checkIfUserExistsById(id);
 
     }
 

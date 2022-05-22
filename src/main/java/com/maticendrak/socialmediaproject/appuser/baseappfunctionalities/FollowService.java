@@ -23,7 +23,7 @@ class FollowService {
     public ResponseEntity<UserResponseDTO> followUser(FollowUserRequestDTO requestDTO) {
         ResponseEntity<UserResponseDTO> response;
 
-        if (appUserUtilsFacade.checkIfUserExists(requestDTO.getUsernameOfRequestingUser()) && appUserUtilsFacade.checkIfUserExists(requestDTO.getUsernameOfTargetUser())) {
+        if (appUserUtilsFacade.checkIfUserExistsByUsername(requestDTO.getUsernameOfRequestingUser()) && appUserUtilsFacade.checkIfUserExistsByUsername(requestDTO.getUsernameOfTargetUser())) {
 
             AppUserEntity requestingAppUser = (AppUserEntity) appUserRepository.findAppUserEntityByUsername(requestDTO.getUsernameOfRequestingUser());
             AppUserEntity targetAppUser = (AppUserEntity) appUserRepository.findAppUserEntityByUsername(requestDTO.getUsernameOfTargetUser());

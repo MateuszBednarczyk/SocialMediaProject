@@ -10,7 +10,7 @@ class ValidateToolsService {
 
     private final AppUserRepository appUserRepository;
 
-    public boolean checkIfUserExists(String username) {
+    public boolean checkIfUserExistsByUsername(String username) {
 
         if (appUserRepository.findAppUserEntityByUsername(username) != null) {
 
@@ -22,4 +22,18 @@ class ValidateToolsService {
 
         }
     }
+
+    public boolean checkIfUserExistsById(Long id) {
+
+        if (appUserRepository.findAppUserEntityById(id) != null) {
+
+            return true;
+
+        } else {
+
+            return false;
+
+        }
+    }
+
 }
