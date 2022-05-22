@@ -1,6 +1,7 @@
 package com.maticendrak.socialmediaproject.appuser;
 
 import com.maticendrak.socialmediaproject.appuser.baseappfunctionalities.BaseFunctionalitiesFacade;
+import com.maticendrak.socialmediaproject.appuser.dtos.requests.FollowUserRequestDTO;
 import com.maticendrak.socialmediaproject.appuser.dtos.responses.UserResponseDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,13 @@ public class BaseFunctionalitiesController {
     public ResponseEntity<UserResponseDTO> findUserByUsername(@PathVariable String username) {
 
         return baseFunctionalitiesFacade.findUserByUsername(username);
+
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/api/basefunctionalities/followuser")
+    public ResponseEntity<UserResponseDTO> followUser(@RequestBody FollowUserRequestDTO requestDTO) {
+
+        return baseFunctionalitiesFacade.followUser(requestDTO);
 
     }
 

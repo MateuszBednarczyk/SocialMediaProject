@@ -10,6 +10,6 @@ import org.hibernate.annotations.Immutable;
 public class FollowUserRequestDTO {
 
     String usernameOfRequestingUser;
-    String usernameOfRequestedUser;
+    String usernameOfTargetUser;
 
 }

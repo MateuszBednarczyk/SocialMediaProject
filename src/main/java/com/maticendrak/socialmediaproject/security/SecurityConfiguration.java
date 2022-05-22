@@ -62,6 +62,7 @@ class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/home")
                 .hasAnyAuthority("ROLE_UNVERIFIED", "ROLE_VERIFIED");
 
+        //CRUD
         http.authorizeRequests()
                 .antMatchers("/api/user/update-username")
                 .hasAnyAuthority("ROLE_VERIFIED");
@@ -89,6 +90,11 @@ class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/api/user/verify")
                 .permitAll();
+
+        //base functionalities
+        http.authorizeRequests()
+                .antMatchers("/api/basefunctionalities/finduserbyusername")
+                .hasAnyAuthority("ROLE_UNVERIFIED", "ROLE_VERIFIED");
 
         //jwt authentication config
         AuthenticationFilter authenticationFilter = new AuthenticationFilter(authenticationManagerBean());

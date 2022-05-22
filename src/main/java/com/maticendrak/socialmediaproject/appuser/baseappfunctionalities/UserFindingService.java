@@ -33,6 +33,5 @@ class UserFindingService {
             return response;
 
         }
-
     }
 }
