@@ -39,6 +39,7 @@ class UserFindingService {
     }
 
     public ResponseEntity<UserResponseDTO> findUserById(Long id) {
+        
         ResponseEntity<UserResponseDTO> response;
 
         if (appUserUtilsFacade.checkIfUserExistsById(id)) {

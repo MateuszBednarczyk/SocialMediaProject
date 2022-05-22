@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AppUserRepository extends JpaRepository<AppUserEntity, Long> {
     UserDetails findAppUserEntityByUsername(String username);
-    UserDetails findAppUserEntityById(Long id);
+    AppUserEntity findAppUserEntityById(Long id);
     void deleteAppUserEntityByUsername(String username);
 
 }
