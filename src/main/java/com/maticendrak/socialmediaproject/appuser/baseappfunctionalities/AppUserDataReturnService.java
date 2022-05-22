@@ -20,13 +20,13 @@ class AppUserDataReturnService {
     private final AppUserUtilsFacade appUserUtilsFacade;
     private final AppUserRepository appUserRepository;
 
-    public ResponseEntity<ArrayList<Set<PostEntity>>> getFollowedAppUsersPosts(GetFollowedAppUsersPostsDTO requestDTO) {
+    public ResponseEntity<ArrayList<Set<PostEntity>>> getFollowedAppUsersPosts(String requestingAppUserUsername) {
 
         ResponseEntity<ArrayList<Set<PostEntity>>> response;
 
-        if (appUserUtilsFacade.checkIfUserExistsByUsername(requestDTO.getLoggedAppUser())) {
+        if (appUserUtilsFacade.checkIfUserExistsByUsername(requestingAppUserUsername)) {
 
-            AppUserEntity appUserEntity = (AppUserEntity) appUserRepository.findAppUserEntityByUsername(requestDTO.getLoggedAppUser());
+            AppUserEntity appUserEntity = (AppUserEntity) appUserRepository.findAppUserEntityByUsername(requestingAppUserUsername);
             ArrayList<Set<PostEntity>> responseBody = new ArrayList<>();
 
             for (Long id : appUserEntity.getFollowing()) {

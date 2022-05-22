@@ -40,9 +40,9 @@ public class BaseFunctionalitiesController {
 
     }
     @RequestMapping(method = RequestMethod.POST, value = "/api/basefunctionalities/getfollowedappusersposts")
-    public ResponseEntity<ArrayList<Set<PostEntity>>> getFollowedAppUsersPosts(@RequestBody GetFollowedAppUsersPostsDTO requestDTO) {
+    public ResponseEntity<ArrayList<Set<PostEntity>>> getFollowedAppUsersPosts(@RequestParam String requestingAppUserUsername) {
 
-        return baseFunctionalitiesFacade.getFollowedAppUsersPosts(requestDTO);
+        return baseFunctionalitiesFacade.getFollowedAppUsersPosts(requestingAppUserUsername);
 
     }
 

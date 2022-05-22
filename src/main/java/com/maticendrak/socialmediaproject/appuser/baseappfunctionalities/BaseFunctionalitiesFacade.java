@@ -37,9 +37,9 @@ public class BaseFunctionalitiesFacade {
 
     }
 
-    public ResponseEntity<ArrayList<Set<PostEntity>>> getFollowedAppUsersPosts(GetFollowedAppUsersPostsDTO requestDTO){
+    public ResponseEntity<ArrayList<Set<PostEntity>>> getFollowedAppUsersPosts(String requestingAppUserUsername){
 
-        return appUserDataReturnService.getFollowedAppUsersPosts(requestDTO);
+        return appUserDataReturnService.getFollowedAppUsersPosts(requestingAppUserUsername);
 
     }
 
