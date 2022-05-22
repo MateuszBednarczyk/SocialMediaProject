@@ -1,7 +1,6 @@
 package com.maticendrak.socialmediaproject.appuser.baseappfunctionalities;
 
-import com.maticendrak.socialmediaproject.appuser.dtos.requests.FollowAppUserRequestDTO;
-import com.maticendrak.socialmediaproject.appuser.dtos.requests.GetFollowedAppUsersPostsDTO;
+import com.maticendrak.socialmediaproject.appuser.dtos.requests.FollowAndUnfollowAppUserRequestDTO;
 import com.maticendrak.socialmediaproject.appuser.dtos.responses.UserResponseDTO;
 import com.maticendrak.socialmediaproject.post.PostEntity;
 import lombok.RequiredArgsConstructor;
@@ -31,9 +30,15 @@ public class BaseFunctionalitiesFacade {
 
     }
 
-    public ResponseEntity<UserResponseDTO> followUser(FollowAppUserRequestDTO requestDTO) {
+    public ResponseEntity<UserResponseDTO> followUser(FollowAndUnfollowAppUserRequestDTO requestDTO) {
 
         return followService.followUser(requestDTO);
+
+    }
+
+    public ResponseEntity<UserResponseDTO> unfollowUser(FollowAndUnfollowAppUserRequestDTO requestDTO) {
+
+        return followService.unfollowUser(requestDTO);
 
     }
 
@@ -42,5 +47,4 @@ public class BaseFunctionalitiesFacade {
         return appUserDataReturnService.getFollowedAppUsersPosts(requestingAppUserUsername);
 
     }
-
 }

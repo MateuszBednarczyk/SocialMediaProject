@@ -1,8 +1,7 @@
 package com.maticendrak.socialmediaproject.appuser;
 
 import com.maticendrak.socialmediaproject.appuser.baseappfunctionalities.BaseFunctionalitiesFacade;
-import com.maticendrak.socialmediaproject.appuser.dtos.requests.FollowAppUserRequestDTO;
-import com.maticendrak.socialmediaproject.appuser.dtos.requests.GetFollowedAppUsersPostsDTO;
+import com.maticendrak.socialmediaproject.appuser.dtos.requests.FollowAndUnfollowAppUserRequestDTO;
 import com.maticendrak.socialmediaproject.appuser.dtos.responses.UserResponseDTO;
 import com.maticendrak.socialmediaproject.post.PostEntity;
 import lombok.RequiredArgsConstructor;
@@ -34,11 +33,19 @@ public class BaseFunctionalitiesController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/api/basefunctionalities/followuser")
-    public ResponseEntity<UserResponseDTO> followUser(@RequestBody FollowAppUserRequestDTO requestDTO) {
+    public ResponseEntity<UserResponseDTO> followUser(@RequestBody FollowAndUnfollowAppUserRequestDTO requestDTO) {
 
         return baseFunctionalitiesFacade.followUser(requestDTO);
 
     }
+
+    @RequestMapping(method = RequestMethod.DELETE, value = "/api/basefunctionalities/unfollowuser")
+    public ResponseEntity<UserResponseDTO> unfollowUser(@RequestBody FollowAndUnfollowAppUserRequestDTO requestDTO) {
+
+        return baseFunctionalitiesFacade.unfollowUser(requestDTO);
+
+    }
+
     @RequestMapping(method = RequestMethod.POST, value = "/api/basefunctionalities/getfollowedappusersposts")
     public ResponseEntity<ArrayList<Set<PostEntity>>> getFollowedAppUsersPosts(@RequestParam String requestingAppUserUsername) {
 

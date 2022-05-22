@@ -7,7 +7,7 @@ import org.hibernate.annotations.Immutable;
 @Getter
 @AllArgsConstructor
 @Immutable
-public class FollowAppUserRequestDTO {
+public class FollowAndUnfollowAppUserRequestDTO {
 
     String usernameOfRequestingUser;
     String usernameOfTargetUser;
