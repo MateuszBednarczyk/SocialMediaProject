@@ -20,8 +20,6 @@ class OperationsService {
     private final AppUserRepository appUserRepository;
     private final AppUserUtilsFacade appUserUtilsFacade;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
-    private final VerificationTokenFacade verificationTokenFacade;
-    private final MailFacade mailFacade;
 
     @Transactional
     public UserResponseDTO updateUsername(UpdateUsernameRequestDTO requestDTO) {
