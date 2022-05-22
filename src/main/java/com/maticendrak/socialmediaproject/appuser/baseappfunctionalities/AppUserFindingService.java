@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-class UserFindingService {
+class AppUserFindingService {
 
     private final AppUserRepository appUserRepository;
     private final AppUserUtilsFacade appUserUtilsFacade;
@@ -39,12 +39,12 @@ class UserFindingService {
     }
 
     public ResponseEntity<UserResponseDTO> findUserById(Long id) {
-        
+
         ResponseEntity<UserResponseDTO> response;
 
         if (appUserUtilsFacade.checkIfUserExistsById(id)) {
 
-            AppUserEntity appUserEntity = (AppUserEntity) appUserRepository.findAppUserEntityById(id);
+            AppUserEntity appUserEntity = appUserRepository.findAppUserEntityById(id);
             UserResponseDTO responseBody = new UserResponseDTO(appUserEntity.getUsername(), appUserEntity.getEmail(),
                     appUserEntity.getDescription(), appUserEntity.getImage(), appUserEntity.getPosts(), appUserEntity.getFollowing(), appUserEntity.getRole());
             response = new ResponseEntity<>(responseBody, HttpStatus.OK);
@@ -54,6 +54,7 @@ class UserFindingService {
         } else {
 
             response = new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
             return response;
 
         }

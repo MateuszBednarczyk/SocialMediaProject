@@ -2,7 +2,7 @@ package com.maticendrak.socialmediaproject.appuser.baseappfunctionalities;
 
 import com.maticendrak.socialmediaproject.appuser.AppUserEntity;
 import com.maticendrak.socialmediaproject.appuser.AppUserRepository;
-import com.maticendrak.socialmediaproject.appuser.dtos.requests.FollowUserRequestDTO;
+import com.maticendrak.socialmediaproject.appuser.dtos.requests.FollowAppUserRequestDTO;
 import com.maticendrak.socialmediaproject.appuser.dtos.responses.UserResponseDTO;
 import com.maticendrak.socialmediaproject.appuser.utlis.AppUserUtilsFacade;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +20,7 @@ class FollowService {
     private final AppUserUtilsFacade appUserUtilsFacade;
 
     @Transactional
-    public ResponseEntity<UserResponseDTO> followUser(FollowUserRequestDTO requestDTO) {
+    public ResponseEntity<UserResponseDTO> followUser(FollowAppUserRequestDTO requestDTO) {
         ResponseEntity<UserResponseDTO> response;
 
         if (appUserUtilsFacade.checkIfUserExistsByUsername(requestDTO.getUsernameOfRequestingUser()) && appUserUtilsFacade.checkIfUserExistsByUsername(requestDTO.getUsernameOfTargetUser())) {
