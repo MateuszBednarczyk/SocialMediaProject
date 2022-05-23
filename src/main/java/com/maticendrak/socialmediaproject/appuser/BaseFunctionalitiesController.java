@@ -3,7 +3,7 @@ package com.maticendrak.socialmediaproject.appuser;
 import com.maticendrak.socialmediaproject.appuser.baseappfunctionalities.BaseFunctionalitiesFacade;
 import com.maticendrak.socialmediaproject.appuser.dtos.requests.FollowAndUnfollowAppUserRequestDTO;
 import com.maticendrak.socialmediaproject.appuser.dtos.responses.UserResponseDTO;
-import com.maticendrak.socialmediaproject.post.PostEntity;
+import com.maticendrak.socialmediaproject.content.post.PostEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

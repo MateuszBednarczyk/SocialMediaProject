@@ -1,6 +1,6 @@
 package com.maticendrak.socialmediaproject.appuser.dtos.responses;
 
-import com.maticendrak.socialmediaproject.post.PostEntity;
+import com.maticendrak.socialmediaproject.content.post.PostEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.hibernate.annotations.Immutable;

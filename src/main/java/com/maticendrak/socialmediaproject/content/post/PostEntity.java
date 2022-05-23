@@ -1,10 +1,10 @@
-package com.maticendrak.socialmediaproject.post;
+package com.maticendrak.socialmediaproject.content.post;
 
 import com.maticendrak.socialmediaproject.appuser.AppUserEntity;
+import com.maticendrak.socialmediaproject.content.comment.CommentEntity;
 import com.sun.istack.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.mapping.List;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;

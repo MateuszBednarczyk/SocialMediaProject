@@ -1,6 +1,6 @@
 package com.maticendrak.socialmediaproject.appuser;
 
-import com.maticendrak.socialmediaproject.post.PostEntity;
+import com.maticendrak.socialmediaproject.content.post.PostEntity;
 import com.sun.istack.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;

@@ -2,9 +2,8 @@ package com.maticendrak.socialmediaproject.appuser.baseappfunctionalities;
 
 import com.maticendrak.socialmediaproject.appuser.AppUserEntity;
 import com.maticendrak.socialmediaproject.appuser.AppUserRepository;
-import com.maticendrak.socialmediaproject.appuser.dtos.requests.GetFollowedAppUsersPostsDTO;
 import com.maticendrak.socialmediaproject.appuser.utlis.AppUserUtilsFacade;
-import com.maticendrak.socialmediaproject.post.PostEntity;
+import com.maticendrak.socialmediaproject.content.post.PostEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

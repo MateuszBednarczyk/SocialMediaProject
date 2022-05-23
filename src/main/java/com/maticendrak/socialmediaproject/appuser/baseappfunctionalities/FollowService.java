@@ -32,7 +32,8 @@ class FollowService {
             requestingAppUser.getFollowing().add(targetAppUser.getId());
 
             UserResponseDTO responseBody = new UserResponseDTO(requestingAppUser.getUsername(), requestingAppUser.getEmail(),
-                    requestingAppUser.getDescription(), requestingAppUser.getImage(), requestingAppUser.getPosts(), requestingAppUser.getFollowing(), requestingAppUser.getRole());
+                    requestingAppUser.getDescription(), requestingAppUser.getImage(), requestingAppUser.getPosts(),
+                    requestingAppUser.getFollowing(), requestingAppUser.getRole());
 
             response = new ResponseEntity<>(responseBody, HttpStatus.CREATED);
             return response;
@@ -58,7 +59,8 @@ class FollowService {
             requestingAppUser.getFollowing().remove(targetAppUser.getId());
 
             UserResponseDTO responseBody = new UserResponseDTO(requestingAppUser.getUsername(), requestingAppUser.getEmail(),
-                    requestingAppUser.getDescription(), requestingAppUser.getImage(), requestingAppUser.getPosts(), requestingAppUser.getFollowing(), requestingAppUser.getRole());
+                    requestingAppUser.getDescription(), requestingAppUser.getImage(), requestingAppUser.getPosts(),
+                    requestingAppUser.getFollowing(), requestingAppUser.getRole());
 
             response = new ResponseEntity<>(responseBody, HttpStatus.OK);
             return response;
