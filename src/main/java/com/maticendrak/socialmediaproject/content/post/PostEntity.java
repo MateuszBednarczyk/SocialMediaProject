@@ -34,4 +34,9 @@ public class PostEntity {
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<CommentEntity> comments;
 
+    public PostEntity(AppUserEntity author, String postTitle, String postContent) {
+        this.author = author;
+        this.postTitle = postTitle;
+        this.postContent = postContent;
+    }
 }

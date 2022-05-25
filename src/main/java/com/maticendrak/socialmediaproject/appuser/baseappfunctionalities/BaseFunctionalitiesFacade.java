@@ -1,5 +1,6 @@
 package com.maticendrak.socialmediaproject.appuser.baseappfunctionalities;
 
+import com.maticendrak.socialmediaproject.appuser.AppUserEntity;
 import com.maticendrak.socialmediaproject.appuser.dtos.requests.FollowAndUnfollowAppUserRequestDTO;
 import com.maticendrak.socialmediaproject.appuser.dtos.responses.UserResponseDTO;
 import com.maticendrak.socialmediaproject.content.post.PostEntity;
@@ -17,6 +18,7 @@ public class BaseFunctionalitiesFacade {
     private final AppUserFindingService appUserFindingService;
     private final FollowService followService;
     private final AppUserDataReturnService appUserDataReturnService;
+    private final ContentService contentService;
 
     public ResponseEntity<UserResponseDTO> findUserByUsername(String username) {
 
@@ -24,7 +26,7 @@ public class BaseFunctionalitiesFacade {
 
     }
 
-    public ResponseEntity<UserResponseDTO> findUserById(Long id){
+    public ResponseEntity<UserResponseDTO> findUserById(Long id) {
 
         return appUserFindingService.findUserById(id);
 
@@ -42,9 +44,22 @@ public class BaseFunctionalitiesFacade {
 
     }
 
-    public ResponseEntity<ArrayList<Set<PostEntity>>> getFollowedAppUsersPosts(String requestingAppUserUsername){
+    public ResponseEntity<ArrayList<Set<PostEntity>>> getFollowedAppUsersPosts(String requestingAppUserUsername) {
 
         return appUserDataReturnService.getFollowedAppUsersPosts(requestingAppUserUsername);
 
     }
+
+    public Set<PostEntity> getAppUserPosts(String username) {
+
+        return contentService.getAppUserPosts(username);
+
+    }
+
+    public AppUserEntity getAppUserAsEntity(String username) {
+
+        return appUserFindingService.getAppUserAsEntity(username);
+
+    }
+
 }

@@ -60,4 +60,11 @@ class AppUserFindingService {
         }
     }
 
+    public AppUserEntity getAppUserAsEntity(String username){
+
+        return (AppUserEntity) appUserRepository.findAppUserEntityByUsername(username);
+
+    }
+
+
 }
