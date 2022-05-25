@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -19,14 +20,14 @@ class AppUserDataReturnService {
     private final AppUserUtilsFacade appUserUtilsFacade;
     private final AppUserRepository appUserRepository;
 
-    public ResponseEntity<ArrayList<Set<PostEntity>>> getFollowedAppUsersPosts(String requestingAppUserUsername) {
+    public ResponseEntity<List<Long>> getFollowedAppUsersPosts(String requestingAppUserUsername) {
 
-        ResponseEntity<ArrayList<Set<PostEntity>>> response;
+        ResponseEntity<List<Long>> response;
 
         if (appUserUtilsFacade.checkIfUserExistsByUsername(requestingAppUserUsername)) {
 
             AppUserEntity appUserEntity = (AppUserEntity) appUserRepository.findAppUserEntityByUsername(requestingAppUserUsername);
-            ArrayList<Set<PostEntity>> responseBody = new ArrayList<>();
+            List<Set<PostEntity>> responseBody = new ArrayList<>();
 
             for (Long id : appUserEntity.getFollowing()) {
 
@@ -34,7 +35,7 @@ class AppUserDataReturnService {
 
             }
 
-            response = new ResponseEntity<>(responseBody, HttpStatus.OK);
+            response = new ResponseEntity(responseBody, HttpStatus.OK);
             return response;
 
         } else {

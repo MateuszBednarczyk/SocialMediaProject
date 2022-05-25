@@ -1,55 +1,53 @@
 package com.maticendrak.socialmediaproject.appuser;
 
-import com.maticendrak.socialmediaproject.appuser.baseappfunctionalities.BaseFunctionalitiesFacade;
+import com.maticendrak.socialmediaproject.appuser.baseappfunctionalities.AppUserBaseFunctionalitiesFacade;
 import com.maticendrak.socialmediaproject.appuser.dtos.requests.FollowAndUnfollowAppUserRequestDTO;
 import com.maticendrak.socialmediaproject.appuser.dtos.responses.UserResponseDTO;
-import com.maticendrak.socialmediaproject.content.post.PostEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Set;
+import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequiredArgsConstructor
 public class BaseFunctionalitiesController {
 
-    private final BaseFunctionalitiesFacade baseFunctionalitiesFacade;
+    private final AppUserBaseFunctionalitiesFacade appUserBaseFunctionalitiesFacade;
 
     @RequestMapping(method = RequestMethod.GET, value = "/api/basefunctionalities/finduserbyusername/{username}")
     public ResponseEntity<UserResponseDTO> findUserByUsername(@PathVariable String username) {
 
-        return baseFunctionalitiesFacade.findUserByUsername(username);
+        return appUserBaseFunctionalitiesFacade.findUserByUsername(username);
 
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/api/basefunctionalities/finduserbyid/{id}")
     public ResponseEntity<UserResponseDTO> findUserByUsername(@PathVariable Long id) {
 
-        return baseFunctionalitiesFacade.findUserById(id);
+        return appUserBaseFunctionalitiesFacade.findUserById(id);
 
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/api/basefunctionalities/followuser")
     public ResponseEntity<UserResponseDTO> followUser(@RequestBody FollowAndUnfollowAppUserRequestDTO requestDTO) {
 
-        return baseFunctionalitiesFacade.followUser(requestDTO);
+        return appUserBaseFunctionalitiesFacade.followUser(requestDTO);
 
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "/api/basefunctionalities/unfollowuser")
     public ResponseEntity<UserResponseDTO> unfollowUser(@RequestBody FollowAndUnfollowAppUserRequestDTO requestDTO) {
 
-        return baseFunctionalitiesFacade.unfollowUser(requestDTO);
+        return appUserBaseFunctionalitiesFacade.unfollowUser(requestDTO);
 
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/api/basefunctionalities/getfollowedappusersposts")
-    public ResponseEntity<ArrayList<Set<PostEntity>>> getFollowedAppUsersPosts(@RequestParam String requestingAppUserUsername) {
+    public ResponseEntity<List<Long>> getFollowedAppUsersPosts(@RequestParam String requestingAppUserUsername) {
 
-        return baseFunctionalitiesFacade.getFollowedAppUsersPosts(requestingAppUserUsername);
+        return appUserBaseFunctionalitiesFacade.getFollowedAppUsersPosts(requestingAppUserUsername);
 
     }
 
