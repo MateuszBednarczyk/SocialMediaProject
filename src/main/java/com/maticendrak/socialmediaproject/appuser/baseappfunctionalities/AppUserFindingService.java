@@ -24,7 +24,7 @@ class AppUserFindingService {
 
             AppUserEntity appUserEntity = (AppUserEntity) appUserRepository.findAppUserEntityByUsername(username);
             UserResponseDTO responseBody = new UserResponseDTO(appUserEntity.getUsername(), appUserEntity.getEmail(),
-                    appUserEntity.getDescription(), appUserEntity.getImage(), appUserEntity.getPosts(), appUserEntity.getFollowing(), appUserEntity.getRole());
+                    appUserEntity.getDescription(), appUserEntity.getImage(), appUserEntity.getFollowing(), appUserEntity.getRole());
             response = new ResponseEntity<>(responseBody, HttpStatus.OK);
 
             return response;
@@ -46,7 +46,7 @@ class AppUserFindingService {
 
             AppUserEntity appUserEntity = appUserRepository.findAppUserEntityById(id);
             UserResponseDTO responseBody = new UserResponseDTO(appUserEntity.getUsername(), appUserEntity.getEmail(),
-                    appUserEntity.getDescription(), appUserEntity.getImage(), appUserEntity.getPosts(), appUserEntity.getFollowing(), appUserEntity.getRole());
+                    appUserEntity.getDescription(), appUserEntity.getImage(), appUserEntity.getFollowing(), appUserEntity.getRole());
             response = new ResponseEntity<>(responseBody, HttpStatus.OK);
 
             return response;
@@ -60,11 +60,10 @@ class AppUserFindingService {
         }
     }
 
-    public AppUserEntity getAppUserAsEntity(String username){
+    public AppUserEntity getAppUserAsEntity(String username) {
 
         return (AppUserEntity) appUserRepository.findAppUserEntityByUsername(username);
 
     }
-
 
 }

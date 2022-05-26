@@ -38,7 +38,7 @@ class LoginAndRegisterService {
 
             } else {
 
-                UserResponseDTO responseBody = new UserResponseDTO(foundUser.getUsername(), foundUser.getEmail(), foundUser.getDescription(), foundUser.getImage(), foundUser.getPosts(), foundUser.getFollowing(), foundUser.getRole());
+                UserResponseDTO responseBody = new UserResponseDTO(foundUser.getUsername(), foundUser.getEmail(), foundUser.getDescription(), foundUser.getImage(), foundUser.getFollowing(), foundUser.getRole());
                 response = new ResponseEntity<>(responseBody, HttpStatus.OK);
                 return response;
 
@@ -69,7 +69,7 @@ class LoginAndRegisterService {
             newUser.setPassword(bCryptPasswordEncoder.encode(newUser.getPassword()));
             appUserRepository.save(newUser);
 
-            UserResponseDTO responseBody = new UserResponseDTO(newUser.getUsername(), newUser.getEmail(), newUser.getDescription(), newUser.getImage(), newUser.getPosts(), newUser.getFollowing(), newUser.getRole());
+            UserResponseDTO responseBody = new UserResponseDTO(newUser.getUsername(), newUser.getEmail(), newUser.getDescription(), newUser.getImage(), newUser.getFollowing(), newUser.getRole());
             response = new ResponseEntity<>(responseBody, HttpStatus.OK);
 
             return response;

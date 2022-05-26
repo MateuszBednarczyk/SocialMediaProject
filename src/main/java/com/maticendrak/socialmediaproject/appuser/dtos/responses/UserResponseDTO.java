@@ -20,9 +20,6 @@ public class UserResponseDTO {
     private String image;
 
     @Nullable
-    private Set<PostEntity> posts;
-
-    @Nullable
     private List<Long> followedUsers;
     private String role;
 
