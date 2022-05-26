@@ -19,7 +19,15 @@ class PostFindingService {
     public List<PostEntity> findAllPostsOfRequestedAppUser(String authorUsername) {
 
         AppUserEntity appUserEntity = appUserBaseFunctionalitiesFacade.getAppUserAsEntity(authorUsername);
-        return postRepository.findAllByAuthor(appUserEntity);
+        if (appUserEntity != null) {
+
+            return postRepository.findAllByAuthor(appUserEntity);
+
+        } else {
+
+            throw new IllegalArgumentException("something went wrong");
+
+        }
 
     }
 
