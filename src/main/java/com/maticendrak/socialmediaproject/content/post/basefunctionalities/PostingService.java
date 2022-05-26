@@ -5,7 +5,6 @@ import com.maticendrak.socialmediaproject.appuser.baseappfunctionalities.AppUser
 import com.maticendrak.socialmediaproject.content.post.PostEntity;
 import com.maticendrak.socialmediaproject.content.post.PostRepository;
 import com.maticendrak.socialmediaproject.content.post.dtos.requests.AddPostRequestDTO;
-import com.maticendrak.socialmediaproject.content.post.dtos.responses.PostResponseDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
