@@ -4,9 +4,13 @@ import com.maticendrak.socialmediaproject.appuser.AppUserEntity;
 import com.maticendrak.socialmediaproject.appuser.baseappfunctionalities.AppUserBaseFunctionalitiesFacade;
 import com.maticendrak.socialmediaproject.content.post.PostEntity;
 import com.maticendrak.socialmediaproject.content.post.PostRepository;
+import com.maticendrak.socialmediaproject.content.post.dtos.responses.PostResponseDTO;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -16,16 +20,29 @@ class PostFindingService {
     private final PostRepository postRepository;
     private final AppUserBaseFunctionalitiesFacade appUserBaseFunctionalitiesFacade;
 
-    public List<PostEntity> findAllPostsOfRequestedAppUser(String authorUsername) {
+    public ResponseEntity<List<PostResponseDTO>> findAllPostsOfRequestedAppUser(String authorUsername) {
 
         AppUserEntity appUserEntity = appUserBaseFunctionalitiesFacade.getAppUserAsEntity(authorUsername);
+        List<PostResponseDTO> responseBody = new ArrayList<>();
+
         if (appUserEntity != null) {
 
-            return postRepository.findAllByAuthor(appUserEntity);
+            for (PostEntity post : postRepository.findAllByAuthor(appUserEntity)) {
+
+                responseBody.add(new PostResponseDTO(
+                        post.getAuthor().getUsername(),
+                        post.getPostTitle(),
+                        post.getPostContent(),
+                        post.getComments()
+                ));
+
+            }
+
+            return new ResponseEntity<>(responseBody, HttpStatus.OK);
 
         } else {
 
-            throw new IllegalArgumentException("something went wrong");
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
         }
 
