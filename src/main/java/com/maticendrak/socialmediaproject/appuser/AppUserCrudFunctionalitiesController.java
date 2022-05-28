@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequiredArgsConstructor
-public class CrudFunctionalitiesController {
+public class AppUserCrudFunctionalitiesController {
     private final AppUserCrudFunctionalitiesFacade appUserCrudFunctionalitiesFacade;
     @RequestMapping(method = RequestMethod.POST, value = "/api/user/login")
     public ResponseEntity login(@RequestBody LoginRequestDTO loginRequestDTO) {

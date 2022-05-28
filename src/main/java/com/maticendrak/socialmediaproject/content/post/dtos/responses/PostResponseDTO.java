@@ -12,6 +12,7 @@ import java.util.Set;
 @Immutable
 public class PostResponseDTO {
 
+    Long postId;
     String authorUsername;
     String postTitle;
     String postContent;

@@ -14,7 +14,7 @@ import javax.transaction.Transactional;
 
 @Service
 @RequiredArgsConstructor
-class FollowService {
+class AppUserFollowService {
 
     private final AppUserRepository appUserRepository;
     private final AppUserUtilsFacade appUserUtilsFacade;

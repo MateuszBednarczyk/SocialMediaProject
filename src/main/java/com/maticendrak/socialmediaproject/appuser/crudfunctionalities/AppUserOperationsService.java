@@ -5,8 +5,6 @@ import com.maticendrak.socialmediaproject.appuser.AppUserRepository;
 import com.maticendrak.socialmediaproject.appuser.dtos.requests.*;
 import com.maticendrak.socialmediaproject.appuser.dtos.responses.UserResponseDTO;
 import com.maticendrak.socialmediaproject.appuser.utlis.AppUserUtilsFacade;
-import com.maticendrak.socialmediaproject.appuser.verificationtoken.VerificationTokenFacade;
-import com.maticendrak.socialmediaproject.mailing.MailFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -15,7 +13,7 @@ import javax.transaction.Transactional;
 
 @Service
 @RequiredArgsConstructor
-class OperationsService {
+class AppUserOperationsService {
 
     private final AppUserRepository appUserRepository;
     private final AppUserUtilsFacade appUserUtilsFacade;

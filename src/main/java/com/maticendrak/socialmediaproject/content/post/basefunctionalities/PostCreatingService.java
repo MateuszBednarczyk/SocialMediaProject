@@ -12,12 +12,12 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-class PostingService {
+class PostCreatingService {
 
     private final AppUserBaseFunctionalitiesFacade appUserBaseFunctionalitiesFacade;
     private final PostRepository postRepository;
 
-    public ResponseEntity addNewPost(AddPostRequestDTO requestDTO) {
+    public ResponseEntity saveNewPostToDatabaseAndDTO(AddPostRequestDTO requestDTO) {
 
         AppUserEntity appUserEntity = appUserBaseFunctionalitiesFacade.getAppUserAsEntity(requestDTO.getUsername());
         PostEntity postEntity = new PostEntity(appUserEntity, requestDTO.getPostTitle(), requestDTO.getPostContent());

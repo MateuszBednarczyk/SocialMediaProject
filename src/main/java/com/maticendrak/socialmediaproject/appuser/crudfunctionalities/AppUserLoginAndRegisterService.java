@@ -16,7 +16,7 @@ import javax.transaction.Transactional;
 
 @Service
 @RequiredArgsConstructor
-class LoginAndRegisterService {
+class AppUserLoginAndRegisterService {
     private final AppUserRepository appUserRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final AppUserUtilsFacade appUserUtilsFacade;

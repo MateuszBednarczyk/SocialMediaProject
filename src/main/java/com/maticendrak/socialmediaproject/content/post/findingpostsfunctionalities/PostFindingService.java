@@ -27,16 +27,7 @@ class PostFindingService {
 
         if (appUserEntity != null) {
 
-            for (PostEntity post : postRepository.findAllByAuthor(appUserEntity)) {
-
-                responseBody.add(new PostResponseDTO(
-                        post.getAuthor().getUsername(),
-                        post.getPostTitle(),
-                        post.getPostContent(),
-                        post.getComments()
-                ));
-
-            }
+            createDTO(appUserEntity, responseBody);
 
             return new ResponseEntity<>(responseBody, HttpStatus.OK);
 
@@ -46,6 +37,20 @@ class PostFindingService {
 
         }
 
+    }
+
+    private void createDTO(AppUserEntity appUserEntity, List<PostResponseDTO> responseBody) {
+        for (PostEntity post : postRepository.findAllByAuthor(appUserEntity)) {
+
+            responseBody.add(new PostResponseDTO(
+                    post.getPostId(),
+                    post.getAuthor().getUsername(),
+                    post.getPostTitle(),
+                    post.getPostContent(),
+                    post.getComments()
+            ));
+
+        }
     }
 
 }

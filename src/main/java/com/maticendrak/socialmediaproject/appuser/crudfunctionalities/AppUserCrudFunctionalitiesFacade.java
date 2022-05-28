@@ -15,67 +15,67 @@ import javax.servlet.http.HttpServletRequest;
 @Slf4j
 public class AppUserCrudFunctionalitiesFacade {
 
-    private final LoginAndRegisterService loginAndRegisterService;
-    private final OperationsService operationsService;
-    private final VerificationService verificationService;
+    private final AppUserLoginAndRegisterService appUserLoginAndRegisterService;
+    private final AppUserOperationsService appUserOperationsService;
+    private final AppUserVerificationService appUserVerificationService;
 
     public ResponseEntity<UserResponseDTO> login(LoginRequestDTO requestDTO) {
 
-        return loginAndRegisterService.login(requestDTO);
+        return appUserLoginAndRegisterService.login(requestDTO);
 
     }
 
     public ResponseEntity<UserResponseDTO> register(RegisterRequestDTO requestDTO) {
 
-        return loginAndRegisterService.register(requestDTO);
+        return appUserLoginAndRegisterService.register(requestDTO);
 
     }
 
     public UserResponseDTO updateUsername(UpdateUsernameRequestDTO requestDTO) {
 
-        return operationsService.updateUsername(requestDTO);
+        return appUserOperationsService.updateUsername(requestDTO);
 
     }
 
     public String updatePassword(UpdatePasswordRequestDTO requestDTO) {
 
-        return operationsService.updatePassword(requestDTO);
+        return appUserOperationsService.updatePassword(requestDTO);
 
     }
 
     public String deleteAppUser(DeleteAppUserRequestDTO requestDTO) {
 
-        return operationsService.deleteAppUser(requestDTO);
+        return appUserOperationsService.deleteAppUser(requestDTO);
 
     }
 
     public UserResponseDTO updateDescription(UpdateDescriptionRequestDTO requestDTO) {
 
-        return operationsService.updateDescription(requestDTO);
+        return appUserOperationsService.updateDescription(requestDTO);
 
     }
 
     public UserResponseDTO updateImage(UpdateImageRequestDTO requestDTO) {
 
-        return operationsService.updateImage(requestDTO);
+        return appUserOperationsService.updateImage(requestDTO);
 
     }
 
     public UserResponseDTO updateRole(UpdateRoleRequestDTO requestDTO) {
 
-        return operationsService.updateRole(requestDTO);
+        return appUserOperationsService.updateRole(requestDTO);
 
     }
 
     public void sendVerificationMail(SendMailRequestDTO requestDTO, HttpServletRequest httpServletRequest) {
 
-        verificationService.sendVerificationMail(requestDTO, httpServletRequest);
+        appUserVerificationService.sendVerificationMail(requestDTO, httpServletRequest);
 
     }
 
     public ModelAndView verifyAppUser(VerifyAppUserRequestDTO requestDTO) {
 
-        return verificationService.verifyAppUser(requestDTO);
+        return appUserVerificationService.verifyAppUser(requestDTO);
 
     }
 

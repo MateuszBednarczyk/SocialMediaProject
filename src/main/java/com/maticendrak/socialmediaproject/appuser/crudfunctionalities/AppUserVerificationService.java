@@ -17,7 +17,7 @@ import javax.transaction.Transactional;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-class VerificationService {
+class AppUserVerificationService {
 
     private final AppUserRepository appUserRepository;
     private final VerificationTokenFacade verificationTokenFacade;

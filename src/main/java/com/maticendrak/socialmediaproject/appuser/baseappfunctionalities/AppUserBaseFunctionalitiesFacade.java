@@ -14,7 +14,7 @@ import java.util.List;
 public class AppUserBaseFunctionalitiesFacade {
 
     private final AppUserFindingService appUserFindingService;
-    private final FollowService followService;
+    private final AppUserFollowService appUserFollowService;
     private final AppUserDataReturnService appUserDataReturnService;
 
     public ResponseEntity<UserResponseDTO> findUserByUsername(String username) {
@@ -31,13 +31,13 @@ public class AppUserBaseFunctionalitiesFacade {
 
     public ResponseEntity<UserResponseDTO> followUser(FollowAndUnfollowAppUserRequestDTO requestDTO) {
 
-        return followService.followUser(requestDTO);
+        return appUserFollowService.followUser(requestDTO);
 
     }
 
     public ResponseEntity<UserResponseDTO> unfollowUser(FollowAndUnfollowAppUserRequestDTO requestDTO) {
 
-        return followService.unfollowUser(requestDTO);
+        return appUserFollowService.unfollowUser(requestDTO);
 
     }
 
