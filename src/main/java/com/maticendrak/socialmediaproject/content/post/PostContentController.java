@@ -3,6 +3,7 @@ package com.maticendrak.socialmediaproject.content.post;
 import com.maticendrak.socialmediaproject.content.post.basefunctionalities.PostBaseFunctionalitiesFacade;
 import com.maticendrak.socialmediaproject.content.post.dtos.requests.AddPostRequestDTO;
 import com.maticendrak.socialmediaproject.content.post.dtos.requests.UpdatePostContentRequestDTO;
+import com.maticendrak.socialmediaproject.content.post.dtos.requests.UpdatePostTitleRequestDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,10 +28,18 @@ public class PostContentController {
         postBaseFunctionalitiesFacade.deletePostById(postId);
 
     }
-    @RequestMapping(method = RequestMethod.PATCH, value = "/api/content/updatepost")
+
+    @RequestMapping(method = RequestMethod.PATCH, value = "/api/content/updatepostcontent")
     public ResponseEntity updatePostContent(@RequestBody UpdatePostContentRequestDTO requestDTO) {
 
         return postBaseFunctionalitiesFacade.updatePostContent(requestDTO);
+
+    }
+
+    @RequestMapping(method = RequestMethod.PATCH, value = "/api/content/updateposttitle")
+    public ResponseEntity updatePostContent(@RequestBody UpdatePostTitleRequestDTO requestDTO) {
+
+        return postBaseFunctionalitiesFacade.updatePostTitle(requestDTO);
 
     }
 

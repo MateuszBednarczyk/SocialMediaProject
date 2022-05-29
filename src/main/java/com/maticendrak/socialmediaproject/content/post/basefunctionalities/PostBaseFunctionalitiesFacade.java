@@ -2,6 +2,7 @@ package com.maticendrak.socialmediaproject.content.post.basefunctionalities;
 
 import com.maticendrak.socialmediaproject.content.post.dtos.requests.AddPostRequestDTO;
 import com.maticendrak.socialmediaproject.content.post.dtos.requests.UpdatePostContentRequestDTO;
+import com.maticendrak.socialmediaproject.content.post.dtos.requests.UpdatePostTitleRequestDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -24,10 +25,16 @@ public class PostBaseFunctionalitiesFacade {
         postOperationsService.deletePostById(postId);
 
     }
-
+    
     public ResponseEntity updatePostContent(UpdatePostContentRequestDTO requestDTO) {
 
         return postOperationsService.updatePostContent(requestDTO);
+
+    }
+
+    public ResponseEntity updatePostTitle(UpdatePostTitleRequestDTO requestDTO) {
+
+        return postOperationsService.updatePostTitle(requestDTO);
 
     }
 

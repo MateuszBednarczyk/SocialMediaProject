@@ -3,6 +3,7 @@ package com.maticendrak.socialmediaproject.content.post.basefunctionalities;
 import com.maticendrak.socialmediaproject.content.post.PostEntity;
 import com.maticendrak.socialmediaproject.content.post.PostRepository;
 import com.maticendrak.socialmediaproject.content.post.dtos.requests.UpdatePostContentRequestDTO;
+import com.maticendrak.socialmediaproject.content.post.dtos.requests.UpdatePostTitleRequestDTO;
 import com.maticendrak.socialmediaproject.content.post.dtos.responses.PostResponseDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -34,14 +35,7 @@ class PostOperationsService {
         if (postEntity != null) {
 
             postEntity.setPostContent(requestDTO.getNewContent());
-
-            PostResponseDTO responseBody = new PostResponseDTO(
-                    postEntity.getPostId(),
-                    postEntity.getAuthor().getUsername(),
-                    postEntity.getPostTitle(),
-                    postEntity.getPostContent(),
-                    postEntity.getComments()
-            );
+            PostResponseDTO responseBody = createResponseBody(postEntity);
 
             response = new ResponseEntity<>(responseBody, HttpStatus.OK);
 
@@ -54,4 +48,38 @@ class PostOperationsService {
         return response;
 
     }
+
+    @Transactional
+    public ResponseEntity updatePostTitle(UpdatePostTitleRequestDTO requestDTO) {
+
+        ResponseEntity response;
+        PostEntity postEntity = postRepository.findByPostId(requestDTO.getPostId());
+
+        if (postEntity != null) {
+
+            postEntity.setPostTitle(requestDTO.getNewTitle());
+            PostResponseDTO responseBody = createResponseBody(postEntity);
+
+            response = new ResponseEntity<>(responseBody, HttpStatus.OK);
+
+        } else {
+
+            response = new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+        }
+
+        return response;
+
+    }
+
+    private PostResponseDTO createResponseBody(PostEntity postEntity) {
+        return new PostResponseDTO(
+                postEntity.getPostId(),
+                postEntity.getAuthor().getUsername(),
+                postEntity.getPostTitle(),
+                postEntity.getPostContent(),
+                postEntity.getComments()
+        );
+    }
+
 }
