@@ -37,7 +37,7 @@ public class PostContentController {
     }
 
     @RequestMapping(method = RequestMethod.PATCH, value = "/api/content/updateposttitle")
-    public ResponseEntity updatePostContent(@RequestBody UpdatePostTitleRequestDTO requestDTO) {
+    public ResponseEntity updatePostTitle (@RequestBody UpdatePostTitleRequestDTO requestDTO) {
 
         return postBaseFunctionalitiesFacade.updatePostTitle(requestDTO);
 
