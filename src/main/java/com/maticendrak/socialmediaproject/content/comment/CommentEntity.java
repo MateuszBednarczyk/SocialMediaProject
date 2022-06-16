@@ -18,9 +18,11 @@ public class CommentEntity {
     private Long id;
     private String author;
     private String content;
+    private Long parentPostId;
 
-    @Nullable
-    @ManyToOne
-    private PostEntity parent;
-
+    public CommentEntity(String author, String content, Long parentPostId) {
+        this.author = author;
+        this.content = content;
+        this.parentPostId = parentPostId;
+    }
 }

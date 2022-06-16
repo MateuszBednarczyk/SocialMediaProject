@@ -1,5 +1,6 @@
 package com.maticendrak.socialmediaproject.content.post.basefunctionalities;
 
+import com.maticendrak.socialmediaproject.content.comment.CommentEntity;
 import com.maticendrak.socialmediaproject.content.post.dtos.requests.AddPostRequestDTO;
 import com.maticendrak.socialmediaproject.content.post.dtos.requests.UpdatePostContentRequestDTO;
 import com.maticendrak.socialmediaproject.content.post.dtos.requests.UpdatePostTitleRequestDTO;
@@ -25,7 +26,7 @@ public class PostBaseFunctionalitiesFacade {
         postOperationsService.deletePostById(postId);
 
     }
-    
+
     public ResponseEntity updatePostContent(UpdatePostContentRequestDTO requestDTO) {
 
         return postOperationsService.updatePostContent(requestDTO);
@@ -35,6 +36,12 @@ public class PostBaseFunctionalitiesFacade {
     public ResponseEntity updatePostTitle(UpdatePostTitleRequestDTO requestDTO) {
 
         return postOperationsService.updatePostTitle(requestDTO);
+
+    }
+
+    public void addCommmentToPost(CommentEntity commentEntity) {
+
+        postOperationsService.addCommmentToPost(commentEntity);
 
     }
 

@@ -1,5 +1,6 @@
 package com.maticendrak.socialmediaproject.content.post.basefunctionalities;
 
+import com.maticendrak.socialmediaproject.content.comment.CommentEntity;
 import com.maticendrak.socialmediaproject.content.post.PostEntity;
 import com.maticendrak.socialmediaproject.content.post.PostRepository;
 import com.maticendrak.socialmediaproject.content.post.dtos.requests.UpdatePostContentRequestDTO;
@@ -69,6 +70,14 @@ class PostOperationsService {
         }
 
         return response;
+
+    }
+
+    @Transactional
+    public void addCommmentToPost(CommentEntity commentEntity){
+
+        PostEntity postEntity = postRepository.findByPostId(commentEntity.getParentPostId());
+        postEntity.getComments().add(commentEntity);
 
     }
 

@@ -4,6 +4,7 @@ import com.maticendrak.socialmediaproject.appuser.AppUserEntity;
 import com.maticendrak.socialmediaproject.appuser.baseappfunctionalities.AppUserBaseFunctionalitiesFacade;
 import com.maticendrak.socialmediaproject.content.post.PostEntity;
 import com.maticendrak.socialmediaproject.content.post.PostRepository;
+import com.maticendrak.socialmediaproject.content.post.dtos.requests.FindPostByIdRequestDTO;
 import com.maticendrak.socialmediaproject.content.post.dtos.responses.PostResponseDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -34,6 +35,22 @@ class PostFindingService {
         } else {
 
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+        }
+
+    }
+
+    public ResponseEntity<PostEntity> findPostById(FindPostByIdRequestDTO requestDTO) {
+
+        PostEntity postEntity = postRepository.findByPostId(requestDTO.getPostId());
+
+        if (postEntity != null) {
+
+            return new ResponseEntity<>(postEntity, HttpStatus.OK);
+
+        } else {
+
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
         }
 
