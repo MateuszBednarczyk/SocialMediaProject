@@ -18,6 +18,8 @@ we've decided to move to postgreSQL.
 So, if you want to use MySQL, just edit
 <i><b>application.properties</i></b> correctly.
 
+Profile photos, are stored as Google Drive links, so you can easily manage it.
+
 # Run locally
 ```
 /mvn clean package
